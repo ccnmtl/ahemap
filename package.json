@@ -1,0 +1,18 @@
+{
+  "name": "ahemap",
+  "version": "0.1.0",
+  "description": "ahemap",
+  "license": "GPL-2.0+",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "eslint": "~5.9.0",
+    "eslint-plugin-no-unsafe-innerhtml": "~1.0.16",
+    "eslint-plugin-scanjs-rules": "~0.2.1",
+    "eslint-plugin-security": "~1.4.0",
+    "mocha": "~5.2.0",
+    "requirejs": "~2.3.2",
+    "sinon": "~7.1.1"
+  }
+}
