@@ -18,10 +18,7 @@ module.exports = {
     ],
     "globals": {
         "requirejs": true,
-        "DesignOnline": true,
-        "Editor": true,
-        "EditableVue": true,
-        "Map": true
+        "AHE": true
     },
     "rules": {
         "indent": [
