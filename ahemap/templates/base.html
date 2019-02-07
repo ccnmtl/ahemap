@@ -68,7 +68,8 @@
     <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
-<body>
+
+<body class="{% block bodyclass %}{% endblock %}" id="{% block bodyid %}{% endblock %}">
 
 <a id="skippy" class="sr-only sr-only-focusable" href="#content">
     <div class="container">
@@ -78,7 +79,7 @@
 
 <header>
 {% block topnavbar %}
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark {% block navclass %}{% endblock %}">
     <a class="navbar-brand" href="#">Achieving Higher Education</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,14 +100,15 @@
 {% endblock %}
 </header>
 
-<main role="main" class="pb-4">
+{% block breadcrumb %}
+{% endblock %}
+<main role="main" class="{% block mainclass %}container{% endblock %}">
     <section id="content">
         <div class="container">
         {% block pagetitle %}{% endblock %}
         {% block content %}{% endblock %}
         </div>
     </section>
-
 </main>
 
 <footer class="bd-footer text-muted bg-dark">

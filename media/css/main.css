@@ -1,4 +1,46 @@
-/* Fill custom CSS here */
+h1.display-1, a.navbar-brand {font-weight: 700;}
+nav a {font-weight: 500;}
+
+
+html, body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+html.busy, html.busy * {  
+  cursor: wait;
+}
+
+main {
+}
+
+/* Map View */
+.map-view footer {
+    display: none;
+}
+
+.map-space {
+    position: absolute;
+    top: 3.5rem;
+    bottom: 0;
+    width: 100%; 
+}
+
+.map-view .leaflet-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%; 
+    height: 100%; 
+}
+
 
 /* Footer */
 footer {

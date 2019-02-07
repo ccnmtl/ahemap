@@ -6,7 +6,8 @@ define(function() {
     }
 
     function sanitize(s) {
-        // http://shebang.brandonmintern.com/foolproof-html-escaping-in-javascript/
+        // http://shebang.brandonmintern.com/
+        // foolproof-html-escaping-in-javascript/
         var div = document.createElement('div');
         div.appendChild(document.createTextNode(s));
         return div.innerHTML;
@@ -27,7 +28,8 @@ define(function() {
             viewportheight = document.documentElement.clientHeight;
         } else {
             // older versions of IE
-            viewportheight = document.getElementsByTagName('body')[0].clientHeight;
+            viewportheight =
+                document.getElementsByTagName('body')[0].clientHeight;
         }
 
         return viewportheight - (
