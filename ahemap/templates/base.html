@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
+    <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="canonical" href="https://ahemap.ctl.columbia.edu/" />
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{STATIC_URL}}js/lib/bootstrap/css/bootstrap.min.css">
 
     <!-- Local CSS -->
     {% compress css %}
@@ -61,7 +64,9 @@
     <link rel="icon" href="{{STATIC_URL}}img/favicon.ico">
     <link rel="icon" type="image/png" href="{{STATIC_URL}}img/favicon.png">
 
-	{% block feeds %}{% endblock %}
+    <!--  GDPR Notifications -->
+    <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
+    <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 <body>
 
@@ -74,125 +79,27 @@
 <header>
 {% block topnavbar %}
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">ProjectName</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Achieving Higher Education</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="topNavbar">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="/about/" title="About page">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/help/" title="Help page">Help</a>
             </li>
         </ul>
     </div>
-
-    {% block usernav %}
-    <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-        <li class="nav-item"><span class="nav-link">
-            {% if request.user.is_anonymous %}
-            You're not logged in
-            {% else %}
-            Logged in as
-                {% if request.user.last_name %}
-                {{request.user.first_name}} {{request.user.last_name}}
-                {% else %}
-                {{ request.user.username }}
-                {% endif %}
-            (<a href="/accounts/logout/?next=/">logout</a>)
-            {% endif %}
-            </span>
-        </li>
-        {% if request.user.is_superuser %}
-        <li class="nav-item">
-            <a href="{% url 'impersonate-list' %}" class="nav-link">impersonate</a>
-        </li>
-        {% endif %}
-    </ul>
-    {% endblock %}
 </nav>
 {% endblock %}
 </header>
 
-
-
 <main role="main" class="pb-4">
-
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Banner placeholder</h1>
-            <!-- Login modal -->
-{% block loginbox %}
-{% if request.user.is_anonymous %}
-            <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#loginmodal">
-              Log in
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="LoginModalLabel">Choose a log in option</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    {% if CAS_BASE %}
-                        <form method="get" action="{{ CAS_BASE }}cas/login">
-                        {% csrf_token %}
-                        <input type="hidden" name="destination" value="https://{{ request.get_host }}/accounts/caslogin/?next={{ request.get_full_path|urlencode }}" />
-                        <h6>If you have a Columbia University Network ID (UNI)...</h6>
-                        <input class="btn btn-primary" type="submit" value="Columbia Log In" />
-                        </form>
-                    {% endif %}
-                    <p class="mt-2"><a href="http://cuit.columbia.edu/cuit/manage-my-uni" title="Learn more about UNI" target="_blank">What is a UNI?</a></p>
-                    <!-- End UNI LOG IN -->
-                    {% if login_form.errors %}
-                    <p class="text-danger">
-                        <span>
-                            <b>ERROR:</b> Invalid username or password.
-                        </span>
-                        Please try again. Note that both username and password are case-sensitive.
-                    </p>
-                    {% endif %}
-                    <hr />
-                    <h6>If you have a guest account...</h6>
-                    <form id="login-local" name="login_local" method="post" action="/accounts/login/">
-                        {% csrf_token %}
-                        <div class="login-local-form" {% if not login_form.errors %}style="display: none"{% endif %}>
-                            <div class="form-group">
-                                <label for="id_username">Username:</label>
-                                {{ login_form.username }}
-                            </div><!-- form-group -->
-                
-                            <div class="form-group">
-                                <label for="id_password">Password:</label>
-                                {{ login_form.password }}
-                            </div><!-- form-group -->
-                        </div>      
-                        <input class="btn btn-primary" type="button" value="Guest Log In" {% if login_form.errors %}style="display: none"{% endif %}
-                            onclick="jQuery('.login-local-form').show(); jQuery(this).hide(); return false;"/>
-                        <input class="btn btn-primary login-local-form" type="submit" value="Log In" {% if not login_form.errors %}style="display: none;"{% endif %} />                        
-                        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-                    </form>
-                    <p class="mt-2"><a href="/registration/register/" title="Create your new project account">Need a new account?</a></p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-{% endif %}
-{% endblock %}
-
-        </div>
-    </section>
-
     <section id="content">
         <div class="container">
         {% block pagetitle %}{% endblock %}
@@ -202,36 +109,24 @@
 
 </main>
 
-<footer class="bg-light text-dark pt-2 pb-5">
-    <ul class="nav d-flex justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li>
+<footer class="bd-footer text-muted bg-dark">
+    <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
+        <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none"></a></li>
     </ul>
-
-    <span itemscope itemtype="http://schema.org/EducationalOrganization"><a href="http://ctl.columbia.edu" target="_blank" itemprop="url"><img src="{{STATIC_URL}}img/logo-ctl-color.png" class="mx-auto d-block img-fluid mt-3" alt="" itemprop="logo" width="290" /><span class="sr-only" itemprop="name">Center for Teaching and Learning at Columbia University</span></a></span>
-
+    <div class="container-fluid p-3 pt-4">
+        <ul>
+          <li><a href="https://github.com/ccnmtl/ahemap" class="footer-link">GitHub</a></li>
+        </ul>
+        <p>Designed and built by <a href="https://ctl.columbia.edu" target="_blank" rel="noopener" class="footer-link">The Center For Teaching & Learning</a> </p>
+        <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
+    </div>
 </footer>
 
-<script src="{{STATIC_URL}}js/lib/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-
-<script
-     data-main="{{STATIC_URL}}js/src/main.js"
-     src="{{STATIC_URL}}js/lib/require/require.js"></script>
-
-{% if SENTRY_PUBLIC_DSN %}
+{% if RAVEN_CONFIG.dsn %}
     <script src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
     <script>
-     Raven.config('{{ SENTRY_PUBLIC_DSN }}').install();
+     Raven.config('{{ RAVEN_CONFIG.dsn }}').install();
 
      {% if user.is_anonymous %}
      Raven.setUserContext({
@@ -247,7 +142,20 @@
     </script>
 {% endif %}
 
-{% block js %}{% endblock %}
+{% block js %}
+    <script 
+        data-main="{{STATIC_URL}}js/src/main.js"
+        src="{{STATIC_URL}}js/lib/require/require.js"></script>
+{% endblock %}
+
+<script>
+    const AHE = {
+        staticUrl: '{{STATIC_URL}}',
+        debug: {% if debug %}'true'{% else %}'false'{% endif %},
+        mapKey: '{{settings.GOOGLE_MAP_API}}',
+        baseUrl: '//{{ request.get_host }}/'
+    }
+</script>
 
 {% if STAGING_ENV %}
 <div class="alert alert-danger alert-dismissable" style="position: fixed; bottom: 0px;">

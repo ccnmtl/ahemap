@@ -1,1 +1,43 @@
 /* Fill custom CSS here */
+
+/* Footer */
+footer {
+    font-size: 85%;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+footer a, footer a:visited {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+footer ul {
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+footer li {
+    display: inline-block;
+}
+
+footer li+li {
+    margin-left: 1rem;
+}
+
+footer .footer-logo li {
+    margin: 0;
+}
+
+footer .footer-logo img {
+    /*height: 40px;*/
+    height: 35px;
+    display: block;
+    margin: auto;
+}
