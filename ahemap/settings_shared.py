@@ -1,6 +1,7 @@
 # Django settings for ahemap project.
 import os.path
 import platform
+import sys
 
 from ccnmtlsettings.shared import common
 
@@ -47,6 +48,21 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
+
+if ('test' in sys.argv or 'jenkins' in sys.argv or 'validate' in sys.argv
+        or 'check' in sys.argv):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+            'NAME': ':memory:',
+            'HOST': '',
+            'PORT': '',
+            'USER': '',
+            'PASSWORD': '',
+            'ATOMIC_REQUESTS': True,
+        }
+    }
+
 
 PROJECT_APPS = [
     'ahemap.main',
