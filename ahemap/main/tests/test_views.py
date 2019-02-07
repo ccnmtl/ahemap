@@ -31,6 +31,14 @@ class InstitutionViewSetTest(TestCase):
         self.assertEquals(the_json[0]['id'], self.inst1.id)
         self.assertEquals(the_json[1]['id'], self.inst2.id)
 
+    def test_filter_list(self):
+        url = '/api/institution/?q={}'.format(self.inst1.title)
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+
     def test_get(self):
         url = '/api/institution/{}/'.format(self.inst1.id)
         response = self.client.get(url)

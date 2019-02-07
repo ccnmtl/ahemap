@@ -3,15 +3,23 @@ requirejs(['./common'], function(common) {
     requirejs(libs,
         function($, bootstrap, Vue, vue2leaflet, utils) {
             new Vue({
-                el: '#content',
+                el: '#map-container',
+                template: '#map-template',
                 data: function() {
                     return {
+                        institutions: [],
                         zoom: 5,
                         center: vue2leaflet.L.latLng(37.0902, -95.7129),
-                        url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                        url: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
                         attribution:
                             '&copy; <a href="http://osm.org/copyright">' +
-                            'OpenStreetMap</a> contributors'
+                            'OpenStreetMap</a> contributors',
+                        map: null,
+                        mapName: 'the-map',
+                        selectedSite: null,
+                        searchTerm: '',
+                        searchResults: null,
+                        searchResultHeight: 0
                     };
                 },
                 components: {
@@ -20,12 +28,22 @@ requirejs(['./common'], function(common) {
                     'l-marker': vue2leaflet.LMarker
                 },
                 methods: {
+                    latlng: function(lat, lng) {
+                        return vue2leaflet.L.latLng(lat, lng);
+                    },
+                    search: function(event) {
+                    }
                 },
                 created: function() {
+                    const url = AHE.baseUrl + 'api/institution/';
+                    $.getJSON(url, (data) => {
+                        this.institutions = data;
+                    });
                 },
                 mounted: function() {
-                },
-                updated: function() {
+                    // reposition the zoom control
+                    this.$children[0].mapObject
+                        .zoomControl.setPosition('topright');
                 }
             });
         }
