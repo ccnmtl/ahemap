@@ -74,6 +74,8 @@ INSTALLED_APPS += [  # noqa
     'bootstrap4',
     'infranil',
     'django_extensions',
+    'django.contrib.gis',
+    'rest_framework',
 
     'ahemap.main',
 ]
@@ -82,4 +84,14 @@ INSTALLED_APPS += [  # noqa
 THUMBNAIL_SUBDIR = "thumbs"
 LOGIN_REDIRECT_URL = "/"
 
-ACCOUNT_ACTIVATION_DAYS = 7
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'ahemap.main.utils.BrowsableAPIRendererNoForms'
+    ),
+    'PAGINATE_BY': 15,
+    'DATETIME_FORMAT': '%m/%d/%y %I:%M %p'
+}
