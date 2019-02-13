@@ -17,9 +17,16 @@
 
     <!-- Local CSS -->
     {% compress css %}
-    <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{STATIC_URL}}css/coming-soon.min.css" rel="stylesheet">
+
+        {% block css %}{% endblock %}
     {% endcompress %}
-    {% block css %}{% endblock %}
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/font-awesome.min.css">
 
     <!-- Standard Meta Data -->
     <meta name="description" content="Achieving Higher Education" />
@@ -67,12 +74,17 @@
     {% block client_templates %}
     {% endblock %}
 
+    {% block extrahead %}
+    {% endblock %}
+
     <!--  GDPR Notifications -->
     <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 
 <body class="{% block bodyclass %}{% endblock %}" id="{% block bodyid %}{% endblock %}">
+
+{% block body %}
 
 <a id="skippy" class="sr-only sr-only-focusable" href="#content">
     <div class="container">
@@ -82,7 +94,7 @@
 
 <header>
 {% block topnavbar %}
-<nav class="navbar navbar-expand-md navbar-dark bg-dark {% block navclass %}{% endblock %}">
+<nav class="navbar navbar-expand-md navbar-dark bg-custom {% block navclass %}{% endblock %}">
     <a class="navbar-brand" href="#">Achieving Higher Education</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,7 +138,7 @@
         <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
     </div>
 </footer>
-
+{% endblock %}
 
 {% if RAVEN_CONFIG.dsn %}
     <script src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
