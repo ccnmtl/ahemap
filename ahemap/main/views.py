@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.html import escape
 from django.views.generic.base import TemplateView
 from rest_framework import viewsets
 
@@ -21,3 +22,15 @@ class IndexView(TemplateView):
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
+
+    def filter(self, qs):
+        # filter by a search term
+        q = self.request.GET.get('q', None)
+        if q:
+            qs = qs.filter(title__contains=escape(q))
+
+        return qs
+
+    def get_queryset(self):
+        qs = Institution.objects.all()
+        return self.filter(qs)
