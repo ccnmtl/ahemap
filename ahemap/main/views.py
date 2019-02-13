@@ -19,6 +19,10 @@ class IndexView(TemplateView):
     template_name = "main/index.html"
 
 
+class MapView(TemplateView):
+    template_name = "main/map.html"
+
+
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
