@@ -27,3 +27,37 @@ class InstitutionFactory(factory.DjangoModelFactory):
 
     title = factory.Sequence(lambda n: "site%03d" % n)
     latlng = FuzzyPoint()
+
+    external_id = factory.Sequence(lambda n: n)
+
+    address = ''
+    city = 'New York'
+    state = 'NY'
+
+    admin_name = 'Dwight Eisenhower'
+    admin_email = 'dwight@foo.com'
+    admin_phone = '917-111-1111'
+
+    website_url = 'https://ctl.columbia.edu'
+
+    private = False
+
+    student_population = 20000
+    veteran_population = 10000
+
+    accredited = True
+
+    standardized_test_required = True
+
+    veteran_center = True
+    sva_chapter = True
+
+    clep_credits_accepted = True
+    jst_credits_accepted = True
+    dsst_credits_accepted = True
+    online_credits_accepted = True
+    application_fee_waived = True
+
+    veteran_grants_scholarships = True
+
+    yellow_ribbon = True
