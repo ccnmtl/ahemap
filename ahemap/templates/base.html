@@ -162,12 +162,6 @@
     </script>
 {% endif %}
 
-{% block js %}
-    <script 
-        data-main="{{STATIC_URL}}js/src/main.js"
-        src="{{STATIC_URL}}js/lib/require/require.js"></script>
-{% endblock %}
-
 <script>
     const AHE = {
         staticUrl: '{{STATIC_URL}}',
@@ -176,6 +170,12 @@
         baseUrl: '//{{ request.get_host }}/'
     }
 </script>
+
+{% block js %}
+    <script 
+        data-main="{{STATIC_URL}}js/src/main.js"
+        src="{{STATIC_URL}}js/lib/require/require.js"></script>
+{% endblock %}
 
 {% if STAGING_ENV %}
 <div class="alert alert-danger alert-dismissable" style="position: fixed; bottom: 0px;">

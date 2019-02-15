@@ -9,7 +9,7 @@ from ahemap.main.serializers import InstitutionSerializer
 
 # returns important setting information for all web pages.
 def django_settings(request):
-    whitelist = ['RAVEN_CONFIG']
+    whitelist = ['RAVEN_CONFIG', 'GOOGLE_MAP_API']
     return {
         'settings': dict([(k, getattr(settings, k, None))
                           for k in whitelist])}

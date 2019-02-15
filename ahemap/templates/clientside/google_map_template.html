@@ -1,0 +1,106 @@
+{% verbatim %}
+<script type="text/x-template" id="google-map-template">
+    <div>
+        <div class="search-bar">
+            <div class="input-group">
+                <input type="text" v-model="searchTerm"
+                    class="form-control form-control w-25"
+                    placeholder="Search by name or address"
+                    aria-label="Search by name or address" aria-describedby="basic-addon2"
+                    v-on:keydown.enter.prevent="search">
+                <div class="input-group-append">
+                    <button class="btn btn-light" type="button"
+                        v-on:click="search"><i class="fa fa-search"></i>
+                    </button>
+                    <button v-if="searchTerm" class="btn btn-light btn-clear-search text-muted" type="button"
+                        v-on:click.prevent="resetSearch">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="advanced-filters">
+            <div>
+                <h3><i class="fa fa-calendar text-muted float-left" aria-hidden="true"></i></h3>
+                <div class="w-75 ml-5 mt-1 float-left">
+                    <div id="the-slider"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="mt-2 position-relative">
+                <h3 class="float-left mt-3"><i class="fa fa-th-list text-muted" aria-hidden="true"></i></h3>
+                <div class="form-check float-left layer-1885">
+                    <input class="form-check-input" type="radio" name="overlay" data-id="864" />
+                    <label class="form-check-label text-muted small">1885</label>
+                </div>
+                <div class="form-check float-left layer-1916">
+                    <input class="form-check-input" type="radio" name="overlay" data-id="862" />
+                    <label class="form-check-label text-muted small">1916</label>
+                </div>
+                <div class="form-check float-left layer-1956">
+                    <input class="form-check-input" type="radio" name="overlay" data-id="1453" />
+                    <label class="form-check-label text-muted small">1956</label>
+                </div>
+                <div class="form-check float-left layer-now">
+                    <input class="form-check-input" type="radio" name="overlay" data-id="Present" />
+                    <label class="form-check-label text-muted small">Now</label>
+                </div>
+            </div>
+        </div>
+        <div class="google-map" :id="mapName"></div>
+        <div v-if="selectedSite" class="pin-place-detail">
+            <div v-if="searchResults">
+                <button class="btn btn-link pl-0" v-on:click.prevent="searchList"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results</button>
+            </div>
+            <h5>{{selectedSite.title}}</h5>
+            <div class="pin-place-content mt-2">
+              <div class="row mt-4 mt-md-3">
+                  <div class="col">
+                      <a :href="'/view/' + selectedSite.id + '/'"
+                            class="w-100 btn btn-sm btn-secondary">
+                            Details
+                      </a>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div v-else-if="searchResults" class="pin-place-detail search-results">
+            <div v-if="searchResults.length === 0">
+                <h5 class="pt-3 pr-3 pl-3 pb-2">No Institutions Found</h5>
+            </div>
+            <div v-else>
+                <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
+                    <li v-for="site in searchResults" class="list-group-item">
+                        <h6>
+                            <a href="#" v-on:click="searchDetail(site.id)"><img :src="site.iconUrl" :alt="site.title"/> {{site.title}}</a>
+                            <a class="float-right" target="_blank" :href="'/view/' + site.id + '/'"><i class="fa fa-share" aria-hidden="true"></i></a>
+                        </h6>
+
+                        <dl class="pin-detail-tags d-flex flex-row mb-2" v-if="site.category.length > 0">
+                            <dt class="mr-1 mb-0" v-if="site.category.length > 1">Categories:</dt>
+                            <dt class="mr-1 mb-0" v-else>Category:</dt>
+                            <dd class="mb-0">
+                                <template v-for="(c, index) in site.category">
+                                    <a href="#" v-on:click="searchByCategory(c.name)">{{ c.name }}</a><template v-if="index + 1 < site.category.length">, </template>
+                                </template>
+                            </dd>
+                        </dl>
+
+                        <dl class="pin-detail-tags d-flex flex-row mb-0" v-if="site.tags_display.length > 0">
+                            <dt class="mr-1">Tags:</dt>
+                            <dd class="mb-0">
+                              <span v-for="(tag, idx) in site.tags_display">
+                                <a href='#' v-on:click="searchByTag(tag)">
+                                  {{tag}}
+                                </a><span v-if="idx + 1 < site.tags_display.length">,</span>
+                              </span>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul style="display: none"><li v-for="site in sites">{{site.id}}</li></ul>
+    </div>
+</script>
+{% endverbatim %}
