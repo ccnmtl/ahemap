@@ -16,6 +16,11 @@ html.busy, html.busy * {
 main {
 }
 
+/* Navbar */
+.bg-custom {
+    background-color: rgba(02, 33, 105, 1);
+}
+
 /* Map View */
 .map-view footer {
     display: none;
@@ -107,10 +112,13 @@ footer .footer-logo li {
 }
 
 footer .footer-logo img {
-    /*height: 40px;*/
-    height: 35px;
+    height: 30px;
     display: block;
     margin: auto;
+}
+
+footer .footer-logo img.cvti {
+    height: 45px
 }
 
 
@@ -152,9 +160,6 @@ footer .footer-logo img {
         right: 0;
         bottom: auto;
     }
-    footer .footer-logo img {
-        height: 28px;
-    }
     .map-view .pin-place-detail {
         border-top: 1px solid #ddd;
         width: 25rem;
@@ -172,12 +177,22 @@ footer .footer-logo img {
         background-color: #efefef;
         overflow: hidden;
     }
+    footer .footer-logo img {
+        height: 50px;
+    }
+    footer .footer-logo img.cvti {
+        height: 65px;
+    }
+
 }
 
 /* Large devices (lg - desktops, 992px and up) */
 @media (min-width: 992px) {
     footer .footer-logo img {
-        height: 40px;
+        height: 60px;
+    }
+    footer .footer-logo img.cvti {
+        height: 75px;
     }
 }
 

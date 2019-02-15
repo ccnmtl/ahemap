@@ -17,9 +17,18 @@
 
     <!-- Local CSS -->
     {% compress css %}
-    <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{STATIC_URL}}css/coming-soon.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/all.css">
+
+        {% block css %}{% endblock %}
     {% endcompress %}
-    {% block css %}{% endblock %}
+
+    <!-- FontAwesome CSS -->
+    
 
     <!-- Standard Meta Data -->
     <meta name="description" content="Attaining Higher Education" />
@@ -67,12 +76,17 @@
     {% block client_templates %}
     {% endblock %}
 
+    {% block extrahead %}
+    {% endblock %}
+
     <!--  GDPR Notifications -->
     <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 
 <body class="{% block bodyclass %}{% endblock %}" id="{% block bodyid %}{% endblock %}">
+
+{% block body %}
 
 <a id="skippy" class="sr-only sr-only-focusable" href="#content">
     <div class="container">
@@ -82,8 +96,8 @@
 
 <header>
 {% block topnavbar %}
-<nav class="navbar navbar-expand-md navbar-dark bg-dark {% block navclass %}{% endblock %}">
-    <a class="navbar-brand" href="#">Attaining Higher Education</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-custom {% block navclass %}{% endblock %}">
+    <a class="navbar-brand" href="/">Achieving Higher Education</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -114,8 +128,9 @@
     </section>
 </main>
 
-<footer class="bd-footer text-muted bg-dark">
+<footer class="bd-footer text-muted bg-custom">
     <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
+        <li class="col-md pb-4 px-0 py-md-0"><a href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.png" class="cvti d-none d-print-block"><img src="{{STATIC_URL}}img/cvti-logo-wht.png" class="cvti d-print-none"></a></li>
         <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none"></a></li>
     </ul>
     <div class="container-fluid p-3 pt-4">
@@ -126,7 +141,7 @@
         <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
     </div>
 </footer>
-
+{% endblock %}
 
 {% if RAVEN_CONFIG.dsn %}
     <script src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
