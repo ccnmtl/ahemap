@@ -5,20 +5,21 @@
 {% block mainclass %}container-fluid px-0 map-space{% endblock %}
 {% block navclass %}fixed-top{% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{{STATIC_URL}}js/lib/leaflet/leaflet.css">
-{% endblock %}
-
 {% block client_templates %}
     <meta name="csrf-token" content="{{csrf_token}}">
-    {% include "clientside/map_template.html" %}
-{% endblock %}
-
-{% block js %}
-    <script  data-main="{{STATIC_URL}}js/src/map.js"
-        src="{{STATIC_URL}}js/lib/require/require.js"></script>
+    {% include "clientside/google_map_template.html" %}
 {% endblock %}
 
 {% block content %}
-    <div id="map-container"></div>
+    <div id="map-container">
+        <google-map readonly="true" showsites="true" icon="other" />
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript"
+        src="//maps.google.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&libraries=places"></script>
+
+    <script  data-main="{{STATIC_URL}}js/src/map.js"
+        src="{{STATIC_URL}}js/lib/require/require.js"></script>
 {% endblock %}

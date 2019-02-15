@@ -18,7 +18,9 @@ module.exports = {
     ],
     "globals": {
         "requirejs": true,
-        "AHE": true
+        "AHE": true,
+        "Promise": true,
+        "google": true
     },
     "rules": {
         "indent": [

@@ -84,6 +84,10 @@ INSTALLED_APPS += [  # noqa
 THUMBNAIL_SUBDIR = "thumbs"
 LOGIN_REDIRECT_URL = "/"
 
+TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
+    'ahemap.main.views.django_settings')
+
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'

@@ -33,7 +33,7 @@ main {
     width: 100%; 
 }
 
-.map-view .leaflet-container {
+.map-view .google-map {
     position: absolute;
     top: 0;
     left: 0;
@@ -74,6 +74,109 @@ main {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.map-view .overlay-picker {
+    position: absolute;
+    z-index: 1000;
+    margin-top: 10px;
+    width: 75px;
+    right: 85px;
+}
+
+.map-view .pin-place-detail .list-group {
+    border: 0;
+}
+
+.map-view .pin-place-detail .list-group-item {
+    border-left: 0;
+    border-right: 0;
+}
+
+.map-view .advanced-filters {
+    position: absolute;
+    width: 90vw;
+    bottom: 0;
+    left: 5vw;
+    right: 5vw; 
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    z-index: 1050;
+}
+
+.map-view .advanced-filters .form-check-label,
+.map-view .advanced-filters .form-check {
+    position: absolute;
+}
+
+.map-view .advanced-filters .layer-1885 {
+    left: 195px;
+}
+
+.map-view .advanced-filters .layer-1916 {
+    left: 230px;
+}
+
+.map-view .advanced-filters .layer-1956 {
+    left: 274px;
+}
+
+.map-view .advanced-filters .layer-now {
+    left: 21.5rem;
+}
+
+.map-view .advanced-filters .form-check-label {
+    top: 2rem;
+    left: -.4rem;
+}
+
+.map-view .pin-place-detail {
+    position: absolute;
+    width: 90vw;
+    bottom: 0;
+    left: 5vw;
+    right: 5vw; 
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+    z-index: 1050;
+}
+
+.map-view .search-results {
+    font-size: .8em;
+    padding: 0;
+}
+
+.map-view .search-results .list-group {
+    overflow-y: scroll;
+}
+
+.pin-place-header .close {
+    padding: 0.5rem;
+    margin: -0.8rem -0.5rem 0 0;
+    font-weight: normal;
+    font-size: 1.8rem;
+}
+
+.pin-place-thumbnail {
+    display: none;
+}
+
+.pin-detail-tags {
+    line-height: 1.3;
 }
 
 /* Footer */
