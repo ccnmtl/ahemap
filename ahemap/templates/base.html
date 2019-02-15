@@ -22,11 +22,13 @@
         <!-- Custom styles for this template -->
         <link href="{{STATIC_URL}}css/coming-soon.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/all.css">
+
         {% block css %}{% endblock %}
     {% endcompress %}
 
     <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/font-awesome.min.css">
+    
 
     <!-- Standard Meta Data -->
     <meta name="description" content="Attaining Higher Education" />
@@ -128,6 +130,7 @@
 
 <footer class="bd-footer text-muted bg-custom">
     <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
+        <li class="col-md pb-4 px-0 py-md-0"><a href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.png" class="cvti d-none d-print-block"><img src="{{STATIC_URL}}img/cvti-logo-wht.png" class="cvti d-print-none"></a></li>
         <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none"></a></li>
     </ul>
     <div class="container-fluid p-3 pt-4">
