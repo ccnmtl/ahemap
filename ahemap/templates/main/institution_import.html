@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <h1>Import Institutions</h1>
+        <form name="import_csv" action="." enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div>
+            <fieldset class="module aligned">
+                <div class="form-row field-csvfile">
+                    <div>
+                        <label class="required" for="id_name">Browse:</label>
+                        <input type="file" name="csvfile" /><span class="csv-file-name"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="submit-row">
+                {% if form.csvfile.errors %}
+                    {% for error in form.csvfile.errors %}
+                        <div style="float: left; color: #dc3545">{{error|safe}}</div>
+                    {% endfor %}
+                    <div style="clear: both; margin-bottom: 10px;"></div>
+                {% endif %}
+                <input type="submit" value="Submit" class="default" name="submit" style="float: left">
+            </div>
+        </div>
+        </form>
+    </div>
+{% endblock %}
