@@ -28,9 +28,10 @@ class Institution(models.Model):
     private = models.BooleanField()
 
     student_population = models.PositiveIntegerField()
-    veteran_population = models.PositiveIntegerField(null=True)
-    undergrad_graduation_rate = models.PositiveIntegerField(null=True)
-    graduate_graduation_rate = models.PositiveIntegerField(null=True)
+    undergrad_vet_population = models.PositiveIntegerField(null=True)
+    undergrad_vet_graduation_rate = models.PositiveIntegerField(null=True)
+    grad_vet_population = models.PositiveIntegerField(null=True)
+    grad_vet_graduation_rate = models.PositiveIntegerField(null=True)
 
     two_year_program = models.BooleanField(null=True)
     four_year_program = models.BooleanField(null=True)
@@ -43,7 +44,7 @@ class Institution(models.Model):
     standardized_test_required = models.BooleanField()
     standardized_test_notes = models.TextField(null=True, blank=True)
 
-    veteran_center = models.BooleanField()
+    vet_center = models.BooleanField()
     sva_chapter = models.BooleanField()
 
     clep_credits_accepted = models.BooleanField()
@@ -52,8 +53,8 @@ class Institution(models.Model):
     online_credits_accepted = models.BooleanField()
     application_fee_waived = models.BooleanField()
 
-    veteran_grants_scholarships = models.BooleanField()
-    veteran_grants_scholarships_notes = models.TextField(null=True, blank=True)
+    vet_grants_scholarships = models.BooleanField()
+    vet_grants_scholarships_notes = models.TextField(null=True, blank=True)
 
     yellow_ribbon = models.BooleanField()
     yellow_ribbon_slots = models.PositiveIntegerField(null=True)

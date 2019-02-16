@@ -43,13 +43,12 @@ class InstitutionFactory(factory.DjangoModelFactory):
     private = False
 
     student_population = 20000
-    veteran_population = 10000
 
     accredited = True
 
     standardized_test_required = True
 
-    veteran_center = True
+    vet_center = True
     sva_chapter = True
 
     clep_credits_accepted = True
@@ -58,6 +57,6 @@ class InstitutionFactory(factory.DjangoModelFactory):
     online_credits_accepted = True
     application_fee_waived = True
 
-    veteran_grants_scholarships = True
+    vet_grants_scholarships = True
 
     yellow_ribbon = True
