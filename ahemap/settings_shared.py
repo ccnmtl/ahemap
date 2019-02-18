@@ -80,6 +80,13 @@ INSTALLED_APPS += [  # noqa
     'ahemap.main',
 ]
 
+ALLOWED_HOSTS = [
+    'localhost',
+    '.ctl.columbia.edu',
+    '.ccnmtl.columbia.edu',
+    'ahemap.veterans.columbia.edu',
+]
+
 
 THUMBNAIL_SUBDIR = "thumbs"
 LOGIN_REDIRECT_URL = "/"
