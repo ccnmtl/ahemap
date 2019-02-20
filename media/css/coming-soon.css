@@ -4,26 +4,8 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-coming-soon/blob/master/LICENSE)
  */
 
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  min-height: 35rem;
-  position: relative;
-  font-family: 'Source Sans Pro';
-  font-weight: 300;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Merriweather';
-  font-weight: 700;
+#skippy {
+    position: fixed;
 }
 
 video {
@@ -154,15 +136,21 @@ video {
   display: inline-block;
 }
 
+.social-icons ul > li > a:visited,
 .social-icons ul > li > a {
   display: block;
-  color: white;
+  color: white !important;
   background-color: rgba(0, 46, 102, 0.8);
   border-radius: 100%;
   font-size: 2rem;
   line-height: 4rem;
   height: 4rem;
   width: 4rem;
+}
+
+.social-icons .edx img {
+    width: 42px;
+    margin-top: -7px;
 }
 
 @media (min-width: 768px) {
@@ -199,16 +187,4 @@ video {
   }
 }
 
-.btn-secondary {
-  background-color: #cd9557;
-  border-color: #cd9557;
-}
 
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
-  background-color: #ba7c37 !important;
-  border-color: #ba7c37 !important;
-}
-
-.input {
-  font-weight: 300 !important;
-}
