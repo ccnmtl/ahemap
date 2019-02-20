@@ -7,18 +7,64 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
+    font-family: Open Sans;
+}
+
+body, main {
+  min-height: 35rem;
 }
 
 html.busy, html.busy * {  
   cursor: wait;
 }
 
-main {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Georgia,Times,Times New Roman,serif; 
+  font-weight: 700;
+}
+
+#skippy {
+    background-color: rgba(02, 33, 105, 1);
+    color: white;
+    display: block;
+    padding: 1em;
+    z-index: 1000;
+    outline: 0;
+}
+
+#skippy .skiplink-text {
+    padding: .5em;
+    outline: 1px dotted;
 }
 
 /* Navbar */
+nav a, nav a:visited {
+    color: white;
+}
+
+nav a:active, nav a:focus, nav a:hover {
+    color: lightgray;
+}
+
 .bg-custom {
     background-color: rgba(02, 33, 105, 1);
+}
+
+/* Golden brown button */
+.btn-secondary {
+    background-color: #a65b31;
+    border-color: #a65b31;
+}
+
+.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+    background-color: #a66531;
+    border-color: #a66531;
 }
 
 /* Map View */
@@ -186,6 +232,7 @@ footer {
 
 footer p {
     margin-bottom: 0;
+    color: white;
 }
 
 footer a, footer a:visited {

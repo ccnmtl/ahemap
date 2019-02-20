@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Attaining Higher Education Map: {% block title %}{% endblock %}</title>
+    <title>Attaining Higher Education Map: {% block title %}{% endblock %}</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
     <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link rel="canonical" href="https://ahemap.ctl.columbia.edu/" />
+    <link rel="canonical" href="https://ahemap.veterans.columbia.edu/" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{STATIC_URL}}js/lib/bootstrap/css/bootstrap.min.css">
@@ -19,16 +19,11 @@
     {% compress css %}
         <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="{{STATIC_URL}}css/coming-soon.css" rel="stylesheet">
-
-        <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/all.css">
-
         {% block css %}{% endblock %}
     {% endcompress %}
 
-    <!-- FontAwesome CSS -->
-    
+    <!--  Fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300" />
 
     <!-- Standard Meta Data -->
     <meta name="description" content="Attaining Higher Education" />
@@ -50,8 +45,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ColumbiaCTL" />
-    <meta name="twitter:title" content="Attaining Higher Education: Title" />
+    <meta name="twitter:site" content="@columbia_cvti" />
+    <meta name="twitter:title" content="Attaining Higher Education" />
     <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="{{STATIC_URL}}img/favicon.png" />
 
@@ -81,71 +76,69 @@
 
     <!--  GDPR Notifications -->
     <link rel="stylesheet" href="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.css" />
-    <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
+    <script type="text/javascript" src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 
 <body class="{% block bodyclass %}{% endblock %}" id="{% block bodyid %}{% endblock %}">
 
-{% block body %}
-
-<a id="skippy" class="sr-only sr-only-focusable" href="#content">
-    <div class="container">
-        <span class="skiplink-text">Skip to main content</span>
-    </div>
+<a id="skippy" class="sr-only sr-only-focusable" href="#maincontent">
+    <span class="skiplink-text">Skip to main content</span>
 </a>
 
-<header>
-{% block topnavbar %}
-<nav class="navbar navbar-expand-md navbar-dark bg-custom {% block navclass %}{% endblock %}">
-    <a class="navbar-brand" href="/">Attaining Higher Education</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+{% block body %}
+    <header>
+    {% block topnavbar %}
+    <nav class="navbar navbar-expand-md bg-custom {% block navclass %}{% endblock %}">
+        <a class="navbar-brand" href="/">Attaining Higher Education</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="topNavbar">
-        <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-            <li class="nav-item">
-                <a class="nav-link" href="/about/" title="About page">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/help/" title="Help page">Help</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-{% endblock %}
-</header>
-
-{% block breadcrumb %}
-{% endblock %}
-<main role="main" class="{% block mainclass %}container{% endblock %}">
-    <section id="content">
-        <div class="container">
-        {% block pagetitle %}{% endblock %}
-        {% block content %}{% endblock %}
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
+                <li class="nav-item">
+                    <a class="nav-link" href="/about/" title="About page">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/help/" title="Help page">Help</a>
+                </li>
+            </ul>
         </div>
-    </section>
-</main>
+    </nav>
+    {% endblock %}
+    </header>
 
-<footer class="bd-footer text-muted bg-custom">
-    <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
-        <li class="col-md pb-4 px-0 py-md-0"><a href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-none d-print-block"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-print-none"></a></li>
-        <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none"></a></li>
-    </ul>
-    <div class="container-fluid p-3 pt-4">
-        <ul>
-          <li><a href="https://github.com/ccnmtl/ahemap" class="footer-link">GitHub</a></li>
+    {% block breadcrumb %}
+    {% endblock %}
+
+    <main role="main" class="{% block mainclass %}container{% endblock %}">
+        <section id="content">
+            <div class="container">
+            {% block pagetitle %}{% endblock %}
+            {% block content %}{% endblock %}
+            </div>
+        </section>
+    </main>
+
+    <footer class="bd-footer text-muted bg-custom">
+        <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
+            <li class="col-md pb-4 px-0 py-md-0"><a href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-none d-print-block" alt="CVTI logo"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-print-none" alt="CVTI logo"></a></li>
+            <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block" alt="CTL logo"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none" alt="CTL logo"></a></li>
         </ul>
-        <p>Designed and built by <a href="https://ctl.columbia.edu" target="_blank" rel="noopener" class="footer-link">The Center For Teaching & Learning</a> </p>
-        <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
-    </div>
-</footer>
+        <div class="container-fluid p-3 pt-4">
+            <ul>
+              <li><a href="https://github.com/ccnmtl/ahemap" class="footer-link">GitHub</a></li>
+            </ul>
+            <p>Designed and built by <a href="https://ctl.columbia.edu" target="_blank" rel="noopener" class="footer-link">The Center For Teaching & Learning</a> </p>
+            <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
+        </div>
+    </footer>
 {% endblock %}
 
 {% if RAVEN_CONFIG.dsn %}
-    <script src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
-    <script>
+    <script type="text/javascript" src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
+    <script type="text/javascript">
      Raven.config('{{ RAVEN_CONFIG.dsn }}').install();
 
      {% if user.is_anonymous %}
@@ -162,7 +155,7 @@
     </script>
 {% endif %}
 
-<script>
+<script type="text/javascript">
     const AHE = {
         staticUrl: '{{STATIC_URL}}',
         debug: {% if debug %}'true'{% else %}'false'{% endif %},
@@ -172,7 +165,8 @@
 </script>
 
 {% block js %}
-    <script 
+    <script
+        type="text/javascript"
         data-main="{{STATIC_URL}}js/src/main.js"
         src="{{STATIC_URL}}js/lib/require/require.js"></script>
 {% endblock %}

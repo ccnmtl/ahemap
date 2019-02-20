@@ -4,54 +4,61 @@
 {% block title %}Home{% endblock %}
 {% block mainclass %}container-fluid px-0 map-space{% endblock %}
 
-{% block extrahead %}
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+{% block css %}
+    <!-- Custom styles for this template -->
+    <link href="{{STATIC_URL}}css/coming-soon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{STATIC_URL}}css/fontawesome/all.css">
 {% endblock %}
 
 {% block body %}
-  <div class="overlay"></div>
-  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="{{STATIC_URL}}mp4/bg.mp4" type="video/mp4">
-  </video>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" aria-hidden="true">
+        <source src="{{STATIC_URL}}mp4/bg.mp4" type="video/mp4">
+    </video>
 
-  <div class="masthead">
-    <div class="masthead-bg"></div>
-    <div class="container h-100">
-      <div class="row h-100">
-        <div class="col-12 my-auto">
-          <div class="masthead-content text-white py-5 py-md-0">
-            <h1 class="mb-3">Attaining Higher Education</h1>
-            <p class="mb-5">We're working hard to finish the development of this site. Our target launch date is
-              <strong>January 2019</strong>! Sign up for updates using the form below!</p>
-                <a class="btn btn-secondary btn-lg" href="{% url 'map-view' %}" role="button">View the Map</a>
-              </div>
+    <div class="masthead">
+        <div class="masthead-bg"></div>
+        <div class="container h-100">
+            <div class="row">
+                <div class="col text-right mt-2">
+                    <a class="mr-3 text-white" href="/about/" title="About page">About</a>
+                    <a class="mr-3 text-white" href="/help/" title="Help page">Help</a>
+                </div>
             </div>
-          </div>
+            <div id="maincontent" class="row h-75">
+                <div class="col-12 my-auto">
+                    <div class="masthead-content text-white py-md-0">
+                        <h1 class="mb-3">
+                            Attaining<br />Higher<br />Education
+                        </h1>
+                        <p class="mb-5">
+                            We're working hard to finish the development of this
+                            site. Our target launch date is <strong>January
+                                2019</strong>! Sign up for updates using the form below!
+                        </p>
+                        <a class="btn btn-secondary btn-lg"
+                            href="{% url 'map-view' %}" role="button">View the
+                            Map</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="social-icons">
-    <ul class="list-unstyled text-center mb-0">
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="social-icons">
+        <ul class="list-unstyled text-center mb-0">
+            <li class="list-unstyled-item">
+                <a aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
+                    <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
+                </a>
+            </li>
+            <li class="list-unstyled-item">
+                <a aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 
 {% endblock %}
