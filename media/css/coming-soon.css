@@ -91,6 +91,17 @@ video {
   padding: 1rem;
 }
 
+footer .logo img {
+    width: 200px;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    z-index: 2;
+    margin-left: 20px;
+}
+
 @media (min-width: 768px) {
   .masthead {
     height: 100%;
