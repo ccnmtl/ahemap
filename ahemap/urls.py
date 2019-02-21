@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
 
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/import/institution/',
+        views.InstitutionImportView.as_view(), name='institution-import-view'),
     url(r'^_impersonate/', include('impersonate.urls')),
     url(r'^stats/$$', TemplateView.as_view(template_name="stats.html")),
     url(r'smoketest/', include('smoketest.urls')),
