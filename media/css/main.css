@@ -18,7 +18,8 @@ html.busy, html.busy * {
   cursor: wait;
 }
 
-
+.flatpage-title,
+.navbar-brand,
 h1,
 h2,
 h3,
