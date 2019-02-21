@@ -1,12 +1,38 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load compress %}
 
-{% block title %}{{ flatpage.title }}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block bodyclass %}flatpage{% endblock %}
 
-
-{% block pagetitle %}
-<h1 id="maincontent" class="pageheader">{{ flatpage.title }}</h1>
-{% endblock %}
-
-{% block content %}
-{{ flatpage.content|safe}}
+{% block body %}
+<div class="h-100">
+    <div class="row no-gutters flatpage-container">
+        <div class="col-lg-5 flatpage-title">
+            <div class="skewed-background"></div>
+            <div class="row no-gutters">
+                <div class="col">
+                    <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home"></i> Home</a>
+                </div>
+            </div>
+            <div class="row no-gutters h-75">
+                <div class="col-12 my-auto">
+                    <h1 class="my-5 text-center" id="maincontent">
+                        {{flatpage.title}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 flatpage-content">
+            <div class="my-5 px-4">
+                {{flatpage.content|safe}}
+            </div>
+        </div>
+        <footer>
+            <div class="logo-container">
+                <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
+                <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
+            </div>
+        </footer>
+    </div>
+</div>
 {% endblock %}
