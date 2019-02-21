@@ -90,22 +90,11 @@
     <header>
     {% block topnavbar %}
     <nav class="navbar navbar-expand-md bg-custom {% block navclass %}{% endblock %}">
-        <a class="navbar-brand" href="/">Attaining Higher Education</a>
+        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Attaining Higher Education</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="topNavbar">
-            <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                <li class="nav-item">
-                    <a class="nav-link" href="/about/" title="About page">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/help/" title="Help page">Help</a>
-                </li>
-            </ul>
-        </div>
     </nav>
     {% endblock %}
     </header>

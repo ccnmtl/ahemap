@@ -18,7 +18,8 @@ html.busy, html.busy * {
   cursor: wait;
 }
 
-
+.flatpage-title,
+.navbar-brand,
 h1,
 h2,
 h3,
@@ -77,6 +78,7 @@ nav a:active, nav a:focus, nav a:hover {
     height: 15rem;
     background-color: rgb(02, 33, 105);
     color: white;
+    font-size: 1.25rem;
 }
 
 .flatpage-title .flatpage-title-bg {
