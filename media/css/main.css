@@ -30,7 +30,7 @@ h6 {
 }
 
 #skippy {
-    background-color: rgba(02, 33, 105, 1);
+    background-color: rgb(02, 33, 105);
     color: white;
     display: block;
     padding: 1em;
@@ -53,7 +53,7 @@ nav a:active, nav a:focus, nav a:hover {
 }
 
 .bg-custom {
-    background-color: rgba(02, 33, 105, 1);
+    background-color: rgb(02, 33, 105);
 }
 
 /* Golden brown button */
@@ -65,6 +65,83 @@ nav a:active, nav a:focus, nav a:hover {
 .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
     background-color: #a66531;
     border-color: #a66531;
+}
+
+/* Flatpages */
+.flatpage .skewed-background {
+    display: none;
+}
+
+.flatpage-title {
+    padding: 10px;
+    height: 15rem;
+    background-color: rgb(02, 33, 105);
+    color: white;
+}
+
+.flatpage-title .flatpage-title-bg {
+    display: none;
+}
+
+.flatpage footer {
+    bottom: 0px;
+    z-index: 2;
+    background-color: rgb(02, 33, 105);
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+}
+
+.flatpage footer .logo-container {
+    width: 400px;
+}
+
+.flatpage footer img {
+    width: 225px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+@media (min-width : 992px) {
+    .flatpage-container {
+        height: 100%;
+        width: 99%;
+    }
+    .flatpage-content,
+    .flatpage-title {
+        height: 100%;
+        background-color: inherit;
+    }
+    .flatpage-title .skewed-background {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        min-height: 35rem;
+        height: 100%;
+        background-color: rgb(02, 33, 105);
+        min-height: 0;
+        -webkit-transform: skewX(-8deg);
+        transform: skewX(-8deg);
+        -webkit-transform-origin: top right;
+        transform-origin: top right;
+    }
+    .flatpage footer {
+        position: fixed;
+        background-color: inherit;
+     }
+     .flatpage footer img {
+        width: 200px;
+     }
+}
+
+@media (min-width: 1500px) {
+    .flatpage footer .logo-container {
+        width: 510px;
+    }
 }
 
 /* Map View */
