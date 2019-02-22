@@ -1,0 +1,25 @@
+/* customize multiselect */
+.multiselect {
+    color: #212529;
+}
+
+.multiselect__tags {
+    border: 1px solid #dddddd;
+    min-height: 38px;
+    padding: 2px 40px 0 8px;
+}
+
+.multiselect__placeholder {
+    color: #787d83;
+    font-size: 1rem;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.multiselect__single {
+    margin-top: 6px;
+}
+
+input.multiselect__input {
+    margin-top: 8px;
+}

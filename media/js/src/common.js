@@ -12,6 +12,7 @@ requirejs.config({
         'domReady': 'lib/require/domReady',
         'jquery': 'lib/jquery-3.3.1.min',
         'mapVue': 'src/components/gmapvue',
+        'multiselect': 'lib/vue-multiselect/vue-multiselect.min',
         'utils': 'src/utils',
         'Vue': vuePath,
     },

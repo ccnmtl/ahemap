@@ -1,38 +1,34 @@
-const libs = ['jquery', 'utils'];
-define(libs, function($, utils) {
+const libs = ['jquery', 'multiselect', 'utils'];
+define(libs, function($, multiselect, utils) {
     const GoogleMapVue = {
         props: ['title', 'icon', 'showsites'],
         template: '#google-map-template',
+        components: {
+            'multiselect': multiselect.Multiselect
+        },
         data: function() {
             return {
                 map: null,
                 mapName: 'the-map',
-                newPin: null,
-                newTitle: '',
                 selectedSite: null,
                 sites: [],
                 searchTerm: '',
                 searchResults: null,
                 searchResultHeight: 0,
+                states: utils.states,
+                state: null,
+                graduationRates: utils.graduationRates,
+                graduationRate: null,
+                twoYear: null,
+                fourYear: null
             };
-        },
-        computed: {
-            latlng: {
-                get: function() {
-                    if (this.newPin) {
-                        return 'SRID=4326;POINT(' +
-                            this.newPin.position.lng() + ' ' +
-                            this.newPin.position.lat() + ')';
-                    }
-                },
-            }
         },
         methods: {
             getSearchTerm: function() {
                 return this.searchTerm;
             },
             getSelectedSite: function() {
-                return this.selectedSite || this.newPin;
+                return this.selectedSite;
             },
             getSiteById: function(siteId) {
                 let result;
@@ -71,19 +67,13 @@ define(libs, function($, utils) {
                     this.map.panTo(marker.position);
                 }
             },
-            clearNewPin: function(event) {
-                if (!this.newPin) {
-                    return;
-                }
-
-                this.newPin.setMap(null);
-                this.newPin = null;
-                this.searchTerm = '';
-                this.newTitle = '';
-            },
             clearSearch: function() {
                 this.searchResults = null;
                 this.searchTerm = null;
+                this.graduationRate = null;
+                this.state = null;
+                this.twoYear = null;
+                this.fourYear = null;
             },
             clearSelectedSite: function() {
                 if (!this.selectedSite) {
@@ -95,7 +85,6 @@ define(libs, function($, utils) {
                 this.selectedSite = null;
             },
             clearAll: function() {
-                this.clearNewPin();
                 this.clearSearch();
                 this.clearSelectedSite();
             },
@@ -104,7 +93,6 @@ define(libs, function($, utils) {
                     return; // dimmed sites aren't clickable
                 }
 
-                this.clearNewPin();
                 this.clearSelectedSite();
 
                 site.marker.setIcon(); // show pointy red icon
@@ -115,75 +103,54 @@ define(libs, function($, utils) {
                     this.searchTerm = this.selectedSite.title;
                 }
             },
-            searchForSite: function() {
-                const url = AHE.baseUrl + 'api/institution/?' +
-                    'q=' + utils.sanitize(this.searchTerm);
-                return $.getJSON(url);
-            },
-            searchForAddress: function() {
-                if (!this.searchTerm) {
-                    return Promise.resolve();
-                }
-
-                const self = this;
-                return new Promise(function(resolve, reject) {
-                    self.geocoder.findPlaceFromQuery({
-                        query: self.searchTerm,
-                        fields: ['formatted_address', 'geometry', 'types']
-                    }, function(results) {
-                        resolve(results);
-                    });
-                });
-            },
-            geocode: function(event) {
-                this.clearNewPin();
-                this.clearSelectedSite();
-
-                $.when(this.searchForAddress())
-                    .done((addresses) => {
-                        if (addresses) {
-                            this.geocodeResults(addresses);
-                        }
-                    });
-            },
             resetSearch: function(event) {
                 this.searchTerm = '';
                 this.search();
             },
             search: function(event) {
-                this.clearNewPin();
                 this.clearSelectedSite();
                 this.searchResults = null;
                 $('html').addClass('busy');
 
-                // Kick off a sites search & a geocode search
-                $.when(this.searchForSite(), this.searchForAddress())
-                    .done((sites, addresses) => {
-                        if (!this.searchTerm) {
-                            // filtering solely by year range
-                            this.siteResults(sites[0]);
-                        } else if (sites[0].length === 1) {
-                            // single site found
-                            const site = this.getSiteById(sites[0][0].id);
-                            this.searchResults = [site];
-                            this.selectSite(site);
-                        } else if (sites[0].length > 1) {
-                            // multiple sites found via keyword + year range
-                            this.searchResults = [];
-                            const bounds = this.siteResults(sites[0]);
-                            this.map.fitBounds(bounds);
-                            this.searchResultHeight =
-                                utils.getVisibleContentHeight();
-                        } else if (addresses) {
-                            // no sites found, try to display geocode result
-                            this.geocodeResults(addresses);
-                        } else {
-                            // no results at all
-                            this.markerOpacity(0.25);
-                            this.searchResults = [];
-                        }
-                        $('html').removeClass('busy');
-                    });
+                $.when(this.searchForSite()).done((sites) => {
+                    if (sites.length === 1) {
+                        // single site found
+                        const site = this.getSiteById(sites[0].id);
+                        this.searchResults = [site];
+                        this.selectSite(site);
+                    } else if (sites.length > 1) {
+                        // multiple sites found via keyword + year range
+                        this.searchResults = [];
+                        const bounds = this.siteResults(sites);
+                        this.map.fitBounds(bounds);
+                        this.searchResultHeight =
+                            utils.visibleContentHeight();
+                    } else {
+                        // no results at all
+                        this.markerOpacity(0.25);
+                        this.searchResults = [];
+                    }
+                    $('html').removeClass('busy');
+                });
+            },
+            searchForSite: function() {
+                let url = AHE.baseUrl + 'api/institution/?';
+                if (this.searchTerm) {
+                    url += '&q=' + utils.sanitize(this.searchTerm);
+                }
+                if (this.twoYear) {
+                    url += '&twoyear=' + this.twoYear;
+                }
+                if (this.fourYear) {
+                    url += '&fouryear=' + this.fourYear;
+                }
+                if (this.state) {
+                    url += '&state=' + this.state.id;
+                }
+                if (this.graduationRate) {
+                    url += '&rate=' + this.graduationRate.id;
+                }
+                return $.getJSON(url);
             },
             siteResults: function(results) {
                 let bounds = new google.maps.LatLngBounds();
@@ -212,16 +179,6 @@ define(libs, function($, utils) {
                 bounds.extend(position);
                 bounds = utils.enlargeBounds(bounds);
                 this.map.fitBounds(bounds);
-
-                if (this.autodrop === 'true') {
-                    const marker = new google.maps.Marker({
-                        position: position,
-                        map: this.map,
-                        icon: AHE.staticUrl +
-                            'png/pin-' + this.icon + '.png'
-                    });
-                    this.newPin = marker;
-                }
             },
             reverseGeocode: function(marker) {
                 this.reverseGeocoder.geocode({
@@ -235,7 +192,7 @@ define(libs, function($, utils) {
                 });
             },
             resize: function(event) {
-                this.searchResultHeight = utils.getVisibleContentHeight();
+                this.searchResultHeight = utils.visibleContentHeight();
             },
             searchDetail: function(siteId) {
                 const site = this.getSiteById(siteId);
@@ -243,14 +200,6 @@ define(libs, function($, utils) {
             },
             searchList: function(event) {
                 this.clearSelectedSite();
-            },
-            searchByTag: function(tag) {
-                this.searchTerm += ' tag:' + tag;
-                this.search();
-            },
-            searchByCategory: function(category) {
-                this.searchTerm += ' category:' + category;
-                this.search();
             }
         },
         created: function() {
@@ -272,7 +221,17 @@ define(libs, function($, utils) {
                 center: new google.maps.LatLng(37.0902, -95.7129),
                 fullscreenControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_BOTTOM,
-                }
+                },
+                styles: [
+                    {
+                        'featureType': 'landscape.man_made',
+                        'stylers': [{'visibility': 'off'}]
+                    },
+                    {
+                        'featureType': 'poi',
+                        'stylers': [{'visibility': 'off'}]
+                    }
+                ]
             });
 
             // initialize geocoder & Google's places services
@@ -287,10 +246,8 @@ define(libs, function($, utils) {
                     const marker = new google.maps.Marker({
                         position: position,
                         map: this.map,
-                        icon: AHE.staticUrl + 'png/pin-' +
-                            this.icon + '.png'
+                        icon: this.siteIconUrl()
                     });
-                    this.newPin = marker;
                     this.searchTerm = this.title;
                     this.markerShow(marker);
 

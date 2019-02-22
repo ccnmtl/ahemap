@@ -30,8 +30,12 @@ h6 {
   font-weight: 700;
 }
 
+a {
+    color: #0072ce;
+}
+
 #skippy {
-    background-color: rgb(02, 33, 105);
+    background-color: #253462;
     color: white;
     display: block;
     padding: 1em;
@@ -54,7 +58,7 @@ nav a:active, nav a:focus, nav a:hover {
 }
 
 .bg-custom {
-    background-color: rgb(02, 33, 105);
+    background-color: #253462;
 }
 
 /* Golden brown button */
@@ -76,7 +80,7 @@ nav a:active, nav a:focus, nav a:hover {
 .flatpage-title {
     padding: 10px;
     height: 15rem;
-    background-color: rgb(02, 33, 105);
+    background-color: #253462;
     color: white;
     font-size: 1.25rem;
 }
@@ -88,7 +92,7 @@ nav a:active, nav a:focus, nav a:hover {
 .flatpage footer {
     bottom: 0px;
     z-index: 2;
-    background-color: rgb(02, 33, 105);
+    background-color: #253462;
     margin: 0;
     padding: 10px;
     width: 100%;
@@ -124,7 +128,7 @@ nav a:active, nav a:focus, nav a:hover {
         width: 100%;
         min-height: 35rem;
         height: 100%;
-        background-color: rgb(02, 33, 105);
+        background-color: #253462;
         min-height: 0;
         -webkit-transform: skewX(-8deg);
         transform: skewX(-8deg);
@@ -155,7 +159,15 @@ nav a:active, nav a:focus, nav a:hover {
     position: absolute;
     top: 3.5rem;
     bottom: 0;
-    width: 100%; 
+    width: 100%;
+}
+
+.map-space a {
+    font-family: Open Sans !important;
+}
+
+.map-view .navbar {
+    padding: .5rem;
 }
 
 .map-view .google-map {
@@ -172,21 +184,12 @@ nav a:active, nav a:focus, nav a:hover {
 }
 
 .map-view .search-bar {
-    position: absolute;
-    top: 0.625rem;
-    left: 1vw;
-    height: 3.125rem;
-    width: 98vw;
-    padding: 0.25rem;
-    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-    box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-    -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-    -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-    z-index: 1000;
+    width: 336px;
+    margin-top: -10px;
 }
 
 .map-view .search-bar .input-group>.form-control {
@@ -223,7 +226,8 @@ nav a:active, nav a:focus, nav a:hover {
     width: 90vw;
     bottom: 0;
     left: 5vw;
-    right: 5vw; 
+    right: 5vw;
+    top: 0.625rem;
     padding: 1rem;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -236,30 +240,8 @@ nav a:active, nav a:focus, nav a:hover {
     z-index: 1050;
 }
 
-.map-view .advanced-filters .form-check-label,
-.map-view .advanced-filters .form-check {
-    position: absolute;
-}
-
-.map-view .advanced-filters .layer-1885 {
-    left: 195px;
-}
-
-.map-view .advanced-filters .layer-1916 {
-    left: 230px;
-}
-
-.map-view .advanced-filters .layer-1956 {
-    left: 274px;
-}
-
-.map-view .advanced-filters .layer-now {
-    left: 21.5rem;
-}
-
-.map-view .advanced-filters .form-check-label {
-    top: 2rem;
-    left: -.4rem;
+.map-view .advanced-filters .input-group-append .btn {
+    z-index: 0;
 }
 
 .map-view .pin-place-detail {
@@ -277,7 +259,10 @@ nav a:active, nav a:focus, nav a:hover {
     box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-    z-index: 1050;
+}
+
+.map-view .search-results-header {
+    background-color: #0072ce;
 }
 
 .map-view .search-results {
@@ -286,7 +271,7 @@ nav a:active, nav a:focus, nav a:hover {
 }
 
 .map-view .search-results .list-group {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .pin-place-header .close {
@@ -302,6 +287,23 @@ nav a:active, nav a:focus, nav a:hover {
 
 .pin-detail-tags {
     line-height: 1.3;
+}
+
+/* Filters */
+.multiselect {
+    margin-top: -11px;
+}
+
+span.graduation-rates {
+    width: 190px;
+}
+
+span.states {
+    width: 275px;
+}
+
+i.fa-landmark {
+    width: 30px;
 }
 
 /* Footer */
@@ -358,7 +360,7 @@ footer .footer-logo img.cvti {
 
 /* Small devices (sm - landscape phones, 576px and up) */
 @media (min-width: 576px) {
-    .map-view .search-bar {
+    .map-view .advanced-filters {
         left: 0.625rem;
         width: 25rem;
     }
@@ -384,7 +386,7 @@ footer .footer-logo img.cvti {
     .map-view .advanced-filters {
         border-top: 1px solid #ddd;
         width: 25rem;
-        top: 4.5rem;
+        top: 0.625rem;
         left: 0.625rem;
         right: 0;
         bottom: auto;
@@ -392,7 +394,7 @@ footer .footer-logo img.cvti {
     .map-view .pin-place-detail {
         border-top: 1px solid #ddd;
         width: 25rem;
-        top: 14.25rem;
+        top: 16.5rem;
         left: 0.625rem;
         right: 0;
         bottom: auto;
