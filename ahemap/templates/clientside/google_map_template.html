@@ -3,62 +3,60 @@
     <div>
         <form action='.' method='GET' name="search">
             <div class="advanced-filters">
-                <div>
+                <div class="search-criteria">
                     <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
                     <span class="float-right">
                         <span class="form-check form-check-inline">
                             <input v-model="twoYear" class="form-check-input" type="checkbox"
-                                id="two-year-program" name="programDuration" value="2" @click="search">
+                                id="two-year-program" name="programDuration" value="2">
                             <label class="form-check-label" for="two-year-program">2-year</label>
                         </span>
                         <span class="form-check form-check-inline">
                             <input v-model="fourYear" class="form-check-input" type="checkbox"
-                                id="four-year-program" name="programDuration" value="4" @click="search">
+                                id="four-year-program" name="programDuration" value="4">
                             <label class="form-check-label" for="four-year-program">4-year</label>
                         </span>
                     </span>
                 </div>
-                <hr />
-                <div>
+
+                <div class="search-criteria">
                     <i class="fas fa-graduation-cap text-muted"></i> Graduation Rates
                     <span class="graduation-rates float-right">
                         <multiselect v-model="graduationRate" name="graduation-rates"
                             :options="graduationRates"
                             label="name" placeholder="Select threshhold"
                             :searchable="false" selectLabel="" deselectLabel=""
-                            selectedLabel="" track-by="id" @select="search">
+                            selectedLabel="" track-by="id">
                         </multiselect>
                     </span>
                 </div>
-                <hr/>
-                <div>
+
+                <div class="search-criteria">
                     <i class="fas fa-map-marked-alt text-muted"></i> State
                     <span class="states float-right">
                         <multiselect v-model="state" name="state"
                             :options="states"
-                            label="name" placeholder="Select state"
+                            label="name" placeholder="Type or choose state"
                             :searchable="true" selectLabel="" deselectLabel=""
-                            selectedLabel="" track-by="id" @select="search">
+                            selectedLabel="" track-by="id">
                         </multiselect>
                     </span>
                 </div>
-                <hr />
-                <i class="fas fa-landmark text-muted float-left"></i>
-                <div class="search-bar float-left">
-                    <div class="input-group">
-                        <input type="text" name="q" v-model="searchTerm"
-                            class="form-control form-control w-25"
-                            placeholder="Narrow by school name"
-                            aria-label="Narrow by school name"
-                            v-on:keydown.enter.prevent="search">
-                        <div class="input-group-append">
-                            <button class="btn btn-light" type="button"
-                                v-on:click="search"><i class="fa fa-search"></i>
-                            </button>
-                            <button v-if="searchTerm" class="btn btn-light btn-clear-search text-muted" type="button"
-                                v-on:click.prevent="resetSearch">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </button>
+
+                <div class="search-criteria">
+                    <i class="fas fa-landmark text-muted "></i> School
+                    <div class="search-bar float-right">
+                        <div class="input-group">
+                            <input type="text" name="q" v-model="searchTerm"
+                                class="form-control form-control w-25"
+                                placeholder="Narrow by school name"
+                                aria-label="Narrow by school name"
+                                v-on:keydown.enter.prevent="search">
+                            <div class="input-group-append">
+                                <button class="btn btn-light" type="button"
+                                    v-on:click="search"><i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,31 +64,53 @@
         </form>
         <div class="google-map" :id="mapName"></div>
         <div v-if="selectedSite" class="pin-place-detail">
-            <div v-if="searchResults && searchResults.length > 1">
-                <button class="btn btn-link pl-0" v-on:click.prevent="searchList"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results</button>
+            <div class="search-results-header">
+                <button v-if="searchResults && searchResults.length > 1"
+                    class="btn btn-sm btn-link float-left text-white w-50 btn-left"
+                    v-on:click.prevent="searchList">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results
+                </button>
+                <button v-else class="btn btn-sm btn-link float-left text-white w-50 btn-left"
+                    @click="clearCriteria" title="Clear Search">
+                    <i class="fas fa-times"></i> Clear Search
+                </button>
+                <button v-if="selectedSite || searchResults"
+                    class="btn btn-sm btn-link float-right text-white w-50"
+                    title="Save Search">
+                    <i class="fas fa-download"></i> Save Results
+                </button>
             </div>
-            <h5>{{selectedSite.title}}</h5>
-            <div class="pin-place-content mt-2">
-              <div class="row mt-4 mt-md-3">
-                  <div class="col">
-                      <a :href="'/view/' + selectedSite.id + '/'"
-                            class="w-100 btn btn-sm btn-secondary">
-                            Additional Details
-                      </a>
-                  </div>
-              </div>
+            <div class="clearfix"></div>
+            <div class="p-3">
+                <h5>{{selectedSite.title}}</h5>
+                <div class="pin-place-content mt-2">
+                    <div class="row mt-4 mt-md-3">
+                        <div class="col">
+                            <a :href="'/view/' + selectedSite.id + '/'"
+                                class="w-100 btn btn-sm btn-secondary">
+                                Additional Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-else-if="searchResults" class="pin-place-detail search-results">
             <div class="search-results-header">
-                <button class="btn btn-sm btn-link float-right text-white" @click="clearSearch">
-                    Clear Search
+                <button v-if="selectedSite || searchResults"
+                    class="btn btn-sm btn-link float-left text-white w-50 btn-left"
+                    @click="clearCriteria" title="Clear Search">
+                    <i class="fas fa-times"></i> Clear Search
                 </button>
-                <div class="clearfix"></div>
+                <button v-if="selectedSite || (searchResults && searchResults.length > 1)"
+                    class="btn btn-sm btn-link float-right text-white w-50"
+                    title="Save Search">
+                    <i class="fas fa-download"></i> Save Results
+                </button>
             </div>
-
+            <div class="clearfix"></div>
             <div v-if="searchResults.length === 0">
-                <h5 class="pt-3 pr-3 pl-3 pb-2">No Institutions Found</h5>
+                <h5 class="pt-3 pr-3 pl-3 pb-2 text-center">No Schools Found</h5>
             </div>
             <div v-else>
                 <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">

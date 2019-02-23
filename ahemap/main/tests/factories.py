@@ -60,3 +60,5 @@ class InstitutionFactory(factory.DjangoModelFactory):
     vet_grants_scholarships = True
 
     yellow_ribbon = True
+
+    four_year_program = True

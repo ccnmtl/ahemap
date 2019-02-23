@@ -185,11 +185,9 @@ nav a:active, nav a:focus, nav a:hover {
 
 .map-view .search-bar {
     border: 1px solid #ddd;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    width: 336px;
-    margin-top: -10px;
+    width: 280px;
+    margin-bottom: 1rem;
+    margin-top: -8px;
 }
 
 .map-view .search-bar .input-group>.form-control {
@@ -204,14 +202,6 @@ nav a:active, nav a:focus, nav a:hover {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.map-view .overlay-picker {
-    position: absolute;
-    z-index: 1000;
-    margin-top: 10px;
-    width: 75px;
-    right: 85px;
-}
-
 .map-view .pin-place-detail .list-group {
     border: 0;
 }
@@ -219,6 +209,8 @@ nav a:active, nav a:focus, nav a:hover {
 .map-view .pin-place-detail .list-group-item {
     border-left: 0;
     border-right: 0;
+    padding-left: .5rem;
+    padding-right: .5rem;
 }
 
 .map-view .advanced-filters {
@@ -228,7 +220,6 @@ nav a:active, nav a:focus, nav a:hover {
     left: 5vw;
     right: 5vw;
     top: 0.625rem;
-    padding: 1rem;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -238,6 +229,24 @@ nav a:active, nav a:focus, nav a:hover {
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     z-index: 1050;
+}
+
+.map-view .search-criteria {
+    padding: 1rem;
+}
+
+.map-view .search-criteria i {
+    width: 22px;
+}
+
+.map-view span.graduation-rates {
+    width: 190px;
+    margin-top: -10px;
+}
+
+.map-view span.states {
+    width: 280px;
+    margin-top: -10px;
 }
 
 .map-view .advanced-filters .input-group-append .btn {
@@ -250,19 +259,21 @@ nav a:active, nav a:focus, nav a:hover {
     bottom: 0;
     left: 5vw;
     right: 5vw; 
-    padding: 1rem;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
     box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 }
 
 .map-view .search-results-header {
-    background-color: #0072ce;
+    background-color: #6cace4;
+    height: 30px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.map-view .search-results-header .btn-left {
+    border-right: 1px solid white;
 }
 
 .map-view .search-results {
@@ -270,8 +281,21 @@ nav a:active, nav a:focus, nav a:hover {
     padding: 0;
 }
 
+.map-view .search-results h1,
+.map-view .search-results h2,
+.map-view .search-results h3,
+.map-view .search-results h4,
+.map-view .search-results h5,
+.map-view .search-results h6 {
+    font-family: Open Sans !important;
+}
+
 .map-view .search-results .list-group {
     overflow-y: auto;
+}
+
+.map-view .pin-place-detail .list-group .list-group-item:first-child {
+    border-top: 0;
 }
 
 .pin-place-header .close {
@@ -287,23 +311,6 @@ nav a:active, nav a:focus, nav a:hover {
 
 .pin-detail-tags {
     line-height: 1.3;
-}
-
-/* Filters */
-.multiselect {
-    margin-top: -11px;
-}
-
-span.graduation-rates {
-    width: 190px;
-}
-
-span.states {
-    width: 275px;
-}
-
-i.fa-landmark {
-    width: 30px;
 }
 
 /* Footer */
@@ -392,7 +399,6 @@ footer .footer-logo img.cvti {
         bottom: auto;
     }
     .map-view .pin-place-detail {
-        border-top: 1px solid #ddd;
         width: 25rem;
         top: 16.5rem;
         left: 0.625rem;

@@ -20,15 +20,49 @@ define(libs, function($, multiselect, utils) {
                 graduationRates: utils.graduationRates,
                 graduationRate: null,
                 twoYear: null,
-                fourYear: null
+                fourYear: null,
+                center: null,
+                zoom: 5
             };
         },
         methods: {
-            getSearchTerm: function() {
-                return this.searchTerm;
+            changeCriteria: function() {
+                this.clearSelectedSite();
+                this.clearResults();
+
+                // trigger a new search if the search criteria is valid
+                if (this.twoYear || this.fourYear ||
+                        this.graduationRate || this.state || this.searchTerm) {
+                    this.search();
+                }
             },
-            getSelectedSite: function() {
-                return this.selectedSite;
+            clearCriteria: function(evt) {
+                evt.preventDefault();
+                this.clearSelectedSite();
+                this.clearResults();
+
+                this.searchResults = null;
+                this.searchTerm = null;
+                this.graduationRate = null;
+                this.state = null;
+                this.twoYear = null;
+                this.fourYear = null;
+
+                this.map.setCenter(this.center);
+                this.map.setZoom(this.zoom);
+            },
+            clearResults: function() {
+                this.searchResults = null;
+                this.markerOpacity(1);
+            },
+            clearSelectedSite: function() {
+                if (!this.selectedSite) {
+                    return;
+                }
+                // reset the icon to the site's category
+                const url = this.siteIconUrl(this.selectedSite);
+                this.selectedSite.marker.setIcon(url);
+                this.selectedSite = null;
             },
             getSiteById: function(siteId) {
                 let result;
@@ -39,15 +73,11 @@ define(libs, function($, multiselect, utils) {
                 });
                 return result;
             },
-            isReadOnly: function() {
-                return this.readonly === 'true';
-            },
             isSearching: function() {
                 return this.searchResults && this.searchResults.length > 0;
             },
             siteIconUrl: function(site) {
-                const icon = 'government';
-                return AHE.staticUrl + 'png/pin-' + icon + '.png';
+                return AHE.staticUrl + 'png/pin-' + this.icon + '.png';
             },
             markerOpacity: function(opacity) {
                 this.sites.forEach((site) => {
@@ -67,26 +97,8 @@ define(libs, function($, multiselect, utils) {
                     this.map.panTo(marker.position);
                 }
             },
-            clearSearch: function() {
-                this.searchResults = null;
-                this.searchTerm = null;
-                this.graduationRate = null;
-                this.state = null;
-                this.twoYear = null;
-                this.fourYear = null;
-            },
-            clearSelectedSite: function() {
-                if (!this.selectedSite) {
-                    return;
-                }
-                // reset the icon to the site's category
-                const url = this.siteIconUrl(this.selectedSite);
-                this.selectedSite.marker.setIcon(url);
-                this.selectedSite = null;
-            },
-            clearAll: function() {
-                this.clearSearch();
-                this.clearSelectedSite();
+            resize: function(event) {
+                this.searchResultHeight = utils.visibleContentHeight();
             },
             selectSite: function(site) {
                 if (site.marker.getOpacity() < 1) {
@@ -103,13 +115,9 @@ define(libs, function($, multiselect, utils) {
                     this.searchTerm = this.selectedSite.title;
                 }
             },
-            resetSearch: function(event) {
-                this.searchTerm = '';
-                this.search();
-            },
             search: function(event) {
                 this.clearSelectedSite();
-                this.searchResults = null;
+                this.clearResults();
                 $('html').addClass('busy');
 
                 $.when(this.searchForSite()).done((sites) => {
@@ -129,6 +137,8 @@ define(libs, function($, multiselect, utils) {
                         // no results at all
                         this.markerOpacity(0.25);
                         this.searchResults = [];
+                        this.map.setCenter(this.center);
+                        this.map.setZoom(this.zoom);
                     }
                     $('html').removeClass('busy');
                 });
@@ -161,7 +171,7 @@ define(libs, function($, multiselect, utils) {
                     })) {
                         // dim the icon, this site is not in the results
                         opacity = .25;
-                    } else if (this.searchTerm) {
+                    } else {
                         this.searchResults.push(site);
                         bounds.extend(site.marker.position);
                         bounds = utils.enlargeBounds(bounds);
@@ -169,30 +179,6 @@ define(libs, function($, multiselect, utils) {
                     site.marker.setOpacity(opacity);
                 });
                 return bounds;
-            },
-            geocodeResults: function(results) {
-                this.searchTerm = results[0].formatted_address;
-                const position = results[0].geometry.location;
-
-                // zoom in on the location, but not too far
-                let bounds = new google.maps.LatLngBounds();
-                bounds.extend(position);
-                bounds = utils.enlargeBounds(bounds);
-                this.map.fitBounds(bounds);
-            },
-            reverseGeocode: function(marker) {
-                this.reverseGeocoder.geocode({
-                    latLng: marker.getPosition(),
-                }, (responses) => {
-                    if (responses && responses.length > 0) {
-                        this.searchTerm = responses[0].formatted_address;
-                    } else {
-                        this.searchTerm = '';
-                    }
-                });
-            },
-            resize: function(event) {
-                this.searchResultHeight = utils.visibleContentHeight();
             },
             searchDetail: function(siteId) {
                 const site = this.getSiteById(siteId);
@@ -212,13 +198,13 @@ define(libs, function($, multiselect, utils) {
         },
         mounted: function() {
             let elt = document.getElementById(this.mapName);
-
+            this.center = new google.maps.LatLng(37.0902, -95.7129);
             this.map = new google.maps.Map(elt, {
                 mapTypeControl: false,
                 clickableIcons: false,
-                zoom: 5,
+                zoom: this.zoom,
                 streetViewControl: false,
-                center: new google.maps.LatLng(37.0902, -95.7129),
+                center: this.center,
                 fullscreenControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_BOTTOM,
                 },
@@ -233,10 +219,6 @@ define(libs, function($, multiselect, utils) {
                     }
                 ]
             });
-
-            // initialize geocoder & Google's places services
-            this.reverseGeocoder = new google.maps.Geocoder();
-            this.geocoder = new google.maps.places.PlacesService(this.map);
 
             // set initial address marker if specified in properties
             if (this.latitude && this.longitude) {
@@ -257,6 +239,11 @@ define(libs, function($, multiselect, utils) {
 
             // eslint-disable-next-line scanjs-rules/call_addEventListener
             window.addEventListener('resize', this.resize);
+
+            this.$watch('twoYear', this.changeCriteria);
+            this.$watch('fourYear', this.changeCriteria);
+            this.$watch('graduationRate', this.changeCriteria);
+            this.$watch('state', this.changeCriteria);
         },
         updated: function() {
             this.sites.forEach((site) => {

@@ -7,6 +7,7 @@
     border: 1px solid #dddddd;
     min-height: 38px;
     padding: 2px 40px 0 8px;
+    border-radius: 0;
 }
 
 .multiselect__placeholder {
