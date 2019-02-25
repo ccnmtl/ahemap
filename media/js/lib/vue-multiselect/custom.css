@@ -15,6 +15,7 @@
     font-size: 1rem;
     margin-top: 4px;
     margin-left: 5px;
+    display: none;
 }
 
 .multiselect__single {
@@ -23,4 +24,11 @@
 
 input.multiselect__input {
     margin-top: 8px;
+}
+
+/* Small devices (sm - landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    multiselect__placeholder {
+        display: inline-block;
+    }
 }
