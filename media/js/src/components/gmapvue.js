@@ -1,7 +1,7 @@
 const libs = ['jquery', 'multiselect', 'utils'];
 define(libs, function($, multiselect, utils) {
     const GoogleMapVue = {
-        props: ['title', 'icon', 'showsites'],
+        props: ['icon'],
         template: '#google-map-template',
         components: {
             'multiselect': multiselect.Multiselect
@@ -189,12 +189,10 @@ define(libs, function($, multiselect, utils) {
             }
         },
         created: function() {
-            if (this.showsites === 'true') {
-                const url = AHE.baseUrl + 'api/institution/';
-                $.getJSON(url, (data) => {
-                    this.sites = data;
-                });
-            }
+            const url = AHE.baseUrl + 'api/institution/';
+            $.getJSON(url, (data) => {
+                this.sites = data;
+            });
         },
         mounted: function() {
             let elt = document.getElementById(this.mapName);

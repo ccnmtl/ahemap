@@ -15,4 +15,6 @@ class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Institution
-        fields = ('id', 'title', 'lat', 'lng')
+        fields = (
+            'id', 'title', 'lat', 'lng', 'address', 'city', 'state',
+            'image', 'website_url', 'admissions_url', 'private')

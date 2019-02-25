@@ -1,28 +1,32 @@
 {% verbatim %}
 <script type="text/x-template" id="google-map-template">
     <div>
-        <form action='.' method='GET' name="search">
+        <form action='.' method='GET' name="search" id="maincontent">
+            <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters">
                 <div class="search-criteria">
                     <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
                     <span class="float-right">
                         <span class="form-check form-check-inline">
                             <input v-model="twoYear" class="form-check-input" type="checkbox"
-                                id="two-year-program" name="programDuration" value="2">
+                                id="two-year-program" name="twoYear" value="2">
                             <label class="form-check-label" for="two-year-program">2-year</label>
                         </span>
                         <span class="form-check form-check-inline">
                             <input v-model="fourYear" class="form-check-input" type="checkbox"
-                                id="four-year-program" name="programDuration" value="4">
+                                id="four-year-program" name="fourYear" value="4">
                             <label class="form-check-label" for="four-year-program">4-year</label>
                         </span>
                     </span>
                 </div>
 
                 <div class="search-criteria">
-                    <i class="fas fa-graduation-cap text-muted"></i> Graduation Rates
+                    <i aria-hidden="true" class="fas fa-graduation-cap text-muted"></i>
+                    <label for="graduation-rates">Graduation Rates</label>
                     <span class="graduation-rates float-right">
-                        <multiselect v-model="graduationRate" name="graduation-rates"
+                        <multiselect v-model="graduationRate"
+                            id="graduation-rates"
+                            name="graduation-rates"
                             :options="graduationRates"
                             label="name" placeholder="Select threshhold"
                             :searchable="false" selectLabel="" deselectLabel=""
@@ -32,9 +36,10 @@
                 </div>
 
                 <div class="search-criteria">
-                    <i class="fas fa-map-marked-alt text-muted"></i> State
+                    <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
+                    <label for="states">State</label>
                     <span class="states float-right">
-                        <multiselect v-model="state" name="state"
+                        <multiselect v-model="state" name="state" id="states"
                             :options="states"
                             label="name" placeholder="Type or choose state"
                             :searchable="true" selectLabel="" deselectLabel=""
@@ -44,16 +49,19 @@
                 </div>
 
                 <div class="search-criteria">
-                    <i class="fas fa-landmark text-muted "></i> School
+                    <i class="fas fa-landmark text-muted "></i>
+                    <label for="search-term">School</label>
                     <div class="search-bar float-right">
                         <div class="input-group">
-                            <input type="text" name="q" v-model="searchTerm"
+                            <input id="search-term" type="text" name="q"
+                                v-model="searchTerm"
                                 class="form-control form-control w-25"
                                 placeholder="Narrow by school name"
                                 aria-label="Narrow by school name"
                                 v-on:keydown.enter.prevent="search">
                             <div class="input-group-append">
                                 <button class="btn btn-light" type="button"
+                                    aria-label="Search" role="button"
                                     v-on:click="search"><i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -62,7 +70,6 @@
                 </div>
             </div>
         </form>
-        <div class="google-map" :id="mapName"></div>
         <div v-if="selectedSite" class="pin-place-detail">
             <div class="search-results-header">
                 <button v-if="searchResults && searchResults.length > 1"
@@ -83,6 +90,34 @@
             <div class="clearfix"></div>
             <div class="p-3">
                 <h5>{{selectedSite.title}}</h5>
+                <div v-if="selectedSite.image" class="pin-place-thumbnail clearfix">
+                    <img :src="selectedSite.image" title="Selected school thumbnail"
+                        class="thumbnail-bg" />
+                </div>
+                <div class="clearfix mt-2">
+                    <div v-if="selectedSite.website_url" class="float-left">
+                        <a :href="selectedSite.website_url"
+                            title="Selected school website link"
+                            target="about:blank">
+                            <i class="fas fa-link"></i> Website
+                        </a>
+                    </div>
+                    <div v-if="selectedSite.website_url" class="float-right">
+                        <a :href="selectedSite.admissions_url"
+                            title="Selected school veterans admissions link"
+                            target="about:blank">
+                            <i class="fas fa-link"></i> Veterans Admissions
+                        </a>
+                    </div>
+                </div>
+                <div class="clearfix mt-2">
+                    <div>{{selectedSite.address}}</div>
+                    <div>{{selectedSite.city}}, {{selectedSite.state}}</div>
+                </div>
+                <div class="clearfix">
+                    <div v-if="selectedSite.private">Private institution</div>
+                    <div v-else>Public institution</div>
+                </div>
                 <div class="pin-place-content mt-2">
                     <div class="row mt-4 mt-md-3">
                         <div class="col">
@@ -115,14 +150,21 @@
             <div v-else>
                 <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
                     <li v-for="site in searchResults" class="list-group-item">
-                        <h6>
-                            <img :src="site.iconUrl" :alt="site.title"/>  <a href="#" v-on:click="searchDetail(site.id)">{{site.title}}</a>
-                        </h6>
+                        <div class="result-icon float-left mr-1">
+                            <img :src="site.iconUrl" :alt="site.title"/>
+                        </div>
+                        <div class="result-content float-left">
+                            <h6 class="mb-1">
+                                <a href="#" v-on:click="searchDetail(site.id)">{{site.title}}</a>
+                            </h6>
+                            <div>{{site.city}}, {{site.state}}</div>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
         <ul style="display: none"><li v-for="site in sites">{{site.id}}</li></ul>
+        <div class="google-map" :id="mapName"></div>
     </div>
 </script>
 {% endverbatim %}
