@@ -68,7 +68,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
         # filter by a search term
         q = self.request.GET.get('q', None)
         if q:
-            qs = qs.filter(title__contains=escape(q))
+            qs = qs.filter(title__icontains=escape(q))
 
         return qs
 
