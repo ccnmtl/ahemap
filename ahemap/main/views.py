@@ -64,12 +64,40 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
 
-    def filter(self, qs):
+    def filter_by_duration(self, qs):
+        q = self.request.GET.get('twoyear', 'false')
+        if q == 'true':
+            qs = qs.filter(two_year_program=True)
+
+        q = self.request.GET.get('fouryear', 'false')
+        if q == 'true':
+            qs = qs.filter(four_year_program=True)
+
+        return qs
+
+    def filter_by_graduation_rate(self, qs):
+        # @todo - implement
+        return qs
+
+    def filter_by_state(self, qs):
+        q = self.request.GET.get('state', None)
+        if q:
+            qs = qs.filter(state=q)
+        return qs
+
+    def filter_by_name(self, qs):
         # filter by a search term
         q = self.request.GET.get('q', None)
         if q:
             qs = qs.filter(title__icontains=escape(q))
 
+        return qs
+
+    def filter(self, qs):
+        qs = self.filter_by_duration(qs)
+        qs = self.filter_by_graduation_rate(qs)
+        qs = self.filter_by_state(qs)
+        qs = self.filter_by_name(qs)
         return qs
 
     def get_queryset(self):
