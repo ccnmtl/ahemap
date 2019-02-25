@@ -25,11 +25,11 @@
                     <label for="graduation-rates">Graduation Rates</label>
                     <span class="graduation-rates float-right">
                         <multiselect v-model="graduationRate"
-                            id="graduation-rates"
-                            name="graduation-rates"
+                            id="graduation-rates" name="graduation-rates"
                             :options="graduationRates"
                             label="name" placeholder="Select threshhold"
-                            :searchable="false" selectLabel="" deselectLabel=""
+                            :searchable="false" selectLabel=""
+                            :allow-empty="true" deselectLabel="clear"
                             selectedLabel="" track-by="id">
                         </multiselect>
                     </span>
@@ -39,10 +39,12 @@
                     <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
                     <label for="states">State</label>
                     <span class="states float-right">
-                        <multiselect v-model="state" name="state" id="states"
+                        <multiselect v-model="state"
+                             id="states" name="state"
                             :options="states"
                             label="name" placeholder="Type or choose state"
-                            :searchable="true" selectLabel="" deselectLabel=""
+                            :searchable="true" selectLabel=""
+                            :allow-empty="true" deselectLabel="clear"
                             selectedLabel="" track-by="id">
                         </multiselect>
                     </span>
