@@ -83,6 +83,9 @@ nav a {
 }
 
 /* Flatpages */
+.flatpage h1 {
+    font-size: 3.5rem;
+}
 .flatpage .skewed-background {
     display: none;
 }
