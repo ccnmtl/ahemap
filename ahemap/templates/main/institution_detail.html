@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load compress %}
+{% load humanize %}
+
+{% block title %}Home{% endblock %}
+{% block bodyclass %}flatpage{% endblock %}
+
+{% block body %}
+<div class="row no-gutters flatpage-container h-100">
+    <div class="col-lg-5 flatpage-title">
+        <div class="skewed-background"></div>
+        <div class="row no-gutters">
+            <div class="col">
+                <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home"></i> Attaining Higher Education</a>
+            </div>
+        </div>
+        <div class="row no-gutters h-50">
+            <div class="col-12 my-auto">
+                <div class="py-md-0 px-5">
+                    <h1 class="my-5 mr-3" id="maincontent">
+                        {{object.title}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 flatpage-content">
+        <div class="detail-page-content">
+            <div class="main-image text-black">
+                <img src="{{object.image}}" title="{{object.title}} image" />
+            </div>
+            <div class="mt-2 px-5">
+                {% comment %}
+                <div class="row no-gutters">
+                    <div class="col-sm-4 quick-info-location">
+                        <i class="fas fa-map-marker-alt"></i> {{object.city}}, {{object.state}}
+                    </div>
+                    <div class="col-sm-4 quick-info-website">
+                        <a href="{{object.website_url}}" title="website link" target="_blank" rel="noopener">
+                            <i class="fas fa-graduation-cap"></i> Website
+                        </a>
+                    </div>
+                    <div class="col-sm-4 quick-info-admissions">
+                        <a href="{{object.admissions_url}}" title="veterans adminissions link" target="_blank" rel="noopener">
+                            <i class="fas fa-clipboard-list"></i> Admissions
+                        </a>
+                    </div>
+                </div>
+                {% endcomment %}
+
+                <h4 class="mt-4">At a Glance</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>{{object.city}}, {{object.state}}</li>
+                            <li>
+                                {% if object.accredited %}
+                                    Accredited {% if object.private %}private{% else %}public{% endif %} institution
+                                {% else %}
+                                    {% if object.private %}Private{% else %}Public{% endif %} institution
+                                {% endif %}
+                            </li>
+                            {% if object.two_year_program and object.four_year_program %}
+                                <li>Two-year &amp; four-year programs</li>
+                            {% else %}{% if object.two_year_program %}
+                                <li>Two-year program</li>
+                            {% else %}{% if object.four_year_program %}
+                                <li>Four-year program</li>
+                            {% endif %}{% endif %}{% endif %}
+                            <li>{{object.student_population|intcomma}} students</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            {% if object.undergrad_vet_population %}
+                                <li>{{object.undergrad_vet_population}} undergraduate veterans</li>
+                            {% endif %}
+                            {% if object.undergrad_vet_graduation_rate %}
+                            <li>{{object.undergrad_vet_graduation_rate}}% of undergraduate veterans graduate</li>
+                            {% endif %}
+                            <li>
+                                <a href="{{object.website_url}}" title="website link" target="_blank" rel="noopener">
+                                    Website Link
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{object.admissions_url}}" title="veterans adminissions link" target="_blank" rel="noopener">
+                                    Admissions Link
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="mt-4">For Veterans</h4>
+                <table class="table has-active-highlighting">
+                    <thead>
+                        <tr>
+                            <th scope="row" class="top-level"></th>
+                            <th>Yes</th>
+                            <th>No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><strong>Veterans Center</strong></td>
+                        <td class="has-feature">{% if object.vet_center %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.vet_center %}<i class="fas fa-times"></i>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SVA Chapter</strong></td>
+                        <td class="has-feature">{% if object.sva_chapter %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.sva_chapter %}<i class="fas fa-times"></i>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Application Fee Waived</strong></td>
+                        <td class="has-feature">{% if object.application_fee_waived %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.application_fee_waived %}<i class="fas fa-times"></i>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Veteran-specific grants/scholarships</strong></td>
+                        <td class="has-feature">{% if object.vet_grants_scholarships %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.vet_grants_scholarships %}<i class="fas fa-times"></i>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yellow ribbon school</strong></td>
+                        <td class="has-feature">{% if object.yellow_ribbon %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.yellow_ribbon %}<i class="fas fa-times"></i>{% endif %}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="mt-5">Applying</h4>
+                {% if object.standardized_test_required %}
+                    <h6 class="mt-4">Standardized tests are required</h6>
+                {% else %}
+                    <h6 class="mt-4">Standardized tests are not required</h6>
+                {% endif %}
+                {% if object.standardized_test_notes %}
+                    <p><strong>Notes</strong>: {{object.standardized_test_notes}}</p>
+                {% endif %}
+
+                <h6 class="mt-4">Accepted Credits</h6>
+                <ul>
+                {% if object.clep_credits_accepted %}
+                    <li>CLEP</li>
+                {% endif %}
+                {% if object.jst_credits_accepted %}
+                    <li>JST</li>
+                {% endif %}
+                {% if object.dsst_credits_accepted %}
+                    <li>DSST</li>
+                {% endif %}
+                {% if object.online_credits_accepted %}
+                    <li>Online</li>
+                {% endif %}
+                </ul>
+
+                {% if object.vet_grants_scholarships_notes %}
+                    <h6 class="mt-4">Veteran-specific Grants &amp; Scholarships</h6>
+                    <p>{{object.vet_grants_scholarships_notes}}</p>
+                {% endif %}
+
+                {% if object.yellow_ribbon_slots %}
+                    <h6 class="mt-4">Yellow Ribbon School</h6>
+                    <p>{{object.yellow_ribbon_slots}} available, with a maximum contribution of {{object.yellow_ribbon_contribution}}.</p>
+                {% endif %}
+
+                <h4 class="mt-4">Contact</h4>
+                <div>{{object.admin_name}}</div>
+                <div>{{object.admin_email}}</div>
+                <div>{{object.admin_phone}}</div>
+
+                <h4 class="mt-4">Additional Notes</h4>
+                <div>{{object.notes}}</div>
+
+                <h4 class="mt-4">Location</h4>
+                @todo Google Map Mini Vue
+                <address>
+                    {{object.address}}<br>
+                    {{object.city}}, {{object.state}}<br>
+                </address>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="logo-container">
+            <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
+            <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
+        </div>
+    </footer>
+</div>
+
+{% endblock %}

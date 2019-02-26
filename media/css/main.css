@@ -20,10 +20,14 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
+h5 
+{
   font-family: Georgia,Times,Times New Roman,serif; 
   font-weight: 700;
+}
+
+h6 {
+    font-weight: 700;
 }
 
 a {
@@ -84,8 +88,15 @@ nav a {
 
 /* Flatpages */
 .flatpage h1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
 }
+/* Small devices (sm - landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .flatpage h1 {
+        font-size: 3.5rem;
+    }
+}
+
 .flatpage .skewed-background {
     display: none;
 }
@@ -124,7 +135,8 @@ nav a {
 @media (min-width : 992px) {
     .flatpage-container {
         height: 100%;
-        width: 99%;
+        width: 100%;
+        overflow-x: hidden;
     }
     .flatpage-content,
     .flatpage-title {
@@ -342,6 +354,39 @@ nav a {
     display: block;
 }
 
+/* Detail Pages */
+.detail-page-content {
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.detail-page-content .main-image {
+    width: 100%;
+    background-color: #efefef;
+    overflow: hidden;
+    max-height: 19rem;
+}
+
+.detail-page-content .main-image img {
+    width: 100%;
+    height: auto;
+}
+
+.detail-page-content .has-feature {
+    color: #6fb16a;
+}
+
+.detail-page-content .does-not-have-feature {
+    color: #e44a60;
+}
+
+.detail-page-content table th {
+    background-color: #dee2e6;
+    padding: .25rem;
+}
 
 /* Footer */
 footer {
@@ -451,10 +496,24 @@ footer .footer-logo img.cvti {
     .advanced-filter-toggle {
         display: none;
     }
+    .quick-info-website {
+        text-align: center;
+    }
+    .quick-info-admissions {
+        text-align: right;
+    }
 }
 
 /* Large devices (lg - desktops, 992px and up) */
 @media (min-width: 992px) {
+    .detail-page-content {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    .main-image {
+        border-radius: 5px;
+        margin-top: 2rem;
+    }
     footer .footer-logo img {
         height: 60px;
     }
