@@ -1,7 +1,3 @@
-h1.display-1, a.navbar-brand {font-weight: 700;}
-nav a {font-weight: 500;}
-
-
 html, body {
     position: relative;
     height: 100%;
@@ -49,6 +45,11 @@ a {
 }
 
 /* Navbar */
+.navbar {
+    padding: 0;
+    padding-left: 10px;
+}
+
 nav a, nav a:visited {
     color: white;
 }
@@ -60,6 +61,15 @@ nav a:active, nav a:focus, nav a:hover {
 .bg-custom {
     background-color: #253462;
 }
+
+a.navbar-brand {
+    font-size: 1rem;
+}
+
+nav a {
+    font-weight: 500;
+}
+
 
 /* Golden brown button */
 .btn-secondary {
@@ -157,17 +167,13 @@ nav a:active, nav a:focus, nav a:hover {
 
 .map-space {
     position: absolute;
-    top: 3.5rem;
+    top: 2.4rem;
     bottom: 0;
     width: 100%;
 }
 
 .map-space a {
     font-family: Open Sans !important;
-}
-
-.map-view .navbar {
-    padding: .5rem;
 }
 
 .map-view .google-map {
@@ -185,7 +191,7 @@ nav a:active, nav a:focus, nav a:hover {
 
 .map-view .search-bar {
     border: 1px solid #ddd;
-    width: 280px;
+    width: 242px;
     margin-bottom: 1rem;
     margin-top: -8px;
 }
@@ -215,11 +221,10 @@ nav a:active, nav a:focus, nav a:hover {
 
 .map-view .advanced-filters {
     position: absolute;
-    width: 90vw;
-    bottom: 0;
-    left: 5vw;
-    right: 5vw;
+    left: 2vw;
+    right: 2vw;
     top: 0.625rem;
+    width: 22.5rem;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -240,12 +245,12 @@ nav a:active, nav a:focus, nav a:hover {
 }
 
 .map-view span.graduation-rates {
-    width: 190px;
+    width: 165px;
     margin-top: -10px;
 }
 
 .map-view span.states {
-    width: 280px;
+    width: 255px;
     margin-top: -10px;
 }
 
@@ -255,19 +260,21 @@ nav a:active, nav a:focus, nav a:hover {
 
 .map-view .pin-place-detail {
     position: absolute;
-    width: 90vw;
+    width: 22.5rem;
     bottom: 0;
-    left: 5vw;
-    right: 5vw; 
+    left: 2vw;
+    right: 2vw; 
     background-color: #fff;
     box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     z-index: 1;
+    min-height: 12rem;
+    font-size: .9rem;
 }
 
 .map-view .search-results-header {
-    background-color: #6cace4;
+    background-color: #0072ce;
     height: 30px;
     font-size: 1rem;
     text-align: center;
@@ -306,13 +313,32 @@ nav a:active, nav a:focus, nav a:hover {
     font-size: 1.8rem;
 }
 
+.pin-place-optional,
 .pin-place-thumbnail {
     display: none;
 }
 
-.pin-detail-tags {
-    line-height: 1.3;
+.advanced-filter-toggle {
+    display: block;
+    cursor: pointer;
 }
+
+.advanced-filter-toggle .hide-filters {
+    display: block;
+}
+
+.advanced-filter-toggle .show-filters {
+    display: none;
+}
+
+.advanced-filter-toggle.collapsed .hide-filters {
+    display: none;
+}
+
+.advanced-filter-toggle.collapsed .show-filters {
+    display: block;
+}
+
 
 /* Footer */
 footer {
@@ -366,54 +392,49 @@ footer .footer-logo img.cvti {
 /* Extra small devices (portrait phones, less than 576px) */
 /* No media query for `xs` since this is the default in Bootstrap */
 
-/* Small devices (sm - landscape phones, 576px and up) */
-@media (min-width: 576px) {
-    .map-view .advanced-filters {
-        left: 0.625rem;
-        width: 25rem;
-    }
-    .pin-place-thumbnail {
-        float: right;
-        display: block;
-        width: 5.7rem;
-        height: 3rem;
-        overflow: hidden;
-    }
-    .pin-place-thumbnail .thumbnail-bg {
-        width: 100%;
-        height: 100%;
-        border: 1px solid #ddd;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
+@media (min-width: 768px) {
 }
 
-/* Medium devices (md - tablets, 768px and up) */
-@media (min-width: 768px) {
+/* Small devices (sm - landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    a.navbar-brand {
+        font-size: 1.25rem;
+    }
     .map-view .advanced-filters {
         border-top: 1px solid #ddd;
-        width: 25rem;
+        width: 24rem;
         top: 0.625rem;
         left: 0.625rem;
         right: 0;
         bottom: auto;
     }
     .map-view .pin-place-detail {
-        width: 25rem;
+        width: 24rem;
         top: 16.5rem;
         left: 0.625rem;
         right: 0;
         bottom: auto;
-    }
-    .pin-place-header {
+        font-size: 1rem;
     }
     .pin-place-thumbnail {
-        float: none;
         width: 100%;
         height: 10.5rem;
         background-color: #efefef;
         overflow: hidden;
+    }
+    .pin-place-optional {
+        display: block;
+    }
+    .map-view span.graduation-rates {
+        width: 190px;
+        margin-top: -10px;
+    }
+    .map-view span.states {
+        width: 280px;
+        margin-top: -10px;
+    }
+    .map-view .search-bar {
+        width: 265px;
     }
     footer .footer-logo img {
         height: 50px;
@@ -421,7 +442,12 @@ footer .footer-logo img.cvti {
     footer .footer-logo img.cvti {
         height: 65px;
     }
-
+    .search-criteria {
+        display: block !important;
+    }
+    .advanced-filter-toggle {
+        display: none;
+    }
 }
 
 /* Large devices (lg - desktops, 992px and up) */

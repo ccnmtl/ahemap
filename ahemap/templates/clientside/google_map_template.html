@@ -4,7 +4,7 @@
         <form action='.' method='GET' name="search" id="maincontent">
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters">
-                <div class="search-criteria">
+                <div class="search-criteria collapse show">
                     <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
                     <span class="float-right">
                         <span class="form-check form-check-inline">
@@ -20,27 +20,26 @@
                     </span>
                 </div>
 
-                <div class="search-criteria">
+                <div class="search-criteria collapse show">
                     <i aria-hidden="true" class="fas fa-graduation-cap text-muted"></i>
                     <label for="graduation-rates">Graduation Rates</label>
                     <span class="graduation-rates float-right">
                         <multiselect v-model="graduationRate"
                             id="graduation-rates" name="graduation-rates"
-                            :options="graduationRates"
+                            :options="graduationRates" :allow-empty="true"
                             label="name" placeholder="Select threshhold"
                             :searchable="false" selectLabel=""
-                            :allow-empty="true" deselectLabel="clear"
+                            deselectLabel="clear"
                             selectedLabel="" track-by="id">
                         </multiselect>
                     </span>
                 </div>
 
-                <div class="search-criteria">
+                <div class="search-criteria collapse show">
                     <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
                     <label for="states">State</label>
                     <span class="states float-right">
-                        <multiselect v-model="state"
-                             id="states" name="state"
+                        <multiselect v-model="state" name="state" id="states"
                             :options="states"
                             label="name" placeholder="Type or choose state"
                             :searchable="true" selectLabel=""
@@ -50,7 +49,7 @@
                     </span>
                 </div>
 
-                <div class="search-criteria">
+                <div class="search-criteria collapse show">
                     <i class="fas fa-landmark text-muted "></i>
                     <label for="search-term">School</label>
                     <div class="search-bar float-right">
@@ -70,6 +69,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="advanced-filter-toggle small bg-light px-2 py-1 text-black"
+                    data-toggle="collapse" href="#collapseExample" role="button"
+                    data-target=".search-criteria"
+                    aria-expanded="true" aria-controls=".search-criteria">
+                    <span class="hide-filters">
+                        <i class="fas fa-angle-up"></i> Hide Search Options
+                    </span>
+                    <span class="show-filters">
+                        <i class="fas fa-angle-down"></i> Show Search Options
+                    </span>
+                </div>
             </div>
         </form>
         <div v-if="selectedSite" class="pin-place-detail">
@@ -80,13 +90,13 @@
                     <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results
                 </button>
                 <button v-else class="btn btn-sm btn-link float-left text-white w-50 btn-left"
-                    @click="clearCriteria" title="Clear Search">
-                    <i class="fas fa-times"></i> Clear Search
+                    @click="clearSelectedSite" title="Close">
+                    <i class="fas fa-times"></i> Close
                 </button>
                 <button v-if="selectedSite || searchResults"
                     class="btn btn-sm btn-link float-right text-white w-50"
                     title="Save Search">
-                    <i class="fas fa-download"></i> Save Results
+                    <i class="fas fa-download"></i> Save
                 </button>
             </div>
             <div class="clearfix"></div>
@@ -96,7 +106,7 @@
                     <img :src="selectedSite.image" title="Selected school thumbnail"
                         class="thumbnail-bg" />
                 </div>
-                <div class="clearfix mt-2">
+                <div class="clearfix mt-2 pin-place-optional">
                     <div v-if="selectedSite.website_url" class="float-left">
                         <a :href="selectedSite.website_url"
                             title="Selected school website link"
@@ -112,23 +122,21 @@
                         </a>
                     </div>
                 </div>
-                <div class="clearfix mt-2">
-                    <div>{{selectedSite.address}}</div>
-                    <div>{{selectedSite.city}}, {{selectedSite.state}}</div>
+                <div class="mt-2 pin-place-optional">
+                    {{selectedSite.address}}
                 </div>
-                <div class="clearfix">
+                <div>
+                    {{selectedSite.city}}, {{selectedSite.state}}
+                </div>
+                <div class="pin-place-optional">
                     <div v-if="selectedSite.private">Private institution</div>
                     <div v-else>Public institution</div>
                 </div>
-                <div class="pin-place-content mt-2">
-                    <div class="row mt-4 mt-md-3">
-                        <div class="col">
-                            <a :href="'/view/' + selectedSite.id + '/'"
-                                class="w-100 btn btn-sm btn-secondary">
-                                Additional Details
-                            </a>
-                        </div>
-                    </div>
+                <div class="mt-2">
+                    <a :href="'/view/' + selectedSite.id + '/'"
+                        class="w-100 btn btn-sm btn-secondary">
+                        Additional Details
+                    </a>
                 </div>
             </div>
         </div>
@@ -142,7 +150,7 @@
                 <button v-if="selectedSite || (searchResults && searchResults.length > 1)"
                     class="btn btn-sm btn-link float-right text-white w-50"
                     title="Save Search">
-                    <i class="fas fa-download"></i> Save Results
+                    <i class="fas fa-download"></i> Save
                 </button>
             </div>
             <div class="clearfix"></div>

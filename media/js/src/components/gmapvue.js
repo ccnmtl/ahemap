@@ -15,6 +15,7 @@ define(libs, function($, multiselect, utils) {
                 searchTerm: '',
                 searchResults: null,
                 searchResultHeight: 0,
+                bounds: null,
                 states: utils.states,
                 state: null,
                 graduationRates: utils.graduationRates,
@@ -48,12 +49,14 @@ define(libs, function($, multiselect, utils) {
                 this.twoYear = null;
                 this.fourYear = null;
 
-                this.map.setCenter(this.center);
-                this.map.setZoom(this.zoom);
+                $('#two-year-program').focus();
             },
             clearResults: function() {
                 this.searchResults = null;
+                this.bounds = null;
                 this.markerOpacity(1);
+                this.map.setCenter(this.center);
+                this.map.setZoom(this.zoom);
             },
             clearSelectedSite: function() {
                 if (!this.selectedSite) {
@@ -72,9 +75,6 @@ define(libs, function($, multiselect, utils) {
                     }
                 });
                 return result;
-            },
-            isSearching: function() {
-                return this.searchResults && this.searchResults.length > 0;
             },
             siteIconUrl: function(site) {
                 return AHE.staticUrl + 'png/pin-' + this.icon + '.png';
@@ -110,10 +110,6 @@ define(libs, function($, multiselect, utils) {
                 site.marker.setIcon(); // show pointy red icon
                 this.selectedSite = site;
                 this.markerShow(site.marker);
-
-                if (!this.isSearching()) {
-                    this.searchTerm = this.selectedSite.title;
-                }
             },
             search: function(event) {
                 this.clearSelectedSite();
@@ -129,10 +125,8 @@ define(libs, function($, multiselect, utils) {
                     } else if (sites.length > 1) {
                         // multiple sites found via keyword + year range
                         this.searchResults = [];
-                        const bounds = this.siteResults(sites);
-                        this.map.fitBounds(bounds);
-                        this.searchResultHeight =
-                            utils.visibleContentHeight();
+                        this.siteResults(sites);
+                        this.map.fitBounds(this.bounds);
                     } else {
                         // no results at all
                         this.markerOpacity(0.25);
@@ -163,7 +157,7 @@ define(libs, function($, multiselect, utils) {
                 return $.getJSON(url);
             },
             siteResults: function(results) {
-                let bounds = new google.maps.LatLngBounds();
+                this.bounds = new google.maps.LatLngBounds();
                 this.sites.forEach((site) => {
                     let opacity = 1;
                     if (!results.find(function(obj) {
@@ -173,12 +167,11 @@ define(libs, function($, multiselect, utils) {
                         opacity = .25;
                     } else {
                         this.searchResults.push(site);
-                        bounds.extend(site.marker.position);
-                        bounds = utils.enlargeBounds(bounds);
+                        this.bounds.extend(site.marker.position);
+                        this.bounds = utils.enlargeBounds(this.bounds);
                     }
                     site.marker.setOpacity(opacity);
                 });
-                return bounds;
             },
             searchDetail: function(siteId) {
                 const site = this.getSiteById(siteId);
@@ -186,6 +179,7 @@ define(libs, function($, multiselect, utils) {
             },
             searchList: function(event) {
                 this.clearSelectedSite();
+                this.map.fitBounds(this.bounds);
             }
         },
         created: function() {
@@ -259,6 +253,7 @@ define(libs, function($, multiselect, utils) {
                     });
                 }
             });
+            this.searchResultHeight = utils.visibleContentHeight();
         }
     };
     return {

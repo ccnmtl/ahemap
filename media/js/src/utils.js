@@ -110,7 +110,6 @@ define(function() {
 
         return viewportheight - (
             90 + $('header').outerHeight() +
-            $('.search-results-header').outerHeight() +
             $('.advanced-filters').outerHeight());
     }
 
