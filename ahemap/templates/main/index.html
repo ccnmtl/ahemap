@@ -36,12 +36,14 @@
     <div class="social-icons">
         <ul class="list-unstyled text-center mb-0">
             <li class="list-unstyled-item">
-                <a aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
+                <a aria-hidden="true" target="_blank" rel="noopener" class="edx"
+                    href="https://bit.ly/FYCMOOC" title="Link to EdX">
                     <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
                 </a>
             </li>
             <li class="list-unstyled-item">
-                <a aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
+                <a aria-hidden="true" target="_blank" rel="noopener"
+                    href="https://twitter.com/columbia_cvti" title="Link to Twitter">
                     <i class="fab fa-twitter"></i>
                 </a>
             </li>
@@ -49,8 +51,14 @@
     </div>
 
     <footer>
-        <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
-        <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
+        <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu"
+            target="_blank" rel="noopener">
+            <img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo">
+        </a>
+        <a class="logo float-left mt-3" href="https://ctl.columbia.edu"
+            target="_blank" rel="noopener">
+            <img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo">
+        </a>
     </footer>
 
 {% endblock %}

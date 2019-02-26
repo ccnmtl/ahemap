@@ -333,6 +333,11 @@ nav a {
     display: none;
 }
 
+.pin-place-thumbnail img {
+    width: auto;
+    height: 100%;
+}
+
 .advanced-filter-toggle {
     display: block;
     cursor: pointer;
@@ -469,6 +474,7 @@ footer .footer-logo img.cvti {
         height: 10.5rem;
         background-color: #efefef;
         overflow: hidden;
+        display: block;
     }
     .pin-place-optional {
         display: block;
