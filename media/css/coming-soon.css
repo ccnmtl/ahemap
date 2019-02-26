@@ -67,6 +67,7 @@ video {
 
 .masthead .masthead-content h1 {
     font-size: 2.5rem;
+    margin-top: 1rem !important;
 }
 
 .masthead .masthead-content p {

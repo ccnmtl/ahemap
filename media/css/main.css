@@ -83,6 +83,9 @@ nav a {
 }
 
 /* Flatpages */
+.flatpage h1 {
+    font-size: 3.5rem;
+}
 .flatpage .skewed-background {
     display: none;
 }
@@ -491,5 +494,74 @@ footer .footer-logo img.cvti {
     }
     footer .footer-logo img {
         height: 40px;
+    }
+}
+
+.social-icons {
+    margin-bottom: 2rem;
+    width: 100%;
+    z-index: 2;
+    color: #253462;
+}
+
+.social-icons ul {
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.social-icons ul>li {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: inline-block;
+}
+
+.social-icons ul>li>a:visited, .social-icons ul>li>a {
+    display: block;
+    color: white !important;
+    background-color: #253462;
+    border-radius: 100%;
+    font-size: 2rem;
+    line-height: 4rem;
+    height: 4rem;
+    width: 4rem;
+}
+
+.social-icons .edx img {
+    width: 42px;
+    margin-top: -7px;
+}
+
+@media ( min-width : 768px) {
+    .social-icons {
+        margin: 0;
+        position: absolute;
+        right: 2.5rem;
+        bottom: 2rem;
+        width: auto;
+    }
+    .social-icons ul {
+        margin-top: 0;
+        width: auto;
+    }
+    .social-icons ul>li {
+        display: block;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+    .social-icons ul>li:last-child {
+        margin-bottom: 0;
+    }
+    .social-icons ul>li>a {
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        font-size: 2rem;
+        line-height: 4rem;
+        height: 4rem;
+        width: 4rem;
+    }
+    .social-icons ul>li>a:hover {
+        background-color: #002E66;
     }
 }

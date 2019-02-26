@@ -14,11 +14,13 @@
                     <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home"></i> Attaining Higher Education</a>
                 </div>
             </div>
-            <div class="row no-gutters h-75">
+            <div class="row no-gutters h-50">
                 <div class="col-12 my-auto">
-                    <h1 class="my-5 text-center" id="maincontent">
-                        {{flatpage.title}}
-                    </h1>
+                    <div class="py-md-0 px-5">
+                        <h1 class="my-5" id="maincontent">
+                            {{flatpage.title}}
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,6 +28,21 @@
             <div class="my-5 px-4">
                 {{flatpage.content|safe}}
             </div>
+            <div class="social-icons">
+                <ul class="list-unstyled text-center mb-0">
+                    <li class="list-unstyled-item">
+                        <a aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
+                            <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
+                        </a>
+                    </li>
+                    <li class="list-unstyled-item">
+                        <a aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
         <footer>
             <div class="logo-container">
