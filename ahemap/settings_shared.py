@@ -76,7 +76,7 @@ INSTALLED_APPS += [  # noqa
     'django_extensions',
     'django.contrib.gis',
     'rest_framework',
-
+    'django.contrib.humanize',
     'ahemap.main',
 ]
 

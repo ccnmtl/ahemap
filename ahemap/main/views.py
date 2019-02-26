@@ -4,6 +4,7 @@ from django.db import transaction
 from django.urls.base import reverse
 from django.utils.html import escape
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from rest_framework import viewsets
 
@@ -22,6 +23,10 @@ def django_settings(request):
 
 class IndexView(TemplateView):
     template_name = "main/index.html"
+
+
+class InstitutionDetailView(DetailView):
+    model = Institution
 
 
 class MapView(TemplateView):
