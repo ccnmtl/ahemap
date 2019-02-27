@@ -1,7 +1,7 @@
 const libs = ['jquery', 'multiselect', 'utils'];
 define(libs, function($, multiselect, utils) {
     const GoogleMapVue = {
-        props: ['icon'],
+        props: [],
         template: '#google-map-template',
         components: {
             'multiselect': multiselect.Multiselect
@@ -77,7 +77,10 @@ define(libs, function($, multiselect, utils) {
                 return result;
             },
             siteIconUrl: function(site) {
-                return AHE.staticUrl + 'png/pin-' + this.icon + '.png';
+                return AHE.staticUrl + 'png/marker.png';
+            },
+            selectedIconUrl: function(site) {
+                return AHE.staticUrl + 'png/marker-selected.png';
             },
             markerOpacity: function(opacity) {
                 this.sites.forEach((site) => {
@@ -107,7 +110,8 @@ define(libs, function($, multiselect, utils) {
 
                 this.clearSelectedSite();
 
-                site.marker.setIcon(); // show pointy red icon
+                const url = this.selectedIconUrl();
+                site.marker.setIcon(url);
                 this.selectedSite = site;
                 this.markerShow(site.marker);
             },
