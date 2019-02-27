@@ -30,24 +30,6 @@
                 <img src="{{object.image}}" title="{{object.title}} image" />
             </div>
             <div class="mt-2 px-5">
-                {% comment %}
-                <div class="row no-gutters">
-                    <div class="col-sm-4 quick-info-location">
-                        <i class="fas fa-map-marker-alt"></i> {{object.city}}, {{object.state}}
-                    </div>
-                    <div class="col-sm-4 quick-info-website">
-                        <a href="{{object.website_url}}" title="website link" target="_blank" rel="noopener">
-                            <i class="fas fa-graduation-cap"></i> Website
-                        </a>
-                    </div>
-                    <div class="col-sm-4 quick-info-admissions">
-                        <a href="{{object.admissions_url}}" title="veterans adminissions link" target="_blank" rel="noopener">
-                            <i class="fas fa-clipboard-list"></i> Admissions
-                        </a>
-                    </div>
-                </div>
-                {% endcomment %}
-
                 <h4 class="mt-4">At a Glance</h4>
                 <div class="row">
                     <div class="col-md-6">
@@ -191,8 +173,10 @@
     </div>
     <footer>
         <div class="logo-container">
-            <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
-            <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
+            <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank" rel="noopener">
+                <img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
+            <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank" rel="noopener">
+                <img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
         </div>
     </footer>
 </div>
