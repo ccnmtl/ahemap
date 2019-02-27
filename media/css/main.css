@@ -74,6 +74,19 @@ nav a {
     font-weight: 500;
 }
 
+/* Dark Blue Button */
+.btn-ahe {
+    background-color: #253462;
+    border-color: #253462;
+    color: white;
+}
+
+.btn-ahe:active, .btn-ahe:focus, .btn-ahe:hover {
+    background-color: #253462;
+    border-color: #253462;
+    color: lightgray;
+}
+
 
 /* Golden brown button */
 .btn-secondary {
@@ -163,6 +176,7 @@ nav a {
     .flatpage footer {
         position: fixed;
         background-color: inherit;
+        width: 50%;
      }
      .flatpage footer img {
         width: 200px;
