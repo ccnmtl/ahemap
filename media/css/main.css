@@ -407,6 +407,10 @@ nav a {
     padding: .25rem;
 }
 
+.detail-page-content .checked {
+    width: 30px;
+}
+
 /* Footer */
 footer {
     font-size: 85%;

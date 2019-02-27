@@ -85,9 +85,9 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><strong>Veterans Center</strong></td>
-                        <td class="has-feature">{% if object.vet_center %}<i class="fas fa-check"></i>{% endif %}</td>
-                        <td class="does-not-have-feature">{% if not object.vet_center %}<i class="fas fa-times"></i>{% endif %}</td>
+                        <td><strong>Application Fee Waived</strong></td>
+                        <td class="has-feature">{% if object.application_fee_waived %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.application_fee_waived %}<i class="fas fa-times"></i>{% endif %}</td>
                     </tr>
                     <tr>
                         <td><strong>SVA Chapter</strong></td>
@@ -95,9 +95,9 @@
                         <td class="does-not-have-feature">{% if not object.sva_chapter %}<i class="fas fa-times"></i>{% endif %}</td>
                     </tr>
                     <tr>
-                        <td><strong>Application Fee Waived</strong></td>
-                        <td class="has-feature">{% if object.application_fee_waived %}<i class="fas fa-check"></i>{% endif %}</td>
-                        <td class="does-not-have-feature">{% if not object.application_fee_waived %}<i class="fas fa-times"></i>{% endif %}</td>
+                        <td><strong>Veterans Center</strong></td>
+                        <td class="has-feature">{% if object.vet_center %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td class="does-not-have-feature">{% if not object.vet_center %}<i class="fas fa-times"></i>{% endif %}</td>
                     </tr>
                     <tr>
                         <td><strong>Veteran-specific grants/scholarships</strong></td>
@@ -123,19 +123,48 @@
                 {% endif %}
 
                 <h6 class="mt-4">Accepted Credits</h6>
-                <ul>
-                {% if object.clep_credits_accepted %}
-                    <li>CLEP</li>
-                {% endif %}
-                {% if object.jst_credits_accepted %}
-                    <li>JST</li>
-                {% endif %}
-                {% if object.dsst_credits_accepted %}
-                    <li>DSST</li>
-                {% endif %}
-                {% if object.online_credits_accepted %}
-                    <li>Online</li>
-                {% endif %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="checked">
+                            {% if object.clep_credits_accepted %}
+                                <i class="fas fa-check-square" title="CLEP credits accepted"></i>
+                            {% else %}
+                                <i class="far fa-square"></i>
+                            {% endif %}
+                        </span>
+                        CLEP
+                    </div>
+                    <div class="col-md-3">
+                        <span class="checked">
+                            {% if object.dsst_credits_accepted %}
+                                <i class="fas fa-check-square" title="DSST credits accepted"></i>
+                            {% else %}
+                                <i class="far fa-square"></i>
+                            {% endif %}
+                        </span>
+                        DSST
+                    </div>
+                    <div class="col-md-3">
+                        <span class="checked">
+                            {% if object.jst_credits_accepted %}
+                                <i class="fas fa-check-square" title="JST credits accepted"></i>
+                            {% else %}
+                                <i class="far fa-square"></i>
+                            {% endif %}
+                        </span>
+                        JST
+                    </div>
+                    <div class="col-md-3">
+                        <span class="checked">
+                            {% if object.online_credits_accepted %}
+                                <i class="fas fa-check-square" title="Online credits accepted"></i>
+                            {% else %}
+                                <i class="far fa-square"></i>
+                            {% endif %}
+                        </span>
+                        Online
+                    </div>
+                </div>
                 </ul>
 
                 {% if object.vet_grants_scholarships_notes %}
