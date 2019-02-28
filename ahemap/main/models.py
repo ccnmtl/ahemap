@@ -46,7 +46,7 @@ class InstitutionManager(models.Manager):
         'jst_credits_accepted',
         'dsst_credits_accepted',
         'yellow_ribbon',
-        'set_yellow_ribbon_slots',
+        'yellow_ribbon_slots',
         'yellow_ribbon_contribution',
         'online_credits_accepted',
         'application_fee_waived',
@@ -138,8 +138,8 @@ class Institution(models.Model):
     vet_grants_scholarships_notes = models.TextField(null=True, blank=True)
 
     yellow_ribbon = models.BooleanField()
-    yellow_ribbon_slots = models.PositiveIntegerField(null=True)
-    yellow_ribbon_contribution = models.PositiveIntegerField(null=True)
+    yellow_ribbon_slots = models.TextField(null=True, blank=True)
+    yellow_ribbon_contribution = models.TextField(null=True, blank=True)
 
     notes = models.TextField(null=True, blank=True)
 
@@ -179,16 +179,3 @@ class Institution(models.Model):
             self.latlng = Point(0, float(value))
         else:
             self.latlng = Point(self.latlng.coords[0], float(value))
-
-    def max_yellow_ribbon_slots(self):
-        # https://docs.djangoproject.com/en/2.2/ref/
-        #     models/fields/#positiveintegerfield
-        return 2147483646
-
-    def set_yellow_ribbon_slots(self, value):
-        if not value:
-            self.yellow_ribbon_slots = None
-        elif 'unlimited' in value.lower():
-            self.yellow_ribbon_slots = self.max_yellow_ribbon_slots()
-        else:
-            self.yellow_ribbon_slots = int(value)
