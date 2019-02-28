@@ -119,7 +119,7 @@
                     <h6 class="mt-4">Standardized tests are not required</h6>
                 {% endif %}
                 {% if object.standardized_test_notes %}
-                    <p><strong>Notes</strong>: {{object.standardized_test_notes}}</p>
+                    <p>Notes: {{object.standardized_test_notes}}</p>
                 {% endif %}
 
                 <h6 class="mt-4">Accepted Credits</h6>
@@ -174,7 +174,8 @@
 
                 {% if object.yellow_ribbon_slots %}
                     <h6 class="mt-4">Yellow Ribbon School</h6>
-                    <p>{{object.yellow_ribbon_slots}} available, with a maximum contribution of {{object.yellow_ribbon_contribution}}.</p>
+                    <div>{{object.yellow_ribbon_slots}} slots available.</div>
+                    <div>Maximum Contribution (per student/per year): {{object.yellow_ribbon_contribution}}.</div>
                 {% endif %}
 
                 <h4 class="mt-4">Additional Notes</h4>

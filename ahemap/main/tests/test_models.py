@@ -66,19 +66,6 @@ class InstitutionTest(TestCase):
         inst.set_accreditation_type('')
         self.assertIsNone(inst.accreditation_type)
 
-    def test_set_yellow_ribbon_slots(self):
-        inst = InstitutionFactory()
-
-        inst.set_yellow_ribbon_slots('')
-        self.assertIsNone(inst.yellow_ribbon_slots)
-
-        inst.set_yellow_ribbon_slots('Unlimited')
-        self.assertEquals(
-            inst.yellow_ribbon_slots, inst.max_yellow_ribbon_slots())
-
-        inst.set_yellow_ribbon_slots('10000')
-        self.assertEquals(inst.yellow_ribbon_slots, 10000)
-
     def test_find_or_create_by_external_id(self):
         i = InstitutionFactory()
         self.assertEquals(
@@ -148,8 +135,8 @@ class InstitutionTest(TestCase):
         self.assertFalse(i.jst_credits_accepted)
         self.assertTrue(i.dsst_credits_accepted)
         self.assertTrue(i.yellow_ribbon)
-        self.assertEquals(i.yellow_ribbon_slots, 10)
-        self.assertEquals(i.yellow_ribbon_contribution, 10000)
+        self.assertEquals(i.yellow_ribbon_slots, '10')
+        self.assertEquals(i.yellow_ribbon_contribution, '10000')
         self.assertFalse(i.online_credits_accepted)
         self.assertTrue(i.application_fee_waived)
         self.assertTrue(i.vet_grants_scholarships)
@@ -196,8 +183,8 @@ class InstitutionTest(TestCase):
         self.assertFalse(i.jst_credits_accepted)
         self.assertTrue(i.dsst_credits_accepted)
         self.assertTrue(i.yellow_ribbon)
-        self.assertEquals(i.yellow_ribbon_slots, 10)
-        self.assertEquals(i.yellow_ribbon_contribution, 10000)
+        self.assertEquals(i.yellow_ribbon_slots, '10')
+        self.assertEquals(i.yellow_ribbon_contribution, '10000')
         self.assertFalse(i.online_credits_accepted)
         self.assertTrue(i.application_fee_waived)
         self.assertTrue(i.vet_grants_scholarships)
