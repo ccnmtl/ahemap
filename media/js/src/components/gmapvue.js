@@ -216,23 +216,6 @@ define(libs, function($, multiselect, utils) {
                 ]
             });
 
-            // set initial address marker if specified in properties
-            if (this.latitude && this.longitude) {
-                const listener = this.map.addListener('idle', (ev) => {
-                    const position = new google.maps.LatLng(
-                        this.latitude, this.longitude);
-                    const marker = new google.maps.Marker({
-                        position: position,
-                        map: this.map,
-                        icon: this.siteIconUrl()
-                    });
-                    this.searchTerm = this.title;
-                    this.markerShow(marker);
-
-                    google.maps.event.removeListener(listener);
-                });
-            }
-
             // eslint-disable-next-line scanjs-rules/call_addEventListener
             window.addEventListener('resize', this.resize);
 
