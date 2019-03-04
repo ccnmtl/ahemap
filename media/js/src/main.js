@@ -1,19 +1,9 @@
-/* global requirejs: true */
-
-requirejs.config({
-    baseUrl: '../../media/js/',
-    paths: {
-        'jquery': 'lib/jquery-3.3.1.min',
-        'domReady': 'lib/require/domReady',
-    },
-    urlArgs: 'bust=' + (new Date()).getTime()
-});
-
-define([
-    'jquery',
-    'domReady',
-    'src/utils'
-], function($, domReady, utils) {
-    domReady(function() {
-    });
+requirejs(['./common'], function(common) {
+    requirejs(['jquery', 'domReady', 'bootstrap'],
+        function($, domReady, bootstrap) {
+            domReady(function() {
+                // common functionality for vanilla pages goes here
+            });
+        }
+    );
 });
