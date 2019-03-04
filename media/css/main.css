@@ -402,13 +402,17 @@ nav a {
     color: #e44a60;
 }
 
-.detail-page-content table th {
+.detail-page-content table.for-veterans th {
     background-color: #dee2e6;
     padding: .25rem;
 }
 
 .detail-page-content .checked {
     width: 30px;
+}
+
+.detail-page-content table.accepted-credits th {
+    border-top: 0;
 }
 
 /* Footer */
