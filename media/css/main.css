@@ -402,7 +402,7 @@ nav a {
     color: #e44a60;
 }
 
-.detail-page-content table th {
+.detail-page-content table.for-veterans th {
     background-color: #dee2e6;
     padding: .25rem;
 }
@@ -410,6 +410,9 @@ nav a {
 .detail-page-content .checked {
     width: 30px;
 }
+
+.detail-page-content table.accepted-credits th {
+    border-top: 0;
 
 .detail-page-content .google-mini-map {
     width: 100%;
