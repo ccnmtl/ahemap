@@ -1,7 +1,7 @@
 {% verbatim %}
 <script type="text/x-template" id="google-map-template">
     <div>
-        <form action='.' method='GET' name="search" id="maincontent">
+        <form action='.' method='GET' name="search" id="maincontent" v-if="sites.length > 0">
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters">
                 <div class="search-criteria collapse show">
@@ -173,7 +173,6 @@
                 </ul>
             </div>
         </div>
-        <ul style="display: none"><li v-for="site in sites">{{site.id}}</li></ul>
         <div class="google-map" :id="mapName"></div>
     </div>
 </script>

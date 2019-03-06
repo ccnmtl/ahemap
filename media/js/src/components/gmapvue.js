@@ -8,22 +8,18 @@ define(libs, function($, multiselect, utils) {
         },
         data: function() {
             return {
-                map: null,
                 mapName: 'the-map',
                 selectedSite: null,
                 sites: [],
                 searchTerm: '',
                 searchResults: null,
                 searchResultHeight: 0,
-                bounds: null,
                 states: utils.states,
                 state: null,
                 graduationRates: utils.graduationRates,
                 graduationRate: null,
                 twoYear: null,
-                fourYear: null,
-                center: null,
-                zoom: 5
+                fourYear: null
             };
         },
         methods: {
@@ -193,8 +189,10 @@ define(libs, function($, multiselect, utils) {
             });
         },
         mounted: function() {
-            let elt = document.getElementById(this.mapName);
+            this.bounds = null;
+            this.zoom = 5;
             this.center = new google.maps.LatLng(37.0902, -95.7129);
+            let elt = document.getElementById(this.mapName);
             this.map = new google.maps.Map(elt, {
                 mapTypeControl: false,
                 clickableIcons: false,
