@@ -59,11 +59,12 @@
                                 class="form-control form-control w-25"
                                 placeholder="Narrow by school name"
                                 aria-label="Narrow by school name"
-                                v-on:keydown.enter.prevent="search">
+                                @keydown.enter.prevent="onChangeCriteria">
                             <div class="input-group-append">
                                 <button class="btn btn-light" type="button"
                                     aria-label="Search" role="button"
-                                    v-on:click="search"><i class="fa fa-search"></i>
+                                    @click="onChangeCriteria">
+                                    <i class="fa fa-search"></i>
                                 </button>
                             </div>
                         </div>
@@ -86,11 +87,11 @@
             <div class="search-results-header">
                 <button v-if="searchResults && searchResults.length > 1"
                     class="btn btn-sm btn-link float-left text-white w-50 btn-left"
-                    v-on:click.prevent="searchList">
+                    @click.prevent="onBackToSearchList">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results
                 </button>
                 <button v-else class="btn btn-sm btn-link float-left text-white w-50 btn-left"
-                    @click="clearSelectedSite" title="Close">
+                    @click="onClearSelectedSite" title="Close">
                     <i class="fas fa-times"></i> Close
                 </button>
                 <button v-if="selectedSite || searchResults"
@@ -144,7 +145,7 @@
             <div class="search-results-header">
                 <button v-if="selectedSite || searchResults"
                     class="btn btn-sm btn-link float-left text-white w-50 btn-left"
-                    @click="clearCriteria" title="Clear Search">
+                    @click="onClear" title="Clear Search">
                     <i class="fas fa-times"></i> Clear Search
                 </button>
                 <button v-if="selectedSite || (searchResults && searchResults.length > 1)"
@@ -165,7 +166,9 @@
                         </div>
                         <div class="result-content float-left">
                             <h6 class="mb-1">
-                                <a href="#" v-on:click="searchDetail(site.id)">{{site.title}}</a>
+                                <button class="btn btn-link p-0" @click="onSearchDetail(site.id)">
+                                    <strong>{{site.title}}</strong>
+                                </button>
                             </h6>
                             <div>{{site.city}}, {{site.state}}</div>
                         </div>
