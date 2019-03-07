@@ -8,22 +8,18 @@ define(libs, function($, multiselect, utils) {
         },
         data: function() {
             return {
-                map: null,
                 mapName: 'the-map',
                 selectedSite: null,
                 sites: [],
                 searchTerm: '',
                 searchResults: null,
                 searchResultHeight: 0,
-                bounds: null,
                 states: utils.states,
                 state: null,
                 graduationRates: utils.graduationRates,
                 graduationRate: null,
                 twoYear: null,
-                fourYear: null,
-                center: null,
-                zoom: 5
+                fourYear: null
             };
         },
         methods: {
@@ -63,8 +59,7 @@ define(libs, function($, multiselect, utils) {
                     return;
                 }
                 // reset the icon to the site's category
-                const url = this.siteIconUrl(this.selectedSite);
-                this.selectedSite.marker.setIcon(url);
+                this.selectedSite.marker.setIcon(this.siteIconUrl);
                 this.selectedSite = null;
             },
             getSiteById: function(siteId) {
@@ -75,12 +70,6 @@ define(libs, function($, multiselect, utils) {
                     }
                 });
                 return result;
-            },
-            siteIconUrl: function(site) {
-                return AHE.staticUrl + 'png/marker.png';
-            },
-            selectedIconUrl: function(site) {
-                return AHE.staticUrl + 'png/marker-selected.png';
             },
             markerOpacity: function(opacity) {
                 this.sites.forEach((site) => {
@@ -110,8 +99,7 @@ define(libs, function($, multiselect, utils) {
 
                 this.clearSelectedSite();
 
-                const url = this.selectedIconUrl();
-                site.marker.setIcon(url);
+                site.marker.setIcon(this.selectedIconUrl);
                 this.selectedSite = site;
                 this.markerShow(site.marker);
             },
@@ -187,14 +175,14 @@ define(libs, function($, multiselect, utils) {
             }
         },
         created: function() {
-            const url = AHE.baseUrl + 'api/institution/';
-            $.getJSON(url, (data) => {
-                this.sites = data;
-            });
+            this.bounds = null;
+            this.zoom = 5;
+            this.center = new google.maps.LatLng(37.0902, -95.7129);
+            this.siteIconUrl = AHE.staticUrl + 'png/marker.png';
+            this.selectedIconUrl = AHE.staticUrl + 'png/marker-selected.png';
         },
         mounted: function() {
             let elt = document.getElementById(this.mapName);
-            this.center = new google.maps.LatLng(37.0902, -95.7129);
             this.map = new google.maps.Map(elt, {
                 mapTypeControl: false,
                 clickableIcons: false,
@@ -219,27 +207,31 @@ define(libs, function($, multiselect, utils) {
             // eslint-disable-next-line scanjs-rules/call_addEventListener
             window.addEventListener('resize', this.resize);
 
-            this.$watch('twoYear', this.changeCriteria);
-            this.$watch('fourYear', this.changeCriteria);
-            this.$watch('graduationRate', this.changeCriteria);
-            this.$watch('state', this.changeCriteria);
-        },
-        updated: function() {
-            this.sites.forEach((site) => {
-                if (!site.marker) {
+            const url = AHE.baseUrl + 'api/institution/';
+            $.getJSON(url, (data) => {
+                this.sites = data;
+                this.sites.forEach((site) => {
                     const position = new google.maps.LatLng(site.lat, site.lng);
                     const marker = new google.maps.Marker({
                         position: position,
                         map: this.map,
-                        icon: this.siteIconUrl(site)
+                        icon: this.siteIconUrl
                     });
                     site.marker = marker;
-                    site.iconUrl = this.siteIconUrl(site);
+                    site.iconUrl = this.siteIconUrl;
                     google.maps.event.addListener(marker, 'click', (e) => {
                         this.selectSite(site);
                     });
-                }
+                });
+
+                // now watch search criteria
+                this.$watch('twoYear', this.changeCriteria);
+                this.$watch('fourYear', this.changeCriteria);
+                this.$watch('graduationRate', this.changeCriteria);
+                this.$watch('state', this.changeCriteria);
             });
+        },
+        updated: function() {
             this.searchResultHeight = utils.visibleContentHeight();
         }
     };
