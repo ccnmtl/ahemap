@@ -23,7 +23,11 @@ define(libs, function($, multiselect, utils) {
             };
         },
         methods: {
-            changeCriteria: function() {
+            onBackToSearchList: function(event) {
+                this.clearSelectedSite();
+                this.map.fitBounds(this.bounds);
+            },
+            onChangeCriteria: function() {
                 this.clearSelectedSite();
                 this.clearResults();
 
@@ -33,12 +37,11 @@ define(libs, function($, multiselect, utils) {
                     this.search();
                 }
             },
-            clearCriteria: function(evt) {
+            onClear: function(evt) {
                 evt.preventDefault();
                 this.clearSelectedSite();
                 this.clearResults();
 
-                this.searchResults = null;
                 this.searchTerm = null;
                 this.graduationRate = null;
                 this.state = null;
@@ -46,6 +49,13 @@ define(libs, function($, multiselect, utils) {
                 this.fourYear = null;
 
                 $('#two-year-program').focus();
+            },
+            onClearSelectedSite: function() {
+                this.clearSelectedSite();
+            },
+            onSearchDetail: function(siteId) {
+                const site = this.getSiteById(siteId);
+                this.selectSite(site);
             },
             clearResults: function() {
                 this.searchResults = null;
@@ -164,14 +174,6 @@ define(libs, function($, multiselect, utils) {
                     }
                     site.marker.setOpacity(opacity);
                 });
-            },
-            searchDetail: function(siteId) {
-                const site = this.getSiteById(siteId);
-                this.selectSite(site);
-            },
-            searchList: function(event) {
-                this.clearSelectedSite();
-                this.map.fitBounds(this.bounds);
             }
         },
         created: function() {
@@ -224,11 +226,11 @@ define(libs, function($, multiselect, utils) {
                     });
                 });
 
-                // now watch search criteria
-                this.$watch('twoYear', this.changeCriteria);
-                this.$watch('fourYear', this.changeCriteria);
-                this.$watch('graduationRate', this.changeCriteria);
-                this.$watch('state', this.changeCriteria);
+                // search criteria changes as the user interacts with the form
+                this.$watch('twoYear', this.onChangeCriteria);
+                this.$watch('fourYear', this.onChangeCriteria);
+                this.$watch('graduationRate', this.onChangeCriteria);
+                this.$watch('state', this.onChangeCriteria);
             });
         },
         updated: function() {
