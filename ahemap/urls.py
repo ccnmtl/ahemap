@@ -24,6 +24,7 @@ urlpatterns = [
     auth_urls,
     url(r'^$', views.IndexView.as_view()),
     url(r'^map/$', views.MapView.as_view(), name='map-view'),
+    url(r'^save/$', views.SaveView.as_view(), name='save-view'),
     url(r'^api/', include(router.urls)),
     url(r'^view/(?P<pk>\d+)/$', views.InstitutionDetailView.as_view(),
         name='institution-detail-view'),

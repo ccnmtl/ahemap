@@ -160,6 +160,9 @@ class Institution(models.Model):
             if value == s[1]:
                 self.accreditation_type = s[0]
 
+    def get_institution_type(self):
+        return 'Private' if self.private else 'Public'
+
     def set_institution_type(self, value):
         self.private = 'private' in value.lower()
 
