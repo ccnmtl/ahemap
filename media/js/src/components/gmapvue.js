@@ -31,10 +31,9 @@ define(libs, function($, multiselect, utils) {
                 this.clearSelectedSite();
                 this.clearResults();
 
-                // trigger a new search if the search criteria is valid
-                if (this.twoYear || this.fourYear ||
-                        this.graduationRate || this.state || this.searchTerm) {
-                    this.search();
+                const params = this.searchCriteria();
+                if (Object.keys(params).length > 0) {
+                    this.search(params);
                 }
             },
             onClear: function(evt) {
@@ -113,12 +112,26 @@ define(libs, function($, multiselect, utils) {
                 this.selectedSite = site;
                 this.markerShow(site.marker);
             },
-            search: function(event) {
-                this.clearSelectedSite();
-                this.clearResults();
+            searchCriteria: function() {
+                let params = {};
+                if (this.searchTerm) {
+                    params['q'] = utils.sanitize(this.searchTerm);
+                }
+                if (this.twoYear) {
+                    params['twoyear'] = this.twoYear;
+                }
+                if (this.fourYear) {
+                    params['fouryear'] = this.fourYear;
+                }
+                if (this.state) {
+                    params['state'] = this.state.id;
+                }
+                return params;
+            },
+            search: function(criteria) {
                 $('html').addClass('busy');
 
-                $.when(this.searchForSite()).done((sites) => {
+                $.getJSON(this.baseUrl + $.param(criteria)).done((sites) => {
                     if (sites.length === 1) {
                         // single site found
                         const site = this.getSiteById(sites[0].id);
@@ -177,6 +190,7 @@ define(libs, function($, multiselect, utils) {
             }
         },
         created: function() {
+            this.baseUrl = AHE.baseUrl + 'api/institution/?';
             this.bounds = null;
             this.zoom = 5;
             this.center = new google.maps.LatLng(37.0902, -95.7129);
