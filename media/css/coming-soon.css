@@ -8,7 +8,7 @@
 }
 
 body {
-    background: url("../img/home_background.jpg") #002E66 no-repeat center center
+    background: url("../img/home_background_min.jpg") #002E66 no-repeat center center
         scroll;
     background-position: cover;
     background-size: 100% auto;
