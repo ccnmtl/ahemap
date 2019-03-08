@@ -113,10 +113,29 @@ define(function() {
             $('.advanced-filters').outerHeight());
     }
 
+    function queryParams() {
+        // https://stackoverflow.com/questions/901115/
+        // how-can-i-get-query-string-values-in-javascript
+        const pl = /\+/g;  // Regex to sub addition symbol with space
+        const search = /([^&=]+)=?([^&]*)/g;
+        const decode = function(s) {
+            return decodeURIComponent(s.replace(pl, ' '));
+        };
+        const query = window.location.search.substring(1);
+
+        let match;
+        let urlParams = {};
+        while ((match = search.exec(query))) {
+            urlParams[decode(match[1])] = decode(match[2]);
+        }
+        return urlParams;
+    }
+
     return {
         csrfSafeMethod: csrfSafeMethod,
         enlargeBounds: enlargeBounds,
         graduationRates: graduationRates,
+        queryParams: queryParams,
         sanitize: sanitize,
         states: states,
         visibleContentHeight: visibleContentHeight

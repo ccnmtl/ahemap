@@ -31,10 +31,13 @@ define(libs, function($, multiselect, utils) {
                 this.clearSelectedSite();
                 this.clearResults();
 
-                // trigger a new search if the search criteria is valid
-                if (this.twoYear || this.fourYear ||
-                        this.graduationRate || this.state || this.searchTerm) {
-                    this.search();
+                const params = this.searchCriteria();
+                if (Object.keys(params).length > 0) {
+                    this.search(params);
+
+                    // track history
+                    const url = '/map/?' + $.param(params);
+                    window.history.replaceState({}, '', url);
                 }
             },
             onClear: function(evt) {
@@ -49,13 +52,19 @@ define(libs, function($, multiselect, utils) {
                 this.fourYear = null;
 
                 $('#two-year-program').focus();
+                window.history.replaceState({}, '', '/map/');
             },
             onClearSelectedSite: function() {
                 this.clearSelectedSite();
+                window.history.replaceState({}, '', '/map/');
             },
-            onSearchDetail: function(siteId) {
-                const site = this.getSiteById(siteId);
+            onSelectSite: function(site) {
                 this.selectSite(site);
+
+                if (!this.searchResults) {
+                    window.history.replaceState(
+                        {}, '', '/map/?site=' + site.id);
+                }
             },
             clearResults: function() {
                 this.searchResults = null;
@@ -113,12 +122,26 @@ define(libs, function($, multiselect, utils) {
                 this.selectedSite = site;
                 this.markerShow(site.marker);
             },
-            search: function(event) {
-                this.clearSelectedSite();
-                this.clearResults();
+            searchCriteria: function() {
+                let params = {};
+                if (this.searchTerm) {
+                    params['q'] = utils.sanitize(this.searchTerm);
+                }
+                if (this.twoYear) {
+                    params['twoyear'] = this.twoYear;
+                }
+                if (this.fourYear) {
+                    params['fouryear'] = this.fourYear;
+                }
+                if (this.state) {
+                    params['state'] = this.state.id;
+                }
+                return params;
+            },
+            search: function(criteria) {
                 $('html').addClass('busy');
 
-                $.when(this.searchForSite()).done((sites) => {
+                $.getJSON(this.baseUrl + $.param(criteria)).done((sites) => {
                     if (sites.length === 1) {
                         // single site found
                         const site = this.getSiteById(sites[0].id);
@@ -174,9 +197,36 @@ define(libs, function($, multiselect, utils) {
                     }
                     site.marker.setOpacity(opacity);
                 });
+            },
+            setState: function(params) {
+                if ('site' in params) {
+                    const siteId = parseInt(params['site'], 10);
+                    const site = this.getSiteById(siteId);
+                    this.selectSite(site);
+                    return;
+                }
+
+                if ('state' in params && params.state) {
+                    for (let s of this.states) {
+                        if (s.id === params.state) {
+                            this.state = s;
+                        }
+                    }
+                }
+                if ('q' in params) {
+                    this.searchTerm = utils.sanitize(params.q);
+                }
+                if ('twoyear' in params) {
+                    this.twoYear = params.twoyear === 'true';
+                }
+                if ('fouryear' in params) {
+                    this.fourYear = params.fouryear === 'true';
+                }
+                this.onChangeCriteria();
             }
         },
         created: function() {
+            this.baseUrl = AHE.baseUrl + 'api/institution/?';
             this.bounds = null;
             this.zoom = 5;
             this.center = new google.maps.LatLng(37.0902, -95.7129);
@@ -222,9 +272,15 @@ define(libs, function($, multiselect, utils) {
                     site.marker = marker;
                     site.iconUrl = this.siteIconUrl;
                     google.maps.event.addListener(marker, 'click', (e) => {
-                        this.selectSite(site);
+                        this.onSelectSite(site);
                     });
                 });
+
+                // load state if there are query params
+                const params = utils.queryParams();
+                if (Object.keys(params).length > 0) {
+                    this.setState(params);
+                }
 
                 // search criteria changes as the user interacts with the form
                 this.$watch('twoYear', this.onChangeCriteria);

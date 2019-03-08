@@ -90,7 +90,12 @@
                     @click.prevent="onBackToSearchList">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to results
                 </button>
-                <button v-else class="btn btn-sm btn-link float-left text-white w-50 btn-left"
+                <button v-if="searchResults && searchResults.length === 1"
+                    class="btn btn-sm btn-link float-left text-white w-50 btn-left"
+                    @click="onClear" title="Clear Search">
+                    <i class="fas fa-times"></i> Clear Search
+                </button>
+                <button v-if="!searchResults" class="btn btn-sm btn-link float-left text-white w-50 btn-left"
                     @click="onClearSelectedSite" title="Close">
                     <i class="fas fa-times"></i> Close
                 </button>
@@ -166,7 +171,7 @@
                         </div>
                         <div class="result-content float-left">
                             <h6 class="mb-1">
-                                <button class="btn btn-link p-0" @click="onSearchDetail(site.id)">
+                                <button class="btn btn-link p-0" @click="onSelectSite(site)">
                                     <strong>{{site.title}}</strong>
                                 </button>
                             </h6>
