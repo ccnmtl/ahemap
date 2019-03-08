@@ -5,6 +5,10 @@
 {% block title %}Home{% endblock %}
 {% block bodyclass %}flatpage{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="https://ahemap.veterans.columbia.edu/view/{{object.id}}/" />
+{% endblock %}
+
 {% block client_templates %}
     <meta name="csrf-token" content="{{csrf_token}}">
     {% include "clientside/google_mini_map_template.html" %}

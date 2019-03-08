@@ -5,6 +5,11 @@
 {% block mainclass %}container-fluid px-0 map-space{% endblock %}
 {% block navclass %}fixed-top{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="https://ahemap.veterans.columbia.edu/map/" />
+{% endblock %}
+
+
 {% block extrahead %}
     <link rel="stylesheet" href="{{STATIC_URL}}js/lib/vue-multiselect/vue-multiselect.min.css"></link>
     <link rel="stylesheet" href="{{STATIC_URL}}js/lib/vue-multiselect/custom.css"></link>
