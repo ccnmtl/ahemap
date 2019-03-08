@@ -99,6 +99,12 @@ class InstitutionSearchMixin(object):
 
         return qs
 
+    def filter_by_site(self, qs, params):
+        site = params.get('siteid', None)
+        if site:
+            qs = qs.filter(id=site)
+        return qs
+
     def _get_params(self):
         if self.request.method == 'POST':
             return self.request.POST
@@ -111,6 +117,7 @@ class InstitutionSearchMixin(object):
         qs = self.filter_by_graduation_rate(qs, params)
         qs = self.filter_by_state(qs, params)
         qs = self.filter_by_name(qs, params)
+        qs = self.filter_by_site(qs, params)
         return qs
 
 
@@ -175,9 +182,11 @@ class SaveView(InstitutionSearchMixin, View):
         writer = csv.writer(pseudo_buffer)
 
         response = StreamingHttpResponse(
-            (writer.writerow(row) for row in rows), content_type="text/csv"
+            (writer.writerow(row) for row in rows), status=200,
+            content_type="text/csv"
         )
         response['Content-Disposition'] = 'attachment; filename="ahe.csv"'
+        response['Cache-Control'] = 'no-cache'
         return response
 
 

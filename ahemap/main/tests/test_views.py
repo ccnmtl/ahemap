@@ -118,7 +118,7 @@ class SaveViewTest(TestCase):
         response = self.client.get(url)
         self.assertEquals(response.status_code, 405)
 
-    def test_post(self):
+    def test_post_filter(self):
         url = reverse('save-view')
         response = self.client.post(url, {'q': self.inst1.title})
         self.assertEquals(response.status_code, 200)
@@ -128,6 +128,20 @@ class SaveViewTest(TestCase):
 
         value = next(response.streaming_content)
         self.assertTrue(value.startswith(str.encode(self.inst1.title)))
+
+        with self.assertRaises(StopIteration):
+            next(response.streaming_content)
+
+    def test_post_site(self):
+        url = reverse('save-view')
+        response = self.client.post(url, {'siteid': self.inst2.id})
+        self.assertEquals(response.status_code, 200)
+
+        value = next(response.streaming_content)
+        self.assertTrue(value.startswith(b'Institution,Address,City,State'))
+
+        value = next(response.streaming_content)
+        self.assertTrue(value.startswith(str.encode(self.inst2.title)))
 
         with self.assertRaises(StopIteration):
             next(response.streaming_content)
