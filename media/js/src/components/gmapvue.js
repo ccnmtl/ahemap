@@ -35,6 +35,9 @@ define(libs, function($, multiselect, utils) {
                 if (Object.keys(params).length > 0) {
                     this.search(params);
                 }
+                // track history
+                const url = '/map/?' + $.param(params);
+                window.history.replaceState({}, '', url);
             },
             onClear: function(evt) {
                 evt.preventDefault();
@@ -48,13 +51,19 @@ define(libs, function($, multiselect, utils) {
                 this.fourYear = null;
 
                 $('#two-year-program').focus();
+                window.history.replaceState({}, '', '/map/');
             },
             onClearSelectedSite: function() {
                 this.clearSelectedSite();
+                window.history.replaceState({}, '', '/map/');
             },
-            onSearchDetail: function(siteId) {
-                const site = this.getSiteById(siteId);
+            onSelectSite: function(site) {
                 this.selectSite(site);
+
+                if (!this.searchResults) {
+                    window.history.replaceState(
+                        {}, '', '/map/?site=' + site.id);
+                }
             },
             clearResults: function() {
                 this.searchResults = null;
@@ -187,6 +196,32 @@ define(libs, function($, multiselect, utils) {
                     }
                     site.marker.setOpacity(opacity);
                 });
+            },
+            setState: function(params) {
+                if ('site' in params) {
+                    const siteId = parseInt(params['site'], 10);
+                    const site = this.getSiteById(siteId);
+                    this.selectSite(site);
+                    return;
+                }
+
+                if ('state' in params && params.state) {
+                    for (let s of this.states) {
+                        if (s.id === params.state) {
+                            this.state = s;
+                        }
+                    }
+                }
+                if ('q' in params) {
+                    this.searchTerm = utils.sanitize(params.q);
+                }
+                if ('twoyear' in params) {
+                    this.twoYear = params.twoyear === 'true';
+                }
+                if ('fouryear' in params) {
+                    this.fourYear = params.fouryear === 'true';
+                }
+                this.onChangeCriteria();
             }
         },
         created: function() {
@@ -236,9 +271,15 @@ define(libs, function($, multiselect, utils) {
                     site.marker = marker;
                     site.iconUrl = this.siteIconUrl;
                     google.maps.event.addListener(marker, 'click', (e) => {
-                        this.selectSite(site);
+                        this.onSelectSite(site);
                     });
                 });
+
+                // load state if there are query params
+                const params = utils.queryParams();
+                if (Object.keys(params).length > 0) {
+                    this.setState(params);
+                }
 
                 // search criteria changes as the user interacts with the form
                 this.$watch('twoYear', this.onChangeCriteria);
