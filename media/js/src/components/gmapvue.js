@@ -34,11 +34,10 @@ define(libs, function($, multiselect, utils) {
                 const params = this.searchCriteria();
                 if (Object.keys(params).length > 0) {
                     this.search(params);
-
-                    // track history
-                    const url = '/map/?' + $.param(params);
-                    window.history.replaceState({}, '', url);
                 }
+                // track history
+                const url = '/map/?' + $.param(params);
+                window.history.replaceState({}, '', url);
             },
             onClear: function(evt) {
                 evt.preventDefault();
