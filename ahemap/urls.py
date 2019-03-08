@@ -22,7 +22,7 @@ router.register(r'institution', views.InstitutionViewSet, base_name='site')
 
 urlpatterns = [
     auth_urls,
-    url(r'^$', views.IndexView.as_view()),
+    url(r'^$', views.HomeView.as_view()),
     url(r'^map/$', views.MapView.as_view(), name='map-view'),
     url(r'^save/$', views.SaveView.as_view(), name='save-view'),
     url(r'^api/', include(router.urls)),

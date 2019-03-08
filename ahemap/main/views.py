@@ -24,8 +24,8 @@ def django_settings(request):
                           for k in whitelist])}
 
 
-class IndexView(TemplateView):
-    template_name = "main/index.html"
+class HomeView(TemplateView):
+    template_name = "main/home.html"
 
 
 class InstitutionDetailView(DetailView):
