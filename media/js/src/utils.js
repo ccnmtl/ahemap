@@ -15,6 +15,8 @@ define(function() {
         {name: 'Colorado', id: 'CO', lat: '39.059811', lng: '-105.311104'},
         {name: 'Connecticut', id: 'CT', lat: '41.597782', lng: '-72.755371'},
         {name: 'Delaware', id: 'DE', lat: '39.318523', lng: '-75.507141'},
+        {name: 'District of Columbia', id: 'DC',
+            lat: '38.9072', lng: '-77.0369'},
         {name: 'Florida', id: 'FL', lat: '27.766279', lng: '-81.686783'},
         {name: 'Georgia', id: 'GA', lat: '33.040619', lng: '-83.643074'},
         {name: 'Hawaii', id: 'HI', lat: '21.094318', lng: '-157.498337'},
