@@ -20,13 +20,22 @@
                         <h1 class="mb-3" id="maincontent">
                             Attaining<br />Higher<br />Education
                         </h1>
-                    <p class="mb-5">
-                        <a class="text-white" href="/about/"
-                            title="Learn more about the Attaining Higher Education map">Learn
-                            More</a>
-                    </p>
-                    <a class="btn btn-secondary btn-lg"
-                            href="{% url 'map-view' %}" role="button">Find Schools</a>
+                        <p class="mb-5">This interactive map is for selecting
+                        and narrowing colleges of interest with criteria
+                        important to service members and veterans. Start your
+                        search for a right-fit college or university.</p>
+                        <div class="row">
+                            <div class="col-md-6 order-md-2">
+                            <a class="btn btn-secondary btn-lg mb-2"
+                                    href="{% url 'map-view' %}" role="button">Search Schools</a>
+                            </div>
+                            <div class="col-md-6 order-md-1">
+                            <a class="btn btn-light btn-lg"
+                                href="/about/"
+                                title="Learn more about the Attaining Higher Education map">
+                                About the map</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
