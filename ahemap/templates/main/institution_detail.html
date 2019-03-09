@@ -18,7 +18,7 @@
     <script type="text/javascript"
         src="//maps.google.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&libraries=places"></script>
 
-    <script data-main="{{STATIC_URL}}js/src/minimap.js"
+    <script data-main="{{STATIC_URL}}js/src/detail.js"
         src="{{STATIC_URL}}js/lib/require/require.js"></script>
 {% endblock %}
 
@@ -202,9 +202,10 @@
                 </div>
 
                 <div class="my-5">
-                <a title="Return to the interactive map" href="{% url 'map-view' %}" class="btn btn-ahe btn-block">
-                    Return to Map
-                </a>
+                    <button title="Return to the interactive map" @click="onBackToMap"
+                        class="btn btn-ahe btn-block">
+                        Return to Map
+                    </button>
                 </div>
             </div>
         </div>
