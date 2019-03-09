@@ -81,9 +81,16 @@ class InstitutionSearchMixin(object):
 
         return qs
 
-    def filter_by_graduation_rate(self, qs, params):
-        # @todo - implement
-        return qs
+    def filter_by_public_private(self, qs, params):
+        public = params.get('public', None)
+        private = params.get('private', None)
+
+        if public and private is None:
+            return qs.filter(private=False)
+        elif public is None and private:
+            return qs.filter(private=True)
+        else:
+            return qs
 
     def filter_by_state(self, qs, params):
         q = params.get('state', None)
@@ -114,7 +121,7 @@ class InstitutionSearchMixin(object):
     def filter(self, qs):
         params = self._get_params()
         qs = self.filter_by_duration(qs, params)
-        qs = self.filter_by_graduation_rate(qs, params)
+        qs = self.filter_by_public_private(qs, params)
         qs = self.filter_by_state(qs, params)
         qs = self.filter_by_name(qs, params)
         qs = self.filter_by_site(qs, params)

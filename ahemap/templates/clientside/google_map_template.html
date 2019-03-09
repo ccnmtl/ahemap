@@ -19,19 +19,19 @@
                         </span>
                     </span>
                 </div>
-
                 <div class="search-criteria collapse show">
-                    <i aria-hidden="true" class="fas fa-graduation-cap text-muted"></i>
-                    <label for="graduation-rates">Graduation Rates</label>
-                    <span class="graduation-rates float-right">
-                        <multiselect v-model="graduationRate"
-                            id="graduation-rates" name="graduation-rates"
-                            :options="graduationRates" :allow-empty="true"
-                            label="name" placeholder="Select threshhold"
-                            :searchable="false" selectLabel=""
-                            deselectLabel="clear"
-                            selectedLabel="" track-by="id">
-                        </multiselect>
+                    <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> School Type
+                    <span class="float-right">
+                        <span class="form-check form-check-inline">
+                            <input v-model="schoolPublic" class="form-check-input" type="checkbox"
+                                id="type-public" name="public" value="Public">
+                            <label class="form-check-label" for="type-public">Public</label>
+                        </span>
+                        <span class="form-check form-check-inline">
+                            <input v-model="schoolPrivate" class="form-check-input" type="checkbox"
+                                id="type-private" name="private" value="Private">
+                            <label class="form-check-label" for="type-private">Private</label>
+                        </span>
                     </span>
                 </div>
 

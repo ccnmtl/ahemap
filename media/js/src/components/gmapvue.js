@@ -16,8 +16,8 @@ define(libs, function($, multiselect, utils) {
                 searchResultHeight: 0,
                 states: utils.states,
                 state: null,
-                graduationRates: utils.graduationRates,
-                graduationRate: null,
+                schoolPublic: null,
+                schoolPrivate: null,
                 twoYear: null,
                 fourYear: null
             };
@@ -134,6 +134,12 @@ define(libs, function($, multiselect, utils) {
                 }
                 if (this.state) {
                     params['state'] = this.state.id;
+                }
+                if (this.schoolPublic) {
+                    params['public'] = this.schoolPublic;
+                }
+                if (this.schoolPrivate) {
+                    params['private'] = this.schoolPrivate;
                 }
                 return params;
             },
@@ -284,7 +290,8 @@ define(libs, function($, multiselect, utils) {
                 // search criteria changes as the user interacts with the form
                 this.$watch('twoYear', this.onChangeCriteria);
                 this.$watch('fourYear', this.onChangeCriteria);
-                this.$watch('graduationRate', this.onChangeCriteria);
+                this.$watch('schoolPublic', this.onChangeCriteria);
+                this.$watch('schoolPrivate', this.onChangeCriteria);
                 this.$watch('state', this.onChangeCriteria);
             });
         },
