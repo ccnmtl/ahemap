@@ -1,11 +1,15 @@
 from json import loads
 
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.test.client import RequestFactory
 from django.urls.base import reverse
 
+from ahemap.main.forms import InstitutionImportForm
 from ahemap.main.models import Institution
 from ahemap.main.tests.factories import InstitutionFactory
-from ahemap.main.views import SaveView
+from ahemap.main.views import SaveView, InstitutionImportView
 
 
 class BasicTest(TestCase):
@@ -109,6 +113,53 @@ class InstitutionViewSetTest(TestCase):
         url = '/api/institution/{}/'.format(self.inst1.id)
         response = self.client.put(url, {'id': self.inst1.id, 'title': 'foo'})
         self.assertEquals(response.status_code, 403)
+
+
+class InstitutionImportViewTest(TestCase):
+
+    def setUp(self):
+        self.view = InstitutionImportView()
+        self.view.request = RequestFactory().post('/', {})
+
+        setattr(self.view.request, 'session', 'session')
+        self.messages = FallbackStorage(self.view.request)
+        setattr(self.view.request, '_messages', self.messages)
+
+    def test_get_form_kwargs(self):
+        self.assertTrue('request' in self.view.get_form_kwargs())
+
+    def test_get_success_url(self):
+        self.view.total = 10
+
+        self.assertEquals(self.view.get_success_url(),
+                          '/admin/import/institution/')
+        self.assertEquals('10 institutions imported.',
+                          self.messages._queued_messages[0].message)
+
+    def test_form_valid(self):
+        fields = [
+            b'123', b'admin_name', b'admin@email.com', b'7777777777',
+            b'Example', b'https://www.columbia.edu', b'0',
+            b'Private', b'2 year', b'https://www.columbia.edu/foo.png',
+            b'address', b'city', b'NY', b'40.8075', b'-73.9626',
+            b'10', b'20', b'30', b'40', b'https://www.columbia.edu',
+            b'Yes', b'No', b'Yes', b'standardized_test_notes', b'notes',
+            b'Yes', b'National', b'', b'No', b'No', b'Yes',
+            b'Yes', b'10', b'10000', b'No', b'Yes',
+            b'Yes', b'vet_grants_scholarships_notes'
+        ]
+        content = b',' * (len(Institution.objects.FIELD_MAPPING) - 1) + b'\r\n'
+        content += b','.join(fields)
+
+        form = InstitutionImportForm(request=self.view.request)
+        form._errors = {}
+
+        csv_file = SimpleUploadedFile('file.csv', content)
+        form.cleaned_data = {'csvfile': csv_file}
+        form.request.FILES['csvfile'] = csv_file
+
+        self.view.form_valid(form)
+        Institution.objects.get(external_id=123)
 
 
 class SaveViewTest(TestCase):
