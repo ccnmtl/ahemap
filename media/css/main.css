@@ -103,6 +103,14 @@ nav a {
 .flatpage h1 {
     font-size: 2.5rem;
 }
+
+.flatpage-title .maincontent-address {
+    font-size: 1.75rem;
+    font-family: Open Sans;
+    font-weight: normal;
+    display: none;
+}
+
 /* Small devices (sm - landscape phones, 576px and up) */
 @media (min-width: 576px) {
     .flatpage h1 {
@@ -378,7 +386,6 @@ nav a {
     padding-left: 0;
     padding-right: 0;
     height: 100%;
-    overflow-y: scroll;
     overflow-x: hidden;
 }
 
@@ -552,6 +559,12 @@ footer .footer-logo img.cvti {
     }
     footer .footer-logo img.cvti {
         height: 75px;
+    }
+    .flatpage-title .maincontent-address {
+        display: block;
+    }
+    .at-a-glance-address {
+        display: none;
     }
 }
 
