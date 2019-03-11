@@ -1,11 +1,5 @@
 define(function() {
 
-    const graduationRates = [
-        {id: 1, name: 'Below 75%'},
-        {id: 2, name: '76% - 84%'},
-        {id: 3, name: '85% and above'}
-    ];
-
     const states = [
         {name: 'Alabama', id: 'AL', lat: '32.806671', lng: '-86.79113'},
         {name: 'Alaska', id: 'AK', lat: '61.370716', lng: '-152.404419'},
@@ -136,7 +130,6 @@ define(function() {
     return {
         csrfSafeMethod: csrfSafeMethod,
         enlargeBounds: enlargeBounds,
-        graduationRates: graduationRates,
         queryParams: queryParams,
         sanitize: sanitize,
         states: states,
