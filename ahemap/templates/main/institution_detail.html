@@ -35,9 +35,12 @@
         <div class="row no-gutters h-50">
             <div class="col-12 my-auto">
                 <div class="py-md-0 px-5">
-                    <h1 class="my-5 mr-3" id="maincontent">
+                    <h1 class="mt-5 mr-3 mb-4" id="maincontent">
                         {{object.title}}
                     </h1>
+                    <div class="maincontent-address">
+                        {{object.city}}, {{object.state}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,7 +55,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <ul>
-                            <li>{{object.city}}, {{object.state}}</li>
+                            <li class="at-a-glance-address">{{object.city}}, {{object.state}}</li>
                             <li>
                                 {% if object.accredited %}
                                     Accredited {% if object.private %}private{% else %}public{% endif %} institution
@@ -60,6 +63,7 @@
                                     {% if object.private %}Private{% else %}Public{% endif %} institution
                                 {% endif %}
                             </li>
+                            <li>{{object.student_population|intcomma}} students</li>
                             {% if object.two_year_program and object.four_year_program %}
                                 <li>Two-year &amp; four-year programs</li>
                             {% else %}{% if object.two_year_program %}
@@ -67,17 +71,6 @@
                             {% else %}{% if object.four_year_program %}
                                 <li>Four-year program</li>
                             {% endif %}{% endif %}{% endif %}
-                            <li>{{object.student_population|intcomma}} students</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul>
-                            {% if object.undergrad_vet_population %}
-                                <li>{{object.undergrad_vet_population}} undergraduate veterans</li>
-                            {% endif %}
-                            {% if object.undergrad_vet_graduation_rate %}
-                            <li>{{object.undergrad_vet_graduation_rate}}% of undergraduate veterans graduate</li>
-                            {% endif %}
                             <li>
                                 <a href="{{object.website_url}}" title="website link" target="_blank" rel="noopener">
                                     Website Link
@@ -88,6 +81,19 @@
                                     Admissions Link
                                 </a>
                             </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            {% if object.undergraduate_population %}
+                                <li>{{object.undergraduate_population|intcomma}} undergraduates</li>
+                            {% endif %}
+                            {% if object.undergrad_vet_population %}
+                                <li>{{object.undergrad_vet_population}} undergraduate veterans</li>
+                            {% endif %}
+                            {% if object.undergrad_vet_graduation_rate %}
+                            <li>{{object.undergrad_vet_graduation_rate}}% of undergraduate veterans graduate</li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
