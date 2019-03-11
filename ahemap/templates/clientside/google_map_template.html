@@ -4,7 +4,7 @@
         <form action='.' method='GET' name="search" id="maincontent" v-if="sites.length > 0">
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters">
-                <div class="search-criteria collapse show">
+                <div class="search-criteria collapse show pt-3 px-3 pb-4">
                     <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
                     <span class="float-right">
                         <span class="form-check form-check-inline">
@@ -19,7 +19,7 @@
                         </span>
                     </span>
                 </div>
-                <div class="search-criteria collapse show">
+                <div class="search-criteria collapse show px-3 pb-4">
                     <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> School Type
                     <span class="float-right">
                         <span class="form-check form-check-inline">
@@ -34,8 +34,28 @@
                         </span>
                     </span>
                 </div>
+                <div class="search-criteria collapse show px-3 pb-4">
+                    <i aria-hidden="true" class="fas fa-users text-muted"></i>
+                    <label for="populations">School Size</label>
+                    <span class="undergraduate-populations float-right">
+                        <multiselect v-model="population"
+                            id="populations" name="populations"
+                            :options="populations" :allow-empty="true"
+                            label="name" placeholder="Undergraduate population"
+                            :searchable="false" selectLabel=""
+                            deselectLabel="clear"
+                            selectedLabel="" track-by="id">
 
-                <div class="search-criteria collapse show">
+                            <template slot="option" slot-scope="props">
+                                <div class="option__desc">
+                                    <div class="option__title">{{ props.option.name }}</div>
+                                    <div class="option__small small mt-1">{{ props.option.range }} undergraduates</div></div>
+                            </template>
+                        </multiselect>
+                    </span>
+                </div>
+
+                <div class="search-criteria collapse show px-3 pb-4">
                     <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
                     <label for="states">State</label>
                     <span class="states float-right">
@@ -48,8 +68,7 @@
                         </multiselect>
                     </span>
                 </div>
-
-                <div class="search-criteria collapse show">
+                <div class="search-criteria collapse show px-3">
                     <i class="fas fa-landmark text-muted "></i>
                     <label for="search-term">School</label>
                     <div class="search-bar float-right">
@@ -70,6 +89,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
                 <div class="advanced-filter-toggle small bg-light px-2 py-1 text-black"
                     data-toggle="collapse" href="#collapseExample" role="button"
                     data-target=".search-criteria"

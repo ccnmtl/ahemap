@@ -16,6 +16,8 @@ define(libs, function($, multiselect, utils) {
                 searchResultHeight: 0,
                 states: utils.states,
                 state: null,
+                populations: utils.populations,
+                population: null,
                 schoolPublic: null,
                 schoolPrivate: null,
                 twoYear: null,
@@ -44,11 +46,13 @@ define(libs, function($, multiselect, utils) {
                 this.clearSelectedSite();
                 this.clearResults();
 
-                this.searchTerm = null;
-                this.graduationRate = null;
-                this.state = null;
                 this.twoYear = null;
                 this.fourYear = null;
+                this.schoolPrivate = null;
+                this.schoolPublic = null;
+                this.population = null;
+                this.state = null;
+                this.searchTerm = null;
 
                 $('#two-year-program').focus();
                 window.history.replaceState({}, '', '/map/');
@@ -123,23 +127,26 @@ define(libs, function($, multiselect, utils) {
             },
             searchCriteria: function() {
                 let params = {};
-                if (this.searchTerm) {
-                    params['q'] = utils.sanitize(this.searchTerm);
-                }
                 if (this.twoYear) {
                     params['twoyear'] = this.twoYear;
                 }
                 if (this.fourYear) {
                     params['fouryear'] = this.fourYear;
                 }
-                if (this.state) {
-                    params['state'] = this.state.id;
-                }
                 if (this.schoolPublic) {
                     params['public'] = this.schoolPublic;
                 }
                 if (this.schoolPrivate) {
                     params['private'] = this.schoolPrivate;
+                }
+                if (this.population) {
+                    params['population'] = this.population.id;
+                }
+                if (this.state) {
+                    params['state'] = this.state.id;
+                }
+                if (this.searchTerm) {
+                    params['q'] = utils.sanitize(this.searchTerm);
                 }
                 return params;
             },
@@ -181,8 +188,14 @@ define(libs, function($, multiselect, utils) {
                 if (this.state) {
                     url += '&state=' + this.state.id;
                 }
-                if (this.graduationRate) {
-                    url += '&rate=' + this.graduationRate.id;
+                if (this.schoolPublic) {
+                    url += '&public=' + this.schoolPublic;
+                }
+                if (this.schoolPrivate) {
+                    url += '&private=' + this.schoolPrivate;
+                }
+                if (this.population) {
+                    url += '&population=' + this.population.id;
                 }
                 return $.getJSON(url);
             },
@@ -226,6 +239,19 @@ define(libs, function($, multiselect, utils) {
                 }
                 if ('fouryear' in params) {
                     this.fourYear = params.fouryear === 'true';
+                }
+                if ('public' in params) {
+                    this.schoolPublic = params['public'] === 'true';
+                }
+                if ('private' in params) {
+                    this.fourYear = params['private'] === 'true';
+                }
+                if ('population' in params && params.population) {
+                    for (let p of this.populations) {
+                        if (p.id === params.population) {
+                            this.population = p;
+                        }
+                    }
                 }
                 this.onChangeCriteria();
             }
@@ -293,6 +319,7 @@ define(libs, function($, multiselect, utils) {
                 this.$watch('schoolPublic', this.onChangeCriteria);
                 this.$watch('schoolPrivate', this.onChangeCriteria);
                 this.$watch('state', this.onChangeCriteria);
+                this.$watch('population', this.onChangeCriteria);
             });
         },
         updated: function() {

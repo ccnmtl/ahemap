@@ -1,5 +1,11 @@
 define(function() {
 
+    const populations = [
+        {id: 'small', name: 'Small', range: '< 2,000'},
+        {id: 'medium', name: 'Medium', range: '2,000 - 10,000'},
+        {id: 'large', name: 'Large', range: '> 10,000'}
+    ];
+
     const states = [
         {name: 'Alabama', id: 'AL', lat: '32.806671', lng: '-86.79113'},
         {name: 'Alaska', id: 'AK', lat: '61.370716', lng: '-152.404419'},
@@ -131,6 +137,7 @@ define(function() {
         csrfSafeMethod: csrfSafeMethod,
         enlargeBounds: enlargeBounds,
         queryParams: queryParams,
+        populations: populations,
         sanitize: sanitize,
         states: states,
         visibleContentHeight: visibleContentHeight
