@@ -92,6 +92,19 @@ class InstitutionSearchMixin(object):
         else:
             return qs
 
+    def filter_by_population(self, qs, params):
+        pop = params.get('population', None)
+        if pop == 'small':
+            qs = qs.filter(undergraduate_population__lt=2000)
+        elif pop == 'medium':
+            qs = qs.filter(
+                undergraduate_population__gte=2000,
+                undergraduate_population__lte=10000)
+        elif pop == 'large':
+            qs = qs.filter(undergraduate_population__gt=10000)
+
+        return qs
+
     def filter_by_state(self, qs, params):
         q = params.get('state', None)
         if q:
@@ -122,6 +135,7 @@ class InstitutionSearchMixin(object):
         params = self._get_params()
         qs = self.filter_by_duration(qs, params)
         qs = self.filter_by_public_private(qs, params)
+        qs = self.filter_by_population(qs, params)
         qs = self.filter_by_state(qs, params)
         qs = self.filter_by_name(qs, params)
         qs = self.filter_by_site(qs, params)
@@ -145,7 +159,8 @@ class SaveView(InstitutionSearchMixin, View):
         return [
             'Institution', 'Address', 'City', 'State',
             'Website', 'Admissions', 'Institution Type',
-            'Student Population', 'Undergraduate Veteran Population',
+            'Student Population', 'Undergraduate Population',
+            'Undergraduate Veteran Population',
             'Undergraduate Veteran Graduation Rate',
             'Graduate Veteran Population', 'Graduate Veteran Graduation Rate',
             'Two-Year Program', 'Four-Year Program', 'Accredited',
@@ -161,8 +176,8 @@ class SaveView(InstitutionSearchMixin, View):
     def get_row(self, inst):
         return [
             inst.title, inst.address, inst.city, inst.state,
-            inst.website_url, inst.admissions_url,
-            inst.get_institution_type(), inst.student_population,
+            inst.website_url, inst.admissions_url, inst.get_institution_type(),
+            inst.student_population, inst.undergraduate_population,
             inst.undergrad_vet_population, inst.undergrad_vet_graduation_rate,
             inst.grad_vet_population, inst.grad_vet_graduation_rate,
             inst.two_year_program, inst.four_year_program, inst.accredited,

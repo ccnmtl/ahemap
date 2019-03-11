@@ -82,6 +82,31 @@ class InstitutionViewSetTest(TestCase):
         the_json = loads(response.content.decode('utf-8'))
         self.assertEquals(len(the_json), 3)
 
+    def test_filter_by_population(self):
+        small_inst = InstitutionFactory(undergraduate_population=1000)
+        url = '/api/institution/?population=small'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], small_inst.id)
+
+        url = '/api/institution/?population=medium'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 2)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEquals(the_json[1]['id'], self.inst2.id)
+
+        large_inst = InstitutionFactory(undergraduate_population=10001)
+        url = '/api/institution/?population=large'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], large_inst.id)
+
     def test_filter_state(self):
         url = '/api/institution/?state=NJ'
         response = self.client.get(url)
@@ -146,7 +171,7 @@ class InstitutionImportViewTest(TestCase):
             b'Yes', b'No', b'Yes', b'standardized_test_notes', b'notes',
             b'Yes', b'National', b'', b'No', b'No', b'Yes',
             b'Yes', b'10', b'10000', b'No', b'Yes',
-            b'Yes', b'vet_grants_scholarships_notes'
+            b'Yes', b'vet_grants_scholarships_notes', b'28000'
         ]
         content = b',' * (len(Institution.objects.FIELD_MAPPING) - 1) + b'\r\n'
         content += b','.join(fields)
@@ -174,9 +199,9 @@ class SaveViewTest(TestCase):
 
         expected = [
             self.inst1.title, '', 'New York', 'NY', 'https://ctl.columbia.edu',
-            None, 'Public', 20000, None, None, None, None, None, True, True,
-            True, None, True, True, True, True, True, True, True, True, None,
-            True, None, None, None]
+            None, 'Public', 20000, 10000, None, None, None, None, None, True,
+            True, True, None, True, True, True, True, True, True, True, True,
+            None, True, None, None, None]
         self.assertEquals(expected, row)
 
     def test_get_rows(self):

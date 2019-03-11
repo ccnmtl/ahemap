@@ -15,7 +15,7 @@ class InstitutionTest(TestCase):
         'Yes', 'No', 'Yes', 'standardized_test_notes', 'notes',
         'Yes', 'National', '', 'No', 'No', 'Yes',
         'Yes', '10', '10000', 'No', 'Yes',
-        'Yes', 'vet_grants_scholarships_notes'
+        'Yes', 'vet_grants_scholarships_notes', '10000'
     ]
 
     def test_factory(self):
