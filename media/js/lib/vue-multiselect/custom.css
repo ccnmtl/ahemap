@@ -18,6 +18,10 @@
     display: none;
 }
 
+.multiselect__option {
+    line-height: 20px;
+}
+
 .multiselect__single {
     margin-top: 6px;
 }

@@ -273,22 +273,18 @@ nav a {
     z-index: 1050;
 }
 
-.map-view .search-criteria {
-    padding: 1rem;
-}
-
 .map-view .search-criteria i {
     width: 22px;
 }
 
-.map-view span.graduation-rates {
-    width: 165px;
-    margin-top: -10px;
+.map-view span.undergraduate-populations {
+    width: 210px;
+    margin-top: -6px;
 }
 
 .map-view span.states {
-    width: 255px;
-    margin-top: -10px;
+    width: 210px;
+    margin-top: -6px;
 }
 
 .map-view .advanced-filters .input-group-append .btn {
@@ -497,7 +493,7 @@ footer .footer-logo img.cvti {
     }
     .map-view .pin-place-detail {
         width: 24rem;
-        top: 16.5rem;
+        top: 18.25rem;
         left: 0.625rem;
         right: 0;
         bottom: auto;
@@ -513,13 +509,11 @@ footer .footer-logo img.cvti {
     .pin-place-optional {
         display: block;
     }
-    .map-view span.graduation-rates {
-        width: 190px;
-        margin-top: -10px;
+    .map-view span.undergraduate-populations {
+        width: 225px;
     }
     .map-view span.states {
-        width: 280px;
-        margin-top: -10px;
+        width: 225px;
     }
     .map-view .search-bar {
         width: 265px;
