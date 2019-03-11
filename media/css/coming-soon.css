@@ -184,13 +184,13 @@ footer {
     footer {
         position: absolute;
         bottom: 0px;
-        margin-left: 20px;
+        margin-left: 10px;
         background-color: transparent;
         margin-top: 0px;
         height: 78px;
     }
     footer .logo img {
-        width: 200px;
+        width: 225px;
         margin-bottom: 5px;
     }
     .overlay {
