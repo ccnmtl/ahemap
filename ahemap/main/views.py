@@ -71,12 +71,12 @@ class InstitutionImportView(FormView):
 class InstitutionSearchMixin(object):
 
     def filter_by_duration(self, qs, params):
-        q = params.get('twoyear', 'false')
-        if q == 'true':
-            qs = qs.filter(two_year_program=True)
+        two = params.get('twoyear', 'false') == 'true'
+        four = params.get('fouryear', 'false') == 'true'
 
-        q = params.get('fouryear', 'false')
-        if q == 'true':
+        if two and not four:
+            qs = qs.filter(two_year_program=True)
+        elif not two and four:
             qs = qs.filter(four_year_program=True)
 
         return qs

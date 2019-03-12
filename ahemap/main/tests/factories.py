@@ -63,3 +63,4 @@ class InstitutionFactory(factory.DjangoModelFactory):
     yellow_ribbon = True
 
     four_year_program = True
+    two_year_program = False

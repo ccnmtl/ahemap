@@ -47,17 +47,31 @@ class InstitutionViewSetTest(TestCase):
         self.assertEquals(the_json[0]['id'], self.inst1.id)
 
     def test_filter_program_duration(self):
+        self.inst2.two_year_program = True
+        self.inst2.four_year_program = False
+        self.inst2.save()
+
         url = '/api/institution/?twoyear=true'
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 0)
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], self.inst2.id)
 
         url = '/api/institution/?fouryear=true'
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+
+        url = '/api/institution/?twoyear=true&fouryear=true'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
         self.assertEquals(len(the_json), 2)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEquals(the_json[1]['id'], self.inst2.id)
 
     def test_filter_public_private(self):
         private_institution = InstitutionFactory(private=True)
@@ -204,7 +218,7 @@ class SaveViewTest(TestCase):
 
         expected = [
             self.inst1.title, '', 'New York', 'NY', 'https://ctl.columbia.edu',
-            None, 'Public', 20000, 10000, None, None, None, None, None, True,
+            None, 'Public', 20000, 10000, None, None, None, None, False, True,
             True, True, None, True, True, True, True, True, True, True, True,
             None, True, None, None, None]
         self.assertEquals(expected, row)
