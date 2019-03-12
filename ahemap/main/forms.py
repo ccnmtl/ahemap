@@ -6,7 +6,7 @@ from django.utils.encoding import force_text, DjangoUnicodeDecodeError
 
 
 class InstitutionImportForm(forms.Form):
-    COLUMN_COUNT = 38
+    COLUMN_COUNT = 39
 
     INVALID_FILE_FORMAT = ("The selected file is not formatted properly. "
                            "Please select a valid data file.")

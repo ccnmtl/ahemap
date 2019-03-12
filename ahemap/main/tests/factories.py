@@ -43,6 +43,7 @@ class InstitutionFactory(factory.DjangoModelFactory):
     private = False
 
     student_population = 20000
+    undergraduate_population = 10000
 
     accredited = True
 

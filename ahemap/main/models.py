@@ -51,7 +51,8 @@ class InstitutionManager(models.Manager):
         'online_credits_accepted',
         'application_fee_waived',
         'vet_grants_scholarships',
-        'vet_grants_scholarships_notes'
+        'vet_grants_scholarships_notes',
+        'undergraduate_population'
     ]
 
     def find_or_create_by_external_id(self, external_id):
@@ -109,6 +110,8 @@ class Institution(models.Model):
     private = models.BooleanField()
 
     student_population = models.PositiveIntegerField()
+    undergraduate_population = models.PositiveIntegerField()
+
     undergrad_vet_population = models.PositiveIntegerField(null=True)
     undergrad_vet_graduation_rate = models.PositiveIntegerField(null=True)
     grad_vet_population = models.PositiveIntegerField(null=True)

@@ -123,7 +123,10 @@
                     <input name="siteid" :value="selectedSite.id" type="hidden" />
                     <input name="twoyear" :value="twoYear" type="hidden" />
                     <input name="fouryear" :value="fourYear" type="hidden" />
-                    <input name="state" :value="state" type="hidden" />
+                    <input name="public" :value="schoolPublic ? 'true' : ''" type="hidden" />
+                    <input name="private" :value="schoolPrivate ? 'true' : ''" type="hidden" />
+                    <input name="state" :value="state ? state.id : ''" type="hidden" />
+                    <input name="population" :value="population ? population.id : ''" type="hidden" />
                     <input name="q" :value="searchTerm" type="hidden" />
                     <button v-if="selectedSite || searchResults"
                         class="btn btn-sm btn-link float-right text-white w-50"
@@ -183,7 +186,10 @@
                 <form action="/save/" method="POST">
                     <input name="twoyear" :value="twoYear" type="hidden" />
                     <input name="fouryear" :value="fourYear" type="hidden" />
-                    <input name="state" :value="state" type="hidden" />
+                    <input name="public" :value="schoolPublic ? 'true' : ''" type="hidden" />
+                    <input name="private" :value="schoolPrivate ? 'true' : ''" type="hidden" />
+                    <input name="state" :value="state ? state.id : ''" type="hidden" />
+                    <input name="population" :value="population ? population.id : ''" type="hidden" />
                     <input name="q" :value="searchTerm" type="hidden" />
                     <button v-if="selectedSite || (searchResults && searchResults.length > 1)"
                         class="btn btn-sm btn-link float-right text-white w-50"
