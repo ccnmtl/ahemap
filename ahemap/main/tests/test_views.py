@@ -82,6 +82,11 @@ class InstitutionViewSetTest(TestCase):
         the_json = loads(response.content.decode('utf-8'))
         self.assertEquals(len(the_json), 3)
 
+        url = '/api/institution/?public=false&private=false'
+        response = self.client.get(url)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 3)
+
     def test_filter_by_population(self):
         small_inst = InstitutionFactory(undergraduate_population=1000)
         url = '/api/institution/?population=small'

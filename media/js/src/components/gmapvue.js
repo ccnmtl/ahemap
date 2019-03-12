@@ -244,7 +244,7 @@ define(libs, function($, multiselect, utils) {
                     this.schoolPublic = params['public'] === 'true';
                 }
                 if ('private' in params) {
-                    this.fourYear = params['private'] === 'true';
+                    this.schoolPrivate = params['private'] === 'true';
                 }
                 if ('population' in params && params.population) {
                     for (let p of this.populations) {
