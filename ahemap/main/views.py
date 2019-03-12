@@ -82,13 +82,11 @@ class InstitutionSearchMixin(object):
         return qs
 
     def filter_by_public_private(self, qs, params):
-        public = params.get('public', None)
-        private = params.get('private', None)
+        public = params.get('public', None) == 'true'
+        private = params.get('private', None) == 'true'
 
-        if public and private is None:
-            return qs.filter(private=False)
-        elif public is None and private:
-            return qs.filter(private=True)
+        if public != private:
+            return qs.filter(private=private)
         else:
             return qs
 
