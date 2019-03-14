@@ -3,7 +3,7 @@
     <div>
         <form action='.' method='GET' name="search" id="maincontent" v-if="sites.length > 0">
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
-            <div class="advanced-filters">
+            <div class="advanced-filters d-print-inline-block">
                 <div class="search-criteria collapse show pt-3 px-3 pb-4">
                     <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
                     <span class="float-right">
@@ -104,7 +104,7 @@
             </div>
         </form>
         <div v-if="selectedSite" class="pin-place-detail">
-            <div class="search-results-header">
+            <div class="search-results-header d-print-none">
                 <button v-if="searchResults && searchResults.length > 1"
                     class="btn btn-sm btn-link float-left text-white w-50 btn-left"
                     @click.prevent="onBackToSearchList">
@@ -138,24 +138,27 @@
             <div class="clearfix"></div>
             <div class="p-3">
                 <h5>{{selectedSite.title}}</h5>
-                <div v-if="selectedSite.image" class="pin-place-thumbnail clearfix">
+                <div class="d-none d-print-block">https://ahemap.veterans.columbia.edu/view/{{selectedSite.id}}/</div>
+                <div v-if="selectedSite.image" class="pin-place-thumbnail clearfix d-print-none">
                     <img :src="selectedSite.image" title="Selected school thumbnail"
                         class="thumbnail-bg" />
                 </div>
                 <div class="clearfix mt-2 pin-place-optional">
                     <div v-if="selectedSite.website_url" class="float-left">
-                        <a :href="selectedSite.website_url"
+                        <a class="d-print-none" :href="selectedSite.website_url"
                             title="Selected school website link"
                             target="_blank" rel="noopener">
                             <i class="fas fa-link"></i> Website
                         </a>
+                        <div class="d-none d-print-block"><i class="fas fa-link"></i> {{selectedSite.website_url}}</div>
                     </div>
                     <div v-if="selectedSite.website_url" class="float-right">
-                        <a :href="selectedSite.admissions_url"
+                        <a class="d-print-none" :href="selectedSite.admissions_url"
                             title="Selected school veterans admissions link"
                             target="about:blank">
                             <i class="fas fa-link"></i> Veterans Admissions
                         </a>
+                        <div class="d-none d-print-block"><i class="fas fa-link"></i> {{selectedSite.website_url}}</div>
                     </div>
                 </div>
                 <div class="mt-2 pin-place-optional">
@@ -168,7 +171,7 @@
                     <div v-if="selectedSite.private">Private institution</div>
                     <div v-else>Public institution</div>
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 d-print-none">
                     <a :href="'/view/' + selectedSite.id + '/'"
                         class="w-100 btn btn-sm btn-secondary">
                         Additional Details
@@ -177,7 +180,7 @@
             </div>
         </div>
         <div v-else-if="searchResults" class="pin-place-detail search-results">
-            <div class="search-results-header">
+            <div class="search-results-header d-print-none">
                 <button v-if="selectedSite || searchResults"
                     class="btn btn-sm btn-link float-left text-white w-50 btn-left"
                     @click="onClear" title="Clear Search">
@@ -205,22 +208,33 @@
             <div v-else>
                 <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
                     <li v-for="site in searchResults" class="list-group-item">
-                        <div class="result-icon float-left mr-1">
+                        <div class="result-icon float-left mr-1 d-print-none">
                             <img :src="site.iconUrl" :alt="site.title"/>
                         </div>
                         <div class="result-content float-left">
                             <h6 class="mb-1">
-                                <button class="btn btn-link p-0" @click="onSelectSite(site)">
+                                <button class="btn btn-link p-0 d-print-none" @click="onSelectSite(site)">
                                     <strong>{{site.title}}</strong>
                                 </button>
+                                <span class="d-none d-print-block">
+                                    <strong>{{site.title}}</strong>
+                                    <span class="font-weight-normal">(https://ahemap.veterans.columbia.edu/view/{{site.id}}/)</span>
+                                </span>
                             </h6>
-                            <div>{{site.city}}, {{site.state}}</div>
+                            <div class="d-print-none">{{site.city}}, {{site.state}}</div>
+                            <div class="d-none d-print-block">{{site.address}}, {{site.city}}, {{site.state}}</div>
+                            <div class="d-none d-print-block">Website: {{site.website_url}}</div>
+                            <div class="d-none d-print-block">Admissions: {{site.admissions_url}}</div>
+                            <div class="d-none d-print-block" v-if="site.private">Private institution</div>
+                            <div class="d-none d-print-block" v-else>Public institution</div>
+
+
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="google-map" :id="mapName"></div>
+        <div class="google-map d-print-none" :id="mapName"></div>
     </div>
 </script>
 {% endverbatim %}

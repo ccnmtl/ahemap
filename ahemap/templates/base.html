@@ -112,25 +112,21 @@
     <main role="main" class="{% block mainclass %}container{% endblock %}">
         <section id="content">
             <div class="container">
-            {% block pagetitle %}{% endblock %}
-            {% block content %}{% endblock %}
+                <div class="d-none d-print-block print-header">
+                    <h5>
+                        <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home d-print-none"></i>
+                        Attaining Higher Education</a>
+                    </h5>
+                    <h1 class="mt-5 mx-3 mb-4" id="maincontent">
+                        {% block printtitle %}{% endblock %}
+                    </h1>
+                </div>
+                {% block pagetitle %}{% endblock %}
+                {% block content %}{% endblock %}
             </div>
         </section>
     </main>
-
-    <footer class="bd-footer text-muted bg-custom">
-        <ul class="footer-logo row container mx-auto pt-4 pt-md-4 pt-lg-5">
-            <li class="col-md pb-4 px-0 py-md-0"><a href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-none d-print-block" alt="CVTI logo"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" class="cvti d-print-none" alt="CVTI logo"></a></li>
-            <li class="col-md pb-4 px-0 py-md-0"><a href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl-print.svg" class="d-none d-print-block" alt="CTL logo"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" class="d-print-none" alt="CTL logo"></a></li>
-        </ul>
-        <div class="container-fluid p-3 pt-4">
-            <ul>
-              <li><a href="https://github.com/ccnmtl/ahemap" class="footer-link">GitHub</a></li>
-            </ul>
-            <p>Designed and built by <a href="https://ctl.columbia.edu" target="_blank" rel="noopener" class="footer-link">The Center For Teaching & Learning</a> </p>
-            <p>Code licensed <a href="https://github.com/ahemap/LICENSE" target="_blank" rel="license noopener">GPL 3.0</a></p>
-        </div>
-    </footer>
+    {% include 'main/footer.html' %}
 {% endblock %}
 
 {% if RAVEN_CONFIG.dsn %}

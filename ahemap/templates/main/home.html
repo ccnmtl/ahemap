@@ -24,7 +24,7 @@
                         and narrowing colleges of interest with criteria
                         important to service members and veterans. Start your
                         search for a right-fit college or university.</p>
-                        <div class="row">
+                        <div class="row d-print-none">
                             <div class="col-md-6 order-md-2">
                             <a class="btn btn-secondary btn-lg mb-2 w-100"
                                     href="{% url 'map-view' %}" role="button">Search Schools</a>
@@ -36,13 +36,16 @@
                                 About the map</a>
                             </div>
                         </div>
+                        <h2 class="d-none d-print-block">
+                            https://ahemap.veterans.columbia.edu
+                        </h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="social-icons">
+    <div class="social-icons d-print-none">
         <ul class="list-unstyled text-center mb-0">
             <li class="list-unstyled-item">
                 <a aria-hidden="true" target="_blank" rel="noopener" class="edx"
@@ -60,15 +63,5 @@
         </ul>
     </div>
 
-    <footer class="mb-4">
-        <a class="logo float-left mt-3 mr-4" href="https://veterans.columbia.edu"
-            target="_blank" rel="noopener">
-            <img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo">
-        </a>
-        <a class="logo float-left mt-3" href="https://ctl.columbia.edu"
-            target="_blank" rel="noopener">
-            <img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo">
-        </a>
-    </footer>
-
+    {% include 'main/footer.html' %}
 {% endblock %}

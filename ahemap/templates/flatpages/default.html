@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load compress %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{flatpage.title}}{% endblock %}
 {% block bodyclass %}flatpage{% endblock %}
 
 {% block body %}
@@ -11,7 +11,7 @@
             <div class="skewed-background"></div>
             <div class="row no-gutters">
                 <div class="col">
-                    <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home"></i> Attaining Higher Education</a>
+                    <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home d-print-none"></i> Attaining Higher Education</a>
                 </div>
             </div>
             <div class="row no-gutters h-50">
@@ -28,7 +28,7 @@
             <div class="my-5 px-4">
                 {{flatpage.content|safe}}
             </div>
-            <div class="social-icons">
+            <div class="social-icons d-print-none">
                 <ul class="list-unstyled text-center mb-0">
                     <li class="list-unstyled-item">
                         <a aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
@@ -43,12 +43,7 @@
                 </ul>
             </div>
         </div>
-        <footer>
-            <div class="logo-container">
-                <a class="logo float-left mt-3 mr-5" href="https://veterans.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/cvti-logo-wht.svg" alt="CVTI logo"></a>
-                <a class="logo float-left mt-3" href="https://ctl.columbia.edu" target="_blank"><img src="{{STATIC_URL}}img/logo-footer-ctl.svg" alt="CTL logo"></a></li>
-            </div>
-        </footer>
+        {% include 'main/footer.html' %}
     </div>
 </div>
 {% endblock %}
