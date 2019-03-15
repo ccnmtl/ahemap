@@ -15,10 +15,6 @@ body {
     background-size: cover;
 }
 
-.overlay {
-    display: none;
-}
-
 .masthead {
     position: relative;
     overflow: hidden;
@@ -69,24 +65,11 @@ body {
     padding: 1rem;
 }
 
-footer .logo img {
-    width: 250px;
-    margin-bottom: 20px;
-}
-
-footer {
-    z-index: 2;
-    background-color: rgba(02, 33, 105, 0.8);
-    height: 200px;
-    padding: 10px;
-    margin-top: 150px;
-}
-
-@media ( min-width : 768px) {
+@media (min-width: 768px) {
     .masthead {
         height: 100%;
         min-height: 0;
-        width: 40.5rem;
+        width: 43rem;
         padding-bottom: 0;
     }
     .masthead .masthead-bg {
@@ -105,6 +88,19 @@ footer {
     }
     .masthead .masthead-content p {
         font-size: 1.3rem;
+    }
+}
+
+footer {
+    background-color: rgba(02, 33, 105, 0.8);
+}
+
+@media (min-width: 768px) {
+    footer {
+        position: fixed;
+        background-color: inherit;
+        width: 550px;
+        height: auto !important;
     }
 }
 
@@ -142,7 +138,7 @@ footer {
     margin-top: -7px;
 }
 
-@media ( min-width : 768px) {
+@media (min-width: 768px) {
     .social-icons {
         margin: 0;
         position: absolute;
@@ -176,32 +172,12 @@ footer {
     }
 }
 
-
-@media (min-width: 768px) {
-    .social-icons {
-        position: absolute;
-    }
-    footer {
-        position: absolute;
-        bottom: 0px;
-        margin-left: 10px;
-        background-color: transparent;
-        margin-top: 0px;
-        height: 78px;
-    }
-    footer .logo img {
-        width: 225px;
-        margin-bottom: 5px;
-    }
-    .overlay {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
+@media print {
+    .masthead {
         width: 100%;
-        background-color: #cd9557;
-        opacity: 0.7;
-        z-index: 1;
+        height: 100%;
+    }
+    .masthead .masthead-bg {
+        transform: none;
     }
 }

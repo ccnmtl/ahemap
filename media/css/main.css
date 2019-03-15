@@ -111,13 +111,6 @@ nav a {
     display: none;
 }
 
-/* Small devices (sm - landscape phones, 576px and up) */
-@media (min-width: 576px) {
-    .flatpage h1 {
-        font-size: 3.5rem;
-    }
-}
-
 .flatpage .skewed-background {
     display: none;
 }
@@ -134,74 +127,36 @@ nav a {
     display: none;
 }
 
-.flatpage footer {
+/** Footer **/
+
+footer {
+    font-size: 85%;
     bottom: 0px;
     z-index: 2;
-    background-color: #253462;
     margin: 0;
     padding: 10px;
     width: 100%;
+    background-color: #253462;
+    height: 100%;
 }
 
-.flatpage footer .logo-container {
-    width: 400px;
+footer a:hover {
+    color: white;
+    text-decoration: underline;
 }
 
-.flatpage footer img {
+footer img {
     width: 225px;
     margin-top: 20px;
     margin-left: 20px;
 }
 
-@media (min-width : 992px) {
-    .flatpage-container {
-        height: 100%;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    .flatpage-content,
-    .flatpage-title {
-        height: 100%;
-        background-color: inherit;
-    }
-    .flatpage-title .skewed-background {
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        min-height: 35rem;
-        height: 100%;
-        background-color: #253462;
-        min-height: 0;
-        -webkit-transform: skewX(-8deg);
-        transform: skewX(-8deg);
-        -webkit-transform-origin: top right;
-        transform-origin: top right;
-    }
-    .flatpage footer {
-        position: fixed;
-        background-color: inherit;
-        width: 50%;
-     }
-     .flatpage footer img {
-        width: 200px;
-     }
-}
-
-@media (min-width: 1500px) {
-    .flatpage footer .logo-container {
-        width: 510px;
-    }
-}
-
-/* Map View */
 .map-view footer {
     display: none;
 }
 
+
+/* Map View */
 .map-space {
     position: absolute;
     top: 2.4rem;
@@ -423,60 +378,46 @@ nav a {
     height: 300px;
 }
 
-/* Footer */
-footer {
-    font-size: 85%;
+/* Social Icons */
+.social-icons {
+    margin-bottom: 2rem;
+    width: 100%;
+    z-index: 2;
+    color: #253462;
 }
 
-footer p {
-    margin-bottom: 0;
-    color: white;
+.social-icons ul {
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
 }
 
-footer a, footer a:visited {
-    color: white;
-}
-
-footer a:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-footer ul {
-    padding-left: 0;
-    margin-bottom: 1rem;
-}
-
-footer li {
+.social-icons ul>li {
+    margin-left: 1rem;
+    margin-right: 1rem;
     display: inline-block;
 }
 
-footer li+li {
-    margin-left: 1rem;
-}
-
-footer .footer-logo li {
-    margin: 0;
-}
-
-footer .footer-logo img {
-    height: 30px;
+.social-icons ul>li>a:visited, .social-icons ul>li>a {
     display: block;
-    margin: auto;
+    color: white !important;
+    background-color: #253462;
+    border-radius: 100%;
+    font-size: 2rem;
+    line-height: 4rem;
+    height: 4rem;
+    width: 4rem;
 }
 
-footer .footer-logo img.cvti {
-    height: 45px
+.social-icons .edx img {
+    width: 42px;
+    margin-top: -7px;
 }
-
 
 /*-------------RESPONSIVE CSS -----------------------------------------------*/
 
 /* Extra small devices (portrait phones, less than 576px) */
 /* No media query for `xs` since this is the default in Bootstrap */
-
-@media (min-width: 768px) {
-}
 
 /* Small devices (sm - landscape phones, 576px and up) */
 @media (min-width: 576px) {
@@ -518,12 +459,6 @@ footer .footer-logo img.cvti {
     .map-view .search-bar {
         width: 265px;
     }
-    footer .footer-logo img {
-        height: 50px;
-    }
-    footer .footer-logo img.cvti {
-        height: 65px;
-    }
     .search-criteria {
         display: block !important;
     }
@@ -536,96 +471,13 @@ footer .footer-logo img.cvti {
     .quick-info-admissions {
         text-align: right;
     }
-}
-
-/* Large devices (lg - desktops, 992px and up) */
-@media (min-width: 992px) {
-    .detail-page-content {
-        padding-left: 3rem;
-        padding-right: 3rem;
-    }
-    .main-image {
-        border-radius: 5px;
-        margin-top: 2rem;
-    }
-    footer .footer-logo img {
-        height: 60px;
-    }
-    footer .footer-logo img.cvti {
-        height: 75px;
-    }
-    .flatpage-title .maincontent-address {
-        display: block;
-    }
-    .at-a-glance-address {
-        display: none;
+    .flatpage h1 {
+        font-size: 3.5rem;
     }
 }
 
-
-@media print {
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    footer {
-        text-align: center;
-        margin: 1in;
-        border-top: 1px solid #999;
-    }
-    footer.text-muted, footer a {
-        color: #000 !important;
-        text-decoration: none !important;
-    }
-    footer.bg-dark {
-        background: transparent !important;
-    }
-    .footer-link::after {
-        content:" (" attr(href) ")";
-        white-space: pre;
-        font-weight: normal;
-    }
-    footer .footer-logo img {
-        height: 40px;
-    }
-}
-
-.social-icons {
-    margin-bottom: 2rem;
-    width: 100%;
-    z-index: 2;
-    color: #253462;
-}
-
-.social-icons ul {
-    margin-top: 2rem;
-    width: 100%;
-    text-align: center;
-}
-
-.social-icons ul>li {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    display: inline-block;
-}
-
-.social-icons ul>li>a:visited, .social-icons ul>li>a {
-    display: block;
-    color: white !important;
-    background-color: #253462;
-    border-radius: 100%;
-    font-size: 2rem;
-    line-height: 4rem;
-    height: 4rem;
-    width: 4rem;
-}
-
-.social-icons .edx img {
-    width: 42px;
-    margin-top: -7px;
-}
-
-@media ( min-width : 768px) {
+/* Medium devices (md - tablets, 768px and up) */
+@media (min-width: 768px) {
     .social-icons {
         margin: 0;
         position: absolute;
@@ -656,5 +508,122 @@ footer .footer-logo img.cvti {
     }
     .social-icons ul>li>a:hover {
         background-color: #002E66;
+    }
+}
+
+/* Large devices (lg - desktops, 992px and up) */
+@media (min-width: 992px) {
+    .detail-page-content {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    .main-image {
+        border-radius: 5px;
+        margin-top: 2rem;
+    }
+    .flatpage-title .maincontent-address {
+        display: block;
+    }
+    .at-a-glance-address {
+        display: none;
+    }
+    .flatpage-container {
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .flatpage-content,
+    .flatpage-title {
+        height: 100%;
+        background-color: inherit;
+    }
+    .flatpage-title .skewed-background {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        min-height: 35rem;
+        height: 100%;
+        background-color: #253462;
+        min-height: 0;
+        -webkit-transform: skewX(-8deg);
+        transform: skewX(-8deg);
+        -webkit-transform-origin: top right;
+        transform-origin: top right;
+    }
+    footer {
+        position: fixed;
+        background-color: inherit;
+        width: 400px;
+        height: auto !important;
+    }
+}
+
+/* XLarge devices (lg - desktops, 1500px and up) */
+@media (min-width: 1650px) {
+    footer {
+        width: 100%;
+    }
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        text-decoration: none !important;
+    }
+    footer {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        margin: 1in;
+        background-color: #253462;
+        height: 7rem;
+    }
+    .footer-link::after {
+        content:" (" attr(href) ")";
+        white-space: pre;
+        font-weight: normal;
+    }
+    footer .footer-logo img {
+        height: 40px;
+    }
+    .map-view .map-space {
+        position: relative;
+    }
+    .map-view form {
+        text-align: center;
+    }
+    .map-view .advanced-filters {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .map-view .pin-place-detail,
+    .map-view .advanced-filters {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .map-view .pin-place-detail {
+        width: 100%;
+        height: auto;
+    }
+    .map-view .pin-place-detail .list-group .list-group-item:first-child {
+        border-top: 1px solid rgba(0,0,0,.125);
+        margin-top: 20px;
+    }
+    .print-header {
+        background-color: #253462;
+        color: white;
+        padding: 10px;
+    }
+    .print-header h5 a {
+        font-family: Georgia,Times,Times New Roman,serif !important;
     }
 }
