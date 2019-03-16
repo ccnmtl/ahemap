@@ -7,7 +7,7 @@ from ahemap.main.tests.factories import InstitutionFactory
 class InstitutionTest(TestCase):
 
     fields = [
-        '123', 'admin_name', 'admin@email.com', '7777777777',
+        'timestamp', 'admin_name', 'admin@email.com', '7777777777',
         'Example', 'https://www.columbia.edu', '0',
         'Private', '2 year', 'https://www.columbia.edu/foo.png',
         'address', 'city', 'NY', '40.8075', '-73.9626',
@@ -15,7 +15,7 @@ class InstitutionTest(TestCase):
         'Yes', 'No', 'Yes', 'standardized_test_notes', 'notes',
         'Yes', 'National', '', 'No', 'No', 'Yes',
         'Yes', '10', '10000', 'No', 'Yes',
-        'Yes', 'vet_grants_scholarships_notes', '10000'
+        'Yes', 'vet_grants_scholarships_notes', '10000', '123'
     ]
 
     def test_factory(self):
@@ -146,7 +146,9 @@ class InstitutionTest(TestCase):
     def test_update(self):
         i = InstitutionFactory()
         self.assertTrue(i.title.startswith('site'))
-        self.fields[0] = str(i.external_id)
+
+        idx = len(Institution.objects.FIELD_MAPPING) - 1
+        self.fields[idx] = str(i.external_id)
         Institution.objects.update_or_create(self.fields)
 
         i.refresh_from_db()

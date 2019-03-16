@@ -4,10 +4,10 @@ import io
 from django import forms
 from django.utils.encoding import force_text, DjangoUnicodeDecodeError
 
+from ahemap.main.models import Institution
+
 
 class InstitutionImportForm(forms.Form):
-    COLUMN_COUNT = 39
-
     INVALID_FILE_FORMAT = ("The selected file is not formatted properly. "
                            "Please select a valid data file.")
     INVALID_ENCODING = (
@@ -28,7 +28,7 @@ class InstitutionImportForm(forms.Form):
         return csv.reader(as_string)
 
     def validate_column_count(self, row):
-        return len(row) == self.COLUMN_COUNT
+        return len(row) == len(Institution.objects.FIELD_MAPPING)
 
     def validate_encoding(self, row):
         for col in row:
