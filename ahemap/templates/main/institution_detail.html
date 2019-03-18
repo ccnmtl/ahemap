@@ -147,12 +147,13 @@
                     <p>Standardized tests are not required</p>
                 {% endif %}
                 {% if object.standardized_test_notes %}
-                    <p>Notes: {{object.standardized_test_notes}}</p>
+                    <h6 class="mt-4">How old of a standardized test score is accepted?</h6>
+                    <p>{{object.standardized_test_notes}}</p>
                 {% endif %}
 
                 {% if object.vet_grants_scholarships_notes %}
                     <h6 class="mt-4">Veteran-specific Grants &amp; Scholarships</h6>
-                    <p>{{object.vet_grants_scholarships_notes}}</p>
+                    <p>{{object.vet_grants_scholarships_notes|urlize}}</p>
                 {% endif %}
 
                 {% if object.yellow_ribbon_slots %}
@@ -196,7 +197,7 @@
 
                 {% if object.notes %}
                 <h4 class="mt-4">Additional Information</h4>
-                <div>{{object.notes}}</div>
+                <div>{{object.notes|urlize}}</div>
                 {% endif %}
 
                 <h4 class="mt-4">Location</h4>
