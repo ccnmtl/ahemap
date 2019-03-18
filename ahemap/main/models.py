@@ -14,7 +14,7 @@ ACCREDITATION_CHOICES = (
 class InstitutionManager(models.Manager):
 
     FIELD_MAPPING = [
-        'external_id',
+        'timestamp',
         'admin_name',
         'admin_email',
         'admin_phone',
@@ -52,7 +52,8 @@ class InstitutionManager(models.Manager):
         'application_fee_waived',
         'vet_grants_scholarships',
         'vet_grants_scholarships_notes',
-        'undergraduate_population'
+        'undergraduate_population',
+        'external_id'
     ]
 
     def find_or_create_by_external_id(self, external_id):
@@ -80,8 +81,9 @@ class InstitutionManager(models.Manager):
             getattr(inst, field_name, None)(value)
 
     def update_or_create(self, row):
-        inst = self.find_or_create_by_external_id(int(row[0]))
-        for idx, value in enumerate(row[1:]):
+        external_id_idx = len(self.FIELD_MAPPING) - 1
+        inst = self.find_or_create_by_external_id(int(row[external_id_idx]))
+        for idx, value in enumerate(row[1:external_id_idx]):
             field_name = self.FIELD_MAPPING[idx + 1]
             self._set_field_value(inst, field_name, value.strip())
         inst.save()
