@@ -603,7 +603,6 @@ footer img {
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
-
     .map-view .pin-place-detail,
     .map-view .advanced-filters {
         position: relative;
@@ -617,6 +616,10 @@ footer img {
     .map-view .pin-place-detail .list-group .list-group-item:first-child {
         border-top: 1px solid rgba(0,0,0,.125);
         margin-top: 20px;
+    }
+    .map-view .search-results .list-group {
+        overflow-y: visible;
+        height: 100% !important;
     }
     .print-header {
         background-color: #253462;
