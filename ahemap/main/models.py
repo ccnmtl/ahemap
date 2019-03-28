@@ -14,10 +14,10 @@ ACCREDITATION_CHOICES = (
 class InstitutionManager(models.Manager):
 
     FIELD_MAPPING = [
-        'timestamp',
-        'admin_name',
-        'admin_email',
-        'admin_phone',
+        'external_id',
+        '',
+        '',
+        '',
         'title',
         'website_url',
         'student_population',
@@ -52,8 +52,7 @@ class InstitutionManager(models.Manager):
         'application_fee_waived',
         'vet_grants_scholarships',
         'vet_grants_scholarships_notes',
-        'undergraduate_population',
-        'external_id'
+        'undergraduate_population'
     ]
 
     def find_or_create_by_external_id(self, external_id):
@@ -73,7 +72,10 @@ class InstitutionManager(models.Manager):
             elif isinstance(field, BooleanField):
                 setattr(inst, field.name, 'yes' in value.lower())
             elif isinstance(field, PositiveIntegerField):
-                setattr(inst, field.name, int(value))
+                try:
+                    setattr(inst, field.name, int(value))
+                except ValueError:
+                    pass
             else:
                 setattr(inst, field.name, value)
         except FieldDoesNotExist:
@@ -81,11 +83,12 @@ class InstitutionManager(models.Manager):
             getattr(inst, field_name, None)(value)
 
     def update_or_create(self, row):
-        external_id_idx = len(self.FIELD_MAPPING) - 1
+        external_id_idx = 0
         inst = self.find_or_create_by_external_id(int(row[external_id_idx]))
-        for idx, value in enumerate(row[1:external_id_idx]):
+        for idx, value in enumerate(row[1:]):
             field_name = self.FIELD_MAPPING[idx + 1]
-            self._set_field_value(inst, field_name, value.strip())
+            if field_name:
+                self._set_field_value(inst, field_name, value.strip())
         inst.save()
         return inst
 
@@ -100,10 +103,6 @@ class Institution(models.Model):
     address = models.TextField(null=True, blank=True)
     city = models.TextField()
     state = models.CharField(max_length=2)
-
-    admin_name = models.TextField()
-    admin_email = models.EmailField()
-    admin_phone = models.TextField()
 
     website_url = models.URLField()
     image = models.URLField(null=True, blank=True)
