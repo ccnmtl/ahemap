@@ -164,6 +164,17 @@ footer img {
     width: 100%;
 }
 
+.map-space .selected-site-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: Georgia,Times,Times New Roman,serif;
+}
+
+.map-space .site-list-item {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
 .map-space a {
     font-family: Open Sans !important;
 }
@@ -338,6 +349,20 @@ footer img {
     padding-right: 0;
     height: 100%;
     overflow-x: hidden;
+}
+
+.detail-page-content h2 {
+    font-size: 1.5rem;
+    font-family: Georgia,Times,Times New Roman,serif;
+    font-weight: 700;
+}
+
+.detail-page-content h3 {
+    font-size: 1.15rem;
+}
+
+.detail-page-content h4 {
+    font-size: 1rem;
 }
 
 .detail-page-content .main-image {

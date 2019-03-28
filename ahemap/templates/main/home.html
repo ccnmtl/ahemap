@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block body %}
+<main id="maincontent" class="h-100">
     <div class="overlay"></div>
     <div class="masthead">
         <div class="masthead-bg"></div>
@@ -17,7 +18,7 @@
             <div class="row h-75">
                 <div class="col-12 my-auto">
                     <div class="masthead-content text-white py-md-0">
-                        <h1 class="mb-3" id="maincontent">
+                        <h1 class="mb-3">
                             Attaining<br />Higher<br />Education
                         </h1>
                         <p class="mb-5">This interactive map is for selecting
@@ -48,14 +49,14 @@
     <div class="social-icons d-print-none">
         <ul class="list-unstyled text-center mb-0">
             <li class="list-unstyled-item">
-                <a aria-hidden="true" target="_blank" rel="noopener" class="edx"
+                <a tabindex="-1" aria-hidden="true" target="_blank" rel="noopener" class="edx"
                     href="https://www.edx.org/course/attaining-higher-education"
                     title="Link to EdX Attaining Higher Education course">
                     <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
                 </a>
             </li>
             <li class="list-unstyled-item">
-                <a aria-hidden="true" target="_blank" rel="noopener"
+                <a tabindex="-1" aria-hidden="true" target="_blank" rel="noopener"
                     href="https://twitter.com/columbia_cvti" title="Link to Twitter">
                     <i class="fab fa-twitter"></i>
                 </a>
@@ -64,4 +65,5 @@
     </div>
 
     {% include 'main/footer.html' %}
+</main>
 {% endblock %}

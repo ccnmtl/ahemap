@@ -1,7 +1,7 @@
 {% verbatim %}
 <script type="text/x-template" id="google-map-template">
     <div>
-        <form action='.' method='GET' name="search" id="maincontent" v-if="sites.length > 0">
+        <form action='.' method='GET' name="search" v-if="sites.length > 0">
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters d-print-inline-block">
                 <div class="search-criteria collapse show pt-3 px-3 pb-4">
@@ -137,10 +137,10 @@
             </div>
             <div class="clearfix"></div>
             <div class="p-3">
-                <h5>{{selectedSite.title}}</h5>
+                <div class="selected-site-title">{{selectedSite.title}}</div>
                 <div class="d-none d-print-block">https://ahemap.veterans.columbia.edu/view/{{selectedSite.id}}/</div>
                 <div v-if="selectedSite.image" class="pin-place-thumbnail clearfix d-print-none">
-                    <img :src="selectedSite.image" title="Selected school thumbnail"
+                    <img aria-hidden="true" :src="selectedSite.image" title="Selected school thumbnail"
                         class="thumbnail-bg" />
                 </div>
                 <div class="clearfix mt-2 pin-place-optional">
@@ -203,16 +203,16 @@
             </div>
             <div class="clearfix"></div>
             <div v-if="searchResults.length === 0">
-                <h5 class="pt-3 pr-3 pl-3 pb-2 text-center">No Schools Found</h5>
+                <div class="selected-site-title pt-3 pr-3 pl-3 pb-2 text-center">No Schools Found</div>
             </div>
             <div v-else>
                 <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
                     <li v-for="site in searchResults" class="list-group-item">
                         <div class="result-icon float-left mr-1 d-print-none">
-                            <img :src="site.iconUrl" :alt="site.title"/>
+                            <img aria-hidden="true" :src="site.iconUrl" :alt="site.title"/>
                         </div>
                         <div class="result-content float-left">
-                            <h6 class="mb-1">
+                            <div class="mb-1 site-list-item">
                                 <button class="btn btn-link p-0 d-print-none" @click="onSelectSite(site)">
                                     <strong>{{site.title}}</strong>
                                 </button>
@@ -220,7 +220,7 @@
                                     <strong>{{site.title}}</strong>
                                     <span class="font-weight-normal">(https://ahemap.veterans.columbia.edu/view/{{site.id}}/)</span>
                                 </span>
-                            </h6>
+                            </div>
                             <div class="d-print-none">{{site.city}}, {{site.state}}</div>
                             <div class="d-none d-print-block">{{site.address}}, {{site.city}}, {{site.state}}</div>
                             <div class="d-none d-print-block">Website: {{site.website_url}}</div>
