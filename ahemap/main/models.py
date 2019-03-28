@@ -134,7 +134,7 @@ class Institution(models.Model):
     sva_chapter = models.BooleanField()
 
     clep_credits_accepted = models.BooleanField()
-    jst_credits_accepted = models.BooleanField()
+    jst_credits_accepted = models.BooleanField(null=True, blank=True)
     dsst_credits_accepted = models.BooleanField()
     online_credits_accepted = models.BooleanField()
     application_fee_waived = models.BooleanField()
