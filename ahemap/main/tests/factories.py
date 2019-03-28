@@ -34,10 +34,6 @@ class InstitutionFactory(factory.DjangoModelFactory):
     city = 'New York'
     state = 'NY'
 
-    admin_name = 'Dwight Eisenhower'
-    admin_email = 'dwight@foo.com'
-    admin_phone = '917-111-1111'
-
     website_url = 'https://ctl.columbia.edu'
 
     private = False

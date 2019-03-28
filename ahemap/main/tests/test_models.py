@@ -7,7 +7,7 @@ from ahemap.main.tests.factories import InstitutionFactory
 class InstitutionTest(TestCase):
 
     fields = [
-        'timestamp', 'admin_name', 'admin@email.com', '7777777777',
+        '123', '', '', '',
         'Example', 'https://www.columbia.edu', '0',
         'Private', '2 year', 'https://www.columbia.edu/foo.png',
         'address', 'city', 'NY', '40.8075', '-73.9626',
@@ -15,7 +15,7 @@ class InstitutionTest(TestCase):
         'Yes', 'No', 'Yes', 'standardized_test_notes', 'notes',
         'Yes', 'National', '', 'No', 'No', 'Yes',
         'Yes', '10', '10000', 'No', 'Yes',
-        'Yes', 'vet_grants_scholarships_notes', '10000', '123'
+        'Yes', 'vet_grants_scholarships_notes', '10000'
     ]
 
     def test_factory(self):
@@ -97,15 +97,12 @@ class InstitutionTest(TestCase):
         Institution.objects._set_field_value(i, 'student_population', '10000')
         self.assertEquals(i.student_population, 10000)
 
-        Institution.objects._set_field_value(i, 'admin_name', 'foo')
-        self.assertEquals(i.admin_name, 'foo')
+        Institution.objects._set_field_value(i, 'city', 'foo')
+        self.assertEquals(i.city, 'foo')
 
     def test_create(self):
         i = Institution.objects.update_or_create(self.fields)
         self.assertEquals(i.external_id, 123)
-        self.assertEquals(i.admin_name, 'admin_name')
-        self.assertEquals(i.admin_email, 'admin@email.com')
-        self.assertEquals(i.admin_phone, '7777777777')
         self.assertEquals(i.title, 'Example')
         self.assertEquals(i.website_url, 'https://www.columbia.edu')
         self.assertEquals(i.student_population, 0)
@@ -147,15 +144,11 @@ class InstitutionTest(TestCase):
         i = InstitutionFactory()
         self.assertTrue(i.title.startswith('site'))
 
-        idx = len(Institution.objects.FIELD_MAPPING) - 1
-        self.fields[idx] = str(i.external_id)
+        self.fields[0] = str(i.external_id)
         Institution.objects.update_or_create(self.fields)
 
         i.refresh_from_db()
         self.assertEquals(i.external_id, i.external_id)
-        self.assertEquals(i.admin_name, 'admin_name')
-        self.assertEquals(i.admin_email, 'admin@email.com')
-        self.assertEquals(i.admin_phone, '7777777777')
         self.assertEquals(i.title, 'Example')
         self.assertEquals(i.website_url, 'https://www.columbia.edu')
         self.assertEquals(i.student_population, 0)
