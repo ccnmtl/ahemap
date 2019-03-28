@@ -182,7 +182,7 @@ class InstitutionImportViewTest(TestCase):
 
     def test_form_valid(self):
         fields = [
-            b'timestamp', b'admin_name', b'admin@email.com', b'7777777777',
+            b'123', b'admin_name', b'admin@email.com', b'7777777777',
             b'Example', b'https://www.columbia.edu', b'0',
             b'Private', b'2 year', b'https://www.columbia.edu/foo.png',
             b'address', b'city', b'NY', b'40.8075', b'-73.9626',
@@ -190,7 +190,7 @@ class InstitutionImportViewTest(TestCase):
             b'Yes', b'No', b'Yes', b'standardized_test_notes', b'notes',
             b'Yes', b'National', b'', b'No', b'No', b'Yes',
             b'Yes', b'10', b'10000', b'No', b'Yes',
-            b'Yes', b'vet_grants_scholarships_notes', b'28000', b'123'
+            b'Yes', b'vet_grants_scholarships_notes', b'28000'
         ]
         content = b',' * (len(Institution.objects.FIELD_MAPPING) - 1) + b'\r\n'
         content += b','.join(fields)
