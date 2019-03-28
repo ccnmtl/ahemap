@@ -565,7 +565,7 @@ footer img {
 /* XLarge devices (lg - desktops, 1500px and up) */
 @media (min-width: 1650px) {
     footer {
-        width: 100%;
+        width: 50%;
     }
 }
 
