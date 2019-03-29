@@ -26,7 +26,7 @@
     {% endcompress %}
 
     <!--  Fonts -->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,700" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,700" />
 
     <!-- Standard Meta Data -->
     <meta name="description" content="Attaining Higher Education Map" />
@@ -109,7 +109,7 @@
     {% block breadcrumb %}
     {% endblock %}
 
-    <main role="main" class="{% block mainclass %}container{% endblock %}">
+    <main id="maincontent" class="{% block mainclass %}container{% endblock %}">
         <section id="content">
             <div class="container">
                 <div class="d-none d-print-block print-header">
@@ -117,7 +117,7 @@
                         <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home d-print-none"></i>
                         Attaining Higher Education</a>
                     </h5>
-                    <h1 class="mt-5 mx-3 mb-4" id="maincontent">
+                    <h1 class="mt-5 mx-3 mb-4">
                         {% block printtitle %}{% endblock %}
                     </h1>
                 </div>

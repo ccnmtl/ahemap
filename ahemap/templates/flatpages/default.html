@@ -5,7 +5,7 @@
 {% block bodyclass %}flatpage{% endblock %}
 
 {% block body %}
-<div class="h-100">
+<main id="maincontent" class="h-100">
     <div class="row no-gutters flatpage-container">
         <div class="col-lg-5 flatpage-title">
             <div class="skewed-background"></div>
@@ -17,7 +17,7 @@
             <div class="row no-gutters h-50">
                 <div class="col-12 my-auto">
                     <div class="py-md-0 px-5">
-                        <h1 class="my-5" id="maincontent">
+                        <h1 class="my-5">
                             {{flatpage.title}}
                         </h1>
                     </div>
@@ -31,12 +31,12 @@
             <div class="social-icons d-print-none">
                 <ul class="list-unstyled text-center mb-0">
                     <li class="list-unstyled-item">
-                        <a aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
+                        <a tabindex="-1" aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
                             <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
                         </a>
                     </li>
                     <li class="list-unstyled-item">
-                        <a aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
+                        <a tabindex="-1" aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
@@ -45,5 +45,5 @@
         </div>
         {% include 'main/footer.html' %}
     </div>
-</div>
+</main>
 {% endblock %}

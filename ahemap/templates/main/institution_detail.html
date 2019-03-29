@@ -22,9 +22,8 @@
         src="{{STATIC_URL}}js/lib/require/require.js"></script>
 {% endblock %}
 
-
 {% block body %}
-<div class="row no-gutters flatpage-container h-100">
+<div id="maincontent" class="row no-gutters flatpage-container h-100">
     <div class="col-lg-5 flatpage-title">
         <div class="skewed-background"></div>
         <div class="row no-gutters">
@@ -35,7 +34,7 @@
         <div class="row no-gutters h-50">
             <div class="col-12 my-auto">
                 <div class="py-md-0 px-5">
-                    <h1 class="mt-5 mr-3 mb-4" id="maincontent">
+                    <h1 class="mt-5 mr-3 mb-4">
                         {{object.title}}
                     </h1>
                     <div class="maincontent-address">
@@ -51,7 +50,7 @@
                 <img src="{{object.image}}" title="{{object.title}} image" />
             </div>
             <div class="mt-2 px-5">
-                <h4 class="mt-4">At a Glance</h4>
+                <h2 class="mt-4">At a Glance</h2>
                 <div class="row">
                     <div class="col-md-6">
                         <ul>
@@ -100,13 +99,47 @@
                     </div>
                 </div>
 
-                <h4 class="mt-4">For Veterans</h4>
-                <table class="table has-active-highlighting for-veterans">
+                <h2 class="mt-4">For Veterans</h2>
+                <div class="sr-only">
+                    <h3>Services at {{object.title}}</h3>
+                    <div>
+                        {% if object.application_fee_waived %}
+                            The application fee is waived.
+                        {% else %}
+                            The application fee is not waived.
+                        {% endif %}
+
+        `               {% if object.sva_chapter %}
+                            There is an SVA chapter.
+                        {% else %}
+                            There is not an SVA chapter.
+                        {% endif %}
+
+                        {% if object.vet_center %}
+                            There is a Veterans center.
+                        {% else %}
+                            There is not a Veterans center.
+                        {% endif %}
+
+                        {% if object.vet_grants_scholarships %}
+                            Veteran-specific grants and scholarships are available.
+                        {% else %}
+                            Veteran-specific grants and scholarships are not available.
+                        {% endif %}
+
+                        {% if object.yellow_ribbon %}
+                            {{object.title}} is a yellow ribbon school.
+                        {% else %}
+                            {{object.title}} is not a yellow ribbon school.
+                        {% endif %}
+                    </div>
+                </div>
+                <table class="table has-active-highlighting for-veterans" aria-hidden="true">
                     <thead>
                         <tr>
-                            <th scope="row" class="top-level"></th>
-                            <th>Yes</th>
-                            <th>No</th>
+                            <th scope="col" class="top-level pl-3">Services</th>
+                            <th scope="col">Yes</th>
+                            <th scope="col">No</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,31 +171,55 @@
                     </tbody>
                 </table>
 
-                <h4 class="mt-5">Applying</h4>
+                <h2 class="mt-5">Applying</h2>
 
-                <h6 class="mt-4">Standardized tests</h6>
+                <div class="mt-4"><strong>Standardized tests</strong></div>
                 {% if object.standardized_test_required %}
                     <p>Standardized tests are required</p>
                 {% else %}
                     <p>Standardized tests are not required</p>
                 {% endif %}
                 {% if object.standardized_test_notes %}
-                    <h6 class="mt-4">How old of a standardized test score is accepted?</h6>
+                    <div class="mt-4"><strong>How old of a standardized test score is accepted?</strong></div>
                     <p>{{object.standardized_test_notes}}</p>
                 {% endif %}
 
                 {% if object.vet_grants_scholarships_notes %}
-                    <h6 class="mt-4">Veteran-specific Grants &amp; Scholarships</h6>
+                    <div class="mt-4"><strong>Veteran-specific Grants &amp; Scholarships</strong></div>
                     <p>{{object.vet_grants_scholarships_notes|urlize}}</p>
                 {% endif %}
 
                 {% if object.yellow_ribbon_slots %}
-                    <h6 class="mt-4">Yellow Ribbon School</h6>
+                    <div class="mt-4"><strong>Yellow Ribbon School</strong></div>
                     <div>{{object.yellow_ribbon_slots}} slots available.</div>
                     <div>Maximum Contribution (per student/per year): {{object.yellow_ribbon_contribution}}.</div>
                 {% endif %}
 
-                <div class="table-responsive-md mt-4 mb-5">
+                <div class="sr-only">
+                    <h3>Accepted Credits</h3>
+                    {% if object.clep_credits_accepted %}
+                        CLEP credits are accepted.
+                    {% else %}
+                        CLEP credits are not accepted.
+                    {% endif %}
+                    {% if object.dsst_credits_accepted %}
+                        DSST credits are accepted.
+                    {% else %}
+                        DSST credits are not accepted.
+                    {% endif %}
+                    {% if object.jst_credits_accepted %}
+                        JST credits are accepted.
+                    {% else %}
+                        JST credits are not accepted.
+                    {% endif %}
+                    {% if object.online_credits_accepted %}
+                        Online credits are accepted.
+                    {% else %}
+                        Online credits are not accepted.
+                    {% endif %}
+                </div>
+
+                <div class="table-responsive-md mt-4 mb-5" aria-hidden="true">
                     <table class="table table-sm accepted-credits">
                         <thead>
                             <tr>
@@ -196,17 +253,17 @@
                 </div>
 
                 {% if object.notes %}
-                <h4 class="mt-4">Additional Information</h4>
+                <h2 class="mt-4">Additional Information</h2>
                 <div>{{object.notes|urlize}}</div>
                 {% endif %}
 
-                <h4 class="mt-4">Location</h4>
+                <h2 class="mt-4">Location</h2>
                 <div>
-                    <div id="map-container" class="d-print-none">
+                    <div id="map-container" class="d-print-none" aria-hidden="true">
                         <google-mini-map latitude="{{object.latlng.coords.0}}" longitude="{{object.latlng.coords.1}}" />
                     </div>
                     <address class="mt-3">
-                        <h5>{{object.title}}</h5>
+                        <h3>{{object.title}}</h3>
                         {{object.address}}<br>
                         {{object.city}}, {{object.state}}<br>
                     </address>
