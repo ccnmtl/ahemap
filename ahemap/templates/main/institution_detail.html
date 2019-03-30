@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="maincontent" class="row no-gutters flatpage-container h-100">
+<main id="maincontent" class="row no-gutters flatpage-container h-100">
     <div class="col-lg-5 flatpage-title">
         <div class="skewed-background"></div>
         <div class="row no-gutters">
@@ -47,7 +47,7 @@
     <div class="col-lg-7 flatpage-content">
         <div class="detail-page-content">
             <div class="main-image text-black d-print-none">
-                <img src="{{object.image}}" title="{{object.title}} image" />
+                <img src="{{object.image}}" alt="{{object.title}} image" />
             </div>
             <div class="mt-2 px-5">
                 <h2 class="mt-4">At a Glance</h2>
@@ -279,5 +279,5 @@
         </div>
     </div>
     {% include 'main/footer.html' %}
-</div>
+</main>
 {% endblock %}

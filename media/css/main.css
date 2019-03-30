@@ -74,6 +74,10 @@ nav a {
     font-weight: 500;
 }
 
+.btn-link {
+    color: #0072ce;
+}
+
 /* Dark Blue Button */
 .btn-ahe {
     background-color: #253462;
