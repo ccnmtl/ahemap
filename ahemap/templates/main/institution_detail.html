@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load compress %}
 {% load humanize %}
+{% load ahe_tags %}
 
 {% block title %}{{object.title}}{% endblock %}
 {% block bodyclass %}flatpage{% endblock %}
@@ -186,7 +187,7 @@
 
                 {% if object.vet_grants_scholarships_notes %}
                     <div class="mt-4"><strong>Veteran-specific Grants &amp; Scholarships</strong></div>
-                    <p>{{object.vet_grants_scholarships_notes|urlize}}</p>
+                    <p>{{object.vet_grants_scholarships_notes|urlize|url_target_blank}}</p>
                 {% endif %}
 
                 {% if object.yellow_ribbon_slots %}
@@ -254,7 +255,7 @@
 
                 {% if object.notes %}
                 <h2 class="mt-4">Additional Information</h2>
-                <div>{{object.notes|safe|urlize}}</div>
+                <div>{{object.notes|safe|urlize|url_target_blank}}</div>
                 {% endif %}
 
                 <h2 class="mt-4">Location</h2>
