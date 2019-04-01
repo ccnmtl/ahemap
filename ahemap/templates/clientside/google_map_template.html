@@ -208,13 +208,10 @@
             <div v-else>
                 <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
                     <li v-for="site in searchResults" class="list-group-item">
-                        <div class="result-icon float-left mr-1 d-print-none">
-                            <img aria-hidden="true" :src="site.iconUrl" :alt="site.title"/>
-                        </div>
-                        <div class="result-content float-left">
+                        <div class="result-content">
                             <div class="mb-1 site-list-item">
-                                <button class="btn btn-link p-0 d-print-none" @click="onSelectSite(site)">
-                                    <strong>{{site.title}}</strong>
+                                <button class="btn btn-link p-0 d-print-none text-left" @click="onSelectSite(site)">
+                                    <img aria-hidden="true" :src="site.iconUrl" :alt="site.title"/> <strong>{{site.title}}</strong>
                                 </button>
                                 <span class="d-none d-print-block">
                                     <strong>{{site.title}}</strong>
@@ -227,8 +224,6 @@
                             <div class="d-none d-print-block">Admissions: {{site.admissions_url}}</div>
                             <div class="d-none d-print-block" v-if="site.private">Private institution</div>
                             <div class="d-none d-print-block" v-else>Public institution</div>
-
-
                         </div>
                     </li>
                 </ul>
