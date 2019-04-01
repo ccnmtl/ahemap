@@ -254,7 +254,7 @@
 
                 {% if object.notes %}
                 <h2 class="mt-4">Additional Information</h2>
-                <div>{{object.notes|urlize}}</div>
+                <div>{{object.notes|safe|urlize}}</div>
                 {% endif %}
 
                 <h2 class="mt-4">Location</h2>
