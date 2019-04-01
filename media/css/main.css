@@ -121,7 +121,7 @@ nav a {
 
 .flatpage-title {
     padding: 10px;
-    height: 15rem;
+    min-height: 15rem;
     background-color: #253462;
     color: white;
     font-size: 1.25rem;
@@ -500,9 +500,6 @@ footer img {
     .quick-info-admissions {
         text-align: right;
     }
-    .flatpage h1 {
-        font-size: 3.5rem;
-    }
 }
 
 /* Medium devices (md - tablets, 768px and up) */
@@ -550,12 +547,6 @@ footer img {
         border-radius: 5px;
         margin-top: 2rem;
     }
-    .flatpage-title .maincontent-address {
-        display: block;
-    }
-    .at-a-glance-address {
-        display: none;
-    }
     .flatpage-container {
         height: 100%;
         width: 100%;
@@ -583,11 +574,29 @@ footer img {
         -webkit-transform-origin: top right;
         transform-origin: top right;
     }
+    .flatpage-title .maincontent-address {
+        display: block;
+    }
+    .at-a-glance-address {
+        display: none;
+    }
     footer {
         position: fixed;
         background-color: inherit;
         width: 400px;
         height: auto !important;
+    }
+}
+
+@media (min-width: 1024) {
+    .flatpage-container h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .flatpage-container h1 {
+        font-size: 3.5rem;
     }
 }
 
