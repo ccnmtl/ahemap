@@ -101,7 +101,7 @@ define(libs, function($, multiselect, utils) {
                 });
             },
             markerShow: function(marker) {
-                const OPTIMAL_ZOOM = 15;
+                const OPTIMAL_ZOOM = 7;
 
                 let bounds = this.map.getBounds();
                 if (!bounds.contains(marker.getPosition()) ||
