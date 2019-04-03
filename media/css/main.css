@@ -6,7 +6,7 @@ html, body {
     font-family: Open Sans;
 }
 
-body, main {
+body.flatpage {
   min-height: 45rem;
 }
 
