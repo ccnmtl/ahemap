@@ -93,11 +93,12 @@ body {
 
 footer {
     background-color: rgba(02, 33, 105, 0.8);
+    height: 100%;
 }
 
 @media (min-width: 768px) {
     footer {
-        position: fixed;
+        position: absolute;
         background-color: inherit;
         width: 550px;
         height: auto !important;
