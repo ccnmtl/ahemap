@@ -21,7 +21,7 @@ if platform.linux_distribution()[0] == 'Ubuntu':
         # check for the specific issue. Anyone not running
         # ubuntu will just need to set this to the
         # appropriate value in their local_settings.py
-        SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+        SPATIALITE_LIBRARY_PATH = 'mod_spatialite.so'
     elif platform.linux_distribution()[1] == '18.04':
         # On Debian testing/buster, I had to do the following:
         # * Install the sqlite3 and libsqlite3-mod-spatialite packages.
