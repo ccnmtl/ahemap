@@ -106,3 +106,5 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 15,
     'DATETIME_FORMAT': '%m/%d/%y %I:%M %p'
 }
+
+JIRA_CONFIGURATION = ''  # specify in production
