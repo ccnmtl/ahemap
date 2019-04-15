@@ -87,13 +87,19 @@ ALLOWED_HOSTS = [
     'ahemap.veterans.columbia.edu',
 ]
 
+MIDDLEWARE += [  # noqa
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+]
+
 
 THUMBNAIL_SUBDIR = "thumbs"
 LOGIN_REDIRECT_URL = "/"
 
 TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
     'ahemap.main.views.django_settings')
-
+TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
+    'django.template.context_processors.csrf')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -108,3 +114,5 @@ REST_FRAMEWORK = {
 }
 
 JIRA_CONFIGURATION = ''  # specify in production
+
+SESSION_COOKIE_SECURE = True
