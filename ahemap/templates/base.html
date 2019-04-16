@@ -96,13 +96,21 @@
 {% block body %}
     <header>
     {% block topnavbar %}
-    <nav class="navbar navbar-expand-md bg-custom {% block navclass %}{% endblock %}">
-        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Attaining Higher Education</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+        <nav class="navbar bg-custom text-white">
+            <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Attaining Higher Education</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link about-link mr-3" href="/about/">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     {% endblock %}
     </header>
 
@@ -153,8 +161,9 @@
         staticUrl: '{{STATIC_URL}}',
         debug: {% if debug %}'true'{% else %}'false'{% endif %},
         mapKey: '{{settings.GOOGLE_MAP_API}}',
-        baseUrl: '//{{ request.get_host }}/'
-    }
+        baseUrl: '//{{ request.get_host }}/',
+        jiraConfiguration: '{{settings.JIRA_CONFIGURATION|safe}}'
+    };
 </script>
 
 {% block js %}

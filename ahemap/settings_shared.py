@@ -113,4 +113,6 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%m/%d/%y %I:%M %p'
 }
 
+JIRA_CONFIGURATION = ''  # specify in production
+
 SESSION_COOKIE_SECURE = True

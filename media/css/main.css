@@ -60,6 +60,7 @@ nav a, nav a:visited {
 
 nav a:active, nav a:focus, nav a:hover {
     color: lightgray;
+    text-decoration: none;
 }
 
 .bg-custom {
@@ -104,6 +105,10 @@ nav a {
 }
 
 /* Flatpages */
+.flatpage nav {
+    width: 98%;
+}
+
 .flatpage h1 {
     font-size: 2.5rem;
 }
@@ -115,12 +120,16 @@ nav a {
     display: none;
 }
 
+.flatpage-title .about-link {
+    font-family: Open Sans;
+    font-size: 1rem;
+}
+
 .flatpage .skewed-background {
     display: none;
 }
 
 .flatpage-title {
-    padding: 10px;
     min-height: 15rem;
     background-color: #253462;
     color: white;
