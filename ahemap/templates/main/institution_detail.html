@@ -84,17 +84,19 @@
                                 <li>Four-year program</li>
                             {% endif %}{% endif %}{% endif %}
                             <li>
-                                <a class="d-print-none" href="{{object.website_url}}" title="website link" target="_blank" rel="noopener">
-                                    Website Link
+                                <a class="d-print-none" href="{{object.website_url}}" title="Website" target="_blank" rel="noopener">
+                                    Website
                                 </a>
                                 <span class="d-none d-print-inline">{{object.website_url}}</span>
                             </li>
+                            {% if object.admissions_url %}
                             <li>
-                                <a class="d-print-none" href="{{object.admissions_url}}" title="veterans adminissions link" target="_blank" rel="noopener">
-                                    Admissions Link
+                                <a class="d-print-none" href="{{object.admissions_url}}" title="Admissions" target="_blank" rel="noopener">
+                                    Admissions
                                 </a>
                                 <span class="d-none d-print-inline">{{object.admissions_url}}</span>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="col-md-6">
