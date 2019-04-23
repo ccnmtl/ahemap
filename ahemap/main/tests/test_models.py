@@ -97,6 +97,9 @@ class InstitutionTest(TestCase):
         Institution.objects._set_field_value(i, 'student_population', '10000')
         self.assertEquals(i.student_population, 10000)
 
+        Institution.objects._set_field_value(i, 'student_population', '10,000')
+        self.assertEquals(i.student_population, 10000)
+
         Institution.objects._set_field_value(i, 'city', 'foo')
         self.assertEquals(i.city, 'foo')
 

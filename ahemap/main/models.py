@@ -73,6 +73,7 @@ class InstitutionManager(models.Manager):
                 setattr(inst, field.name, 'yes' in value.lower())
             elif isinstance(field, PositiveIntegerField):
                 try:
+                    value = value.replace(',', '')
                     setattr(inst, field.name, int(value))
                 except ValueError:
                     pass
