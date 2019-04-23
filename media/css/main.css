@@ -207,7 +207,7 @@ footer img {
 
 .map-view .search-bar {
     border: 1px solid #ddd;
-    width: 242px;
+    width: 210px;
     margin-bottom: 1rem;
     margin-top: -8px;
 }
@@ -240,7 +240,7 @@ footer img {
     left: 2vw;
     right: 2vw;
     top: 0.625rem;
-    width: 22.5rem;
+    width: 19rem;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -250,6 +250,10 @@ footer img {
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     z-index: 1050;
+}
+
+.map-view .advanced-filters i.text-muted {
+    display: none;
 }
 
 .map-view .search-criteria i {
@@ -272,7 +276,7 @@ footer img {
 
 .map-view .pin-place-detail {
     position: absolute;
-    width: 22.5rem;
+    width: 19rem;
     bottom: 0;
     left: 2vw;
     right: 2vw; 
@@ -281,7 +285,6 @@ footer img {
     -moz-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     -webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
     z-index: 1;
-    min-height: 12rem;
     font-size: .9rem;
 }
 
@@ -470,6 +473,9 @@ footer img {
         right: 0;
         bottom: auto;
     }
+    .map-view .advanced-filters i.text-muted {
+        display: inline;
+    }
     .map-view .pin-place-detail {
         width: 24rem;
         top: 18.25rem;
@@ -495,7 +501,7 @@ footer img {
         width: 225px;
     }
     .map-view .search-bar {
-        width: 265px;
+        width: 225px;
     }
     .search-criteria {
         display: block !important;

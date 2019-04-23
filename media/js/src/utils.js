@@ -110,9 +110,10 @@ define(function() {
                 document.getElementsByTagName('body')[0].clientHeight;
         }
 
-        return viewportheight - (
-            90 + $('header').outerHeight() +
-            $('.advanced-filters').outerHeight());
+        return viewportheight -
+            (8 +
+             jQuery('.advanced-filters').offset().top +
+             jQuery('.advanced-filters').outerHeight());
     }
 
     function queryParams() {
