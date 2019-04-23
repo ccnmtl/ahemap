@@ -22,12 +22,40 @@ define(libs, function($) {
                 },
                 styles: [
                     {
+                        'featureType': 'administrative.province',
+                        'elementType': 'geometry.stroke',
+                        'stylers': [
+                            {
+                                'visibility': 'on'
+                            },
+                            {
+                                'saturation': '100'
+                            },
+                            {
+                                'gamma': '10.00'
+                            },
+                            {
+                                'lightness': '-100'
+                            },
+                            {
+                                'weight': '2.13'
+                            },
+                            {
+                                'color': '#6c757d'
+                            }
+                        ]
+                    },
+                    {
                         'featureType': 'landscape.man_made',
                         'stylers': [{'visibility': 'off'}]
                     },
                     {
                         'featureType': 'poi',
                         'stylers': [{'visibility': 'off'}]
+                    },
+                    {
+                        'featureType': 'poi.school',
+                        'stylers': [{'visibility': 'on'}]
                     }
                 ]
             });
