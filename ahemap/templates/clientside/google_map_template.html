@@ -5,7 +5,7 @@
             <h1 class="sr-only sr-only-focusable">Search Schools</h1>
             <div class="advanced-filters d-print-inline-block">
                 <div class="search-criteria collapse show pt-3 px-3 pb-4">
-                    <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program Length
+                    <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program
                     <span class="float-right">
                         <span class="form-check form-check-inline">
                             <input v-model="twoYear" class="form-check-input" type="checkbox"
@@ -20,7 +20,7 @@
                     </span>
                 </div>
                 <div class="search-criteria collapse show px-3 pb-4">
-                    <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> School Type
+                    <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Type
                     <span class="float-right">
                         <span class="form-check form-check-inline">
                             <input v-model="schoolPublic" class="form-check-input" type="checkbox"
@@ -36,7 +36,7 @@
                 </div>
                 <div class="search-criteria collapse show px-3 pb-4">
                     <i aria-hidden="true" class="fas fa-users text-muted"></i>
-                    <label for="populations">School Size</label>
+                    <label for="populations">Size</label>
                     <span class="undergraduate-populations float-right">
                         <multiselect v-model="population"
                             id="populations" name="populations"
@@ -69,15 +69,14 @@
                     </span>
                 </div>
                 <div class="search-criteria collapse show px-3">
-                    <i class="fas fa-landmark text-muted "></i>
-                    <label for="search-term">School</label>
+                    <i class="fas fa-landmark text-muted"></i>
+                    <label for="search-term">Name</label>
                     <div class="search-bar float-right">
                         <div class="input-group">
                             <input id="search-term" type="text" name="q"
                                 v-model="searchTerm"
                                 class="form-control form-control w-25"
-                                placeholder="Narrow by school name"
-                                aria-label="Narrow by school name"
+                                aria-label="Narrow by name"
                                 @keydown.enter.prevent="onChangeCriteria">
                             <div class="input-group-append">
                                 <button class="btn btn-light" type="button"
@@ -179,7 +178,7 @@
                 </div>
             </div>
         </div>
-        <div v-else-if="searchResults" class="pin-place-detail search-results">
+        <div v-else-if="searchResults" class="pin-place-detail search-results" :style="'height:' + searchResultHeight + 'px;'">
             <div class="search-results-header d-print-none">
                 <button v-if="selectedSite || searchResults"
                     class="btn btn-sm btn-link float-left text-white w-50 btn-left"
@@ -205,29 +204,27 @@
             <div v-if="searchResults.length === 0">
                 <div class="selected-site-title pt-3 pr-3 pl-3 pb-2 text-center">No Schools Found</div>
             </div>
-            <div v-else>
-                <ul class="list-group" :style="'height:' + searchResultHeight + 'px;'">
-                    <li v-for="site in searchResults" class="list-group-item">
-                        <div class="result-content">
-                            <div class="mb-1 site-list-item">
-                                <button class="btn btn-link p-0 d-print-none text-left" @click="onSelectSite(site)">
-                                    <img aria-hidden="true" :src="site.iconUrl" :alt="site.title"/> <strong>{{site.title}}</strong>
-                                </button>
-                                <span class="d-none d-print-block">
-                                    <strong>{{site.title}}</strong>
-                                    <span class="font-weight-normal">(https://ahemap.veterans.columbia.edu/view/{{site.id}}/)</span>
-                                </span>
-                            </div>
-                            <div class="d-print-none">{{site.city}}, {{site.state}}</div>
-                            <div class="d-none d-print-block">{{site.address}}, {{site.city}}, {{site.state}}</div>
-                            <div class="d-none d-print-block">Website: {{site.website_url}}</div>
-                            <div class="d-none d-print-block">Admissions: {{site.admissions_url}}</div>
-                            <div class="d-none d-print-block" v-if="site.private">Private institution</div>
-                            <div class="d-none d-print-block" v-else>Public institution</div>
+            <ul v-else class="list-group h-100" :style="'max-height:' + (searchResultHeight - 40) + 'px;'">
+                <li v-for="site in searchResults" class="list-group-item">
+                    <div class="result-content">
+                        <div class="mb-1 site-list-item">
+                            <button class="btn btn-link p-0 d-print-none text-left" @click="onSelectSite(site)">
+                                <img aria-hidden="true" :src="site.iconUrl" :alt="site.title"/> <strong>{{site.title}}</strong>
+                            </button>
+                            <span class="d-none d-print-block">
+                                <strong>{{site.title}}</strong>
+                                <span class="font-weight-normal">(https://ahemap.veterans.columbia.edu/view/{{site.id}}/)</span>
+                            </span>
                         </div>
-                    </li>
-                </ul>
-            </div>
+                        <div class="d-print-none">{{site.city}}, {{site.state}}</div>
+                        <div class="d-none d-print-block">{{site.address}}, {{site.city}}, {{site.state}}</div>
+                        <div class="d-none d-print-block">Website: {{site.website_url}}</div>
+                        <div class="d-none d-print-block">Admissions: {{site.admissions_url}}</div>
+                        <div class="d-none d-print-block" v-if="site.private">Private institution</div>
+                        <div class="d-none d-print-block" v-else>Public institution</div>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="google-map d-print-none" :id="mapName"></div>
     </div>
