@@ -10,17 +10,15 @@
 {% endblock %}
 
 {% block body %}
-
-<main id="maincontent" class="h-100">
-    <div class="row no-gutters flatpage-container">
-        <div class="col-lg-5 flatpage-title">
-            <div class="skewed-background"></div>
-            <nav class="navbar navbar-expand-sm navbar-dark bg-custom text-white">
-              <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Attaining Higher Education</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<main id="maincontent" class="row no-gutters flatpage-container h-100">
+    <div class="col-lg-5 flatpage-title">
+        <div class="skewed-background"></div>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-custom text-white">
+            <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Attaining Higher Education</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 </ul>
                 <ul class="navbar-nav">
@@ -28,39 +26,23 @@
                         <a class="nav-link about-link mr-3" href="/map/">Map</a>
                     </li>
                 </ul>
-              </div>
-            </nav>
-            <div class="row no-gutters h-50">
-                <div class="col-12 my-auto">
-                    <div class="py-md-0 px-5">
-                        <h1 class="my-5">
-                            {{flatpage.title}}
-                        </h1>
-                    </div>
+            </div>
+        </nav>
+        <div class="row no-gutters h-50">
+            <div class="col-12 my-auto">
+                <div class="py-md-0 px-5">
+                    <h1 class="mt-5 mr-3 mb-4">
+                        {{flatpage.title}}
+                    </h1>
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 flatpage-content">
-            <div class="my-5 px-4">
-                {{flatpage.content|safe}}
-            </div>
-            <div class="social-icons d-print-none">
-                <ul class="list-unstyled text-center mb-0">
-                    <li class="list-unstyled-item">
-                        <a tabindex="-1" aria-hidden="true" target="about: blank" class="edx" href="https://bit.ly/FYCMOOC" title="Link to EdX">
-                            <img src="{{STATIC_URL}}img/edx.png" alt="EdX logo">
-                        </a>
-                    </li>
-                    <li class="list-unstyled-item">
-                        <a tabindex="-1" aria-hidden="true" target="about:blank" href="https://twitter.com/columbia_cvti" title="Link to Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        {% include 'main/footer.html' %}
     </div>
+    <div class="col-lg-7 flatpage-content">
+        <div class="detail-page-content">
+            <div class="my-5 px-3">{{flatpage.content|safe}}</div>
+        </div>
+    </div>
+    {% include 'main/footer.html' %}
 </main>
-
 {% endblock %}
