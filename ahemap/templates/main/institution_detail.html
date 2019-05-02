@@ -211,7 +211,7 @@
                     <div>Maximum Contribution (per student/per year): {{object.yellow_ribbon_contribution}}.</div>
                 {% endif %}
 
-                <div class="sr-only">
+                <div class="custom-sr-only">
                     <h3>Accepted Credits</h3>
                     {% if object.clep_credits_accepted %}
                         CLEP credits are accepted.
@@ -270,7 +270,7 @@
 
                 {% if object.notes %}
                 <h2 class="mt-4">Additional Information</h2>
-                <div>{{object.notes|safe|urlize|url_target_blank}}</div>
+                <div class="overflow-auto">{{object.notes|safe|urlize|url_target_blank}}</div>
                 {% endif %}
 
                 <h2 class="mt-4">Location</h2>
