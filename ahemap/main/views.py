@@ -9,6 +9,7 @@ from django.utils.html import escape
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 from rest_framework import viewsets
 
 from ahemap.main.forms import InstitutionImportForm
@@ -138,6 +139,27 @@ class InstitutionSearchMixin(object):
         qs = self.filter_by_name(qs, params)
         qs = self.filter_by_site(qs, params)
         return qs
+
+
+class BrowseView(InstitutionSearchMixin, ListView):
+    model = Institution
+
+    paginate_by = 15
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(BrowseView, self).get_context_data(**kwargs)
+
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+
+        base = reverse('browse-view')
+        context['base_url'] = u'{}?q={}&page='.format(base, query)
+
+        return context
+
+    def get_queryset(self):
+        qs = super(BrowseView, self).get_queryset()
+        return self.filter(qs)
 
 
 class Echo(object):

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Map{% endblock %}
+{% block bodyclass %}map-view{% endblock %}
+{% block mainclass %}container-fluid px-0 map-space{% endblock %}
+{% block navclass %}fixed-top{% endblock %}
+
+{% block canonical %}
+    <link rel="canonical" href="https://ahemap.veterans.columbia.edu/map/" />
+{% endblock %}
+
+{% block printtitle %}
+    Interactive Map
+{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{{STATIC_URL}}js/lib/vue-multiselect/vue-multiselect.min.css"></link>
+    <link rel="stylesheet" href="{{STATIC_URL}}js/lib/vue-multiselect/custom.css"></link>
+{% endblock %}
+
+{% block content %}
+<form method="get" action=".">
+<div class="pt-5 pb-2 text-center">
+    <h2>
+        Schools
+    </h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Search</span>
+            </div>
+            <input type="text" class="form-control" name="q"
+                placeholder="by title or description" value="{{query}}" />
+            {% if query %}
+            <span class="input-group-btn">
+                <a class="btn btn-light btn-clear-search" href="{% url 'browse-view' %}">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+            </span>
+            {% endif %}
+            <span class="input-group-btn">
+                <button class="btn btn-secondary btn-search-text" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        {{paginator.count}} sites
+    </div>
+    <div class="col-md-8">
+        {% include 'main/pagination.html' %}
+    </div>
+</div>
+
+<table class="table table-bordered mt-1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Program</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>City</th>
+            <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+            <tr> 
+            <td><a href="{% url 'institution-detail-view' object.id %}">{{object}}</a></td>
+            <td>
+                {% if object.two_year_program and object.four_year_program %}
+                    Two-year &amp; four-year programs
+                {% else %}{% if object.two_year_program %}
+                    Two-year program
+                {% else %}{% if object.four_year_program %}
+                    Four-year program
+                {% endif %}{% endif %}{% endif %}
+            </td>
+            <td>
+                {% if object.accredited %}
+                    Accredited {% if object.private %}private{% else %}public{% endif %} institution
+                {% else %}
+                    {% if object.private %}Private{% else %}Public{% endif %} institution
+                {% endif %}
+            </td>
+            <td>
+                {% if object.undergraduate_population < 2000 %}
+                    Small<br /><span class="small">&lt; 2,000 undergraduates</span>
+                {% else %}{% if object.undergraduate_population >= 2000 and object.undergraduate_population <= 10000 %}
+                    Medium<br /><span class="small">2000 - 10,000 undergraduates</span>
+                {% else %}{% if object.undergraduate_population > 10000 %}
+                    Large<br /><span class="small">&gt; 10,000 undergraduates</span>
+                {% endif %}{% endif %}{% endif %}
+
+            </td>
+            <td>
+                {{object.city}}
+            </td>
+            <td>
+                {{object.state}}
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            {{paginator.count}} sites
+        </div>
+        <div class="col-md-8">
+            {% include 'main/pagination.html' %}
+        </div>
+    </div>
+
+</form>
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script data-main="{{STATIC_URL}}js/src/main.js"
+        src="{{STATIC_URL}}js/lib/require/require.js"></script>
+{% endblock %}

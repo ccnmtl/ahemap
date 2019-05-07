@@ -466,6 +466,13 @@ footer img {
     margin-top: -7px;
 }
 
+/** Browse **/
+.page-number {
+    width: 50px;
+    display: inline;
+    text-align: right;
+}
+
 /*-------------RESPONSIVE CSS -----------------------------------------------*/
 
 /* Extra small devices (portrait phones, less than 576px) */
