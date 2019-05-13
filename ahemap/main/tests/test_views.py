@@ -9,7 +9,7 @@ from django.urls.base import reverse
 from ahemap.main.forms import InstitutionImportForm
 from ahemap.main.models import Institution
 from ahemap.main.tests.factories import InstitutionFactory
-from ahemap.main.views import SaveView, InstitutionImportView
+from ahemap.main.views import SaveView, InstitutionImportView, BrowseView
 
 
 class BasicTest(TestCase):
@@ -21,6 +21,27 @@ class BasicTest(TestCase):
         response = self.client.get("/smoketest/")
         self.assertEquals(response.status_code, 200)
         self.assertContains(response, 'PASS')
+
+
+class BrowseViewTest(TestCase):
+
+    def test_valid_context(self):
+        ctx = {'a': 'false', 'b': '', 'c': 'true', 'd': 'something'}
+        ctx = BrowseView().valid_context(ctx)
+
+        self.assertEquals(ctx, {'c': 'true', 'd': 'something'})
+
+    def test_get_context_data(self):
+        url = reverse('browse-view')
+        response = self.client.get(url)
+        self.assertEquals(response.context_data['base_url'], '/browse/?&page=')
+        self.assertEquals(response.context_data['twoyear'], 'false')
+        self.assertEquals(response.context_data['fouryear'], 'false')
+        self.assertEquals(response.context_data['public'], 'false')
+        self.assertEquals(response.context_data['private'], 'false')
+        self.assertEquals(response.context_data['state'], '')
+        self.assertEquals(response.context_data['population'], '')
+        self.assertEquals(response.context_data['query'], '')
 
 
 class InstitutionViewSetTest(TestCase):
