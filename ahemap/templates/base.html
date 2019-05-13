@@ -133,8 +133,8 @@
                 {% block content %}{% endblock %}
             </div>
         </section>
+        {% include 'main/footer.html' %}
     </main>
-    {% include 'main/footer.html' %}
 {% endblock %}
 
 {% if RAVEN_CONFIG.dsn %}

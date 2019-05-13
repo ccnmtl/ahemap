@@ -1,4 +1,5 @@
 import csv
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib import messages
@@ -146,14 +147,26 @@ class BrowseView(InstitutionSearchMixin, ListView):
 
     paginate_by = 15
 
+    def valid_context(self, ctx):
+        invalid = ['false', '']
+        return {k: v for k, v in ctx.items() if v not in invalid}
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(BrowseView, self).get_context_data(**kwargs)
 
-        query = self.request.GET.get('q', '')
-        context['query'] = query
+        ctx = {
+            'query': self.request.GET.get('q', ''),
+            'twoyear': self.request.GET.get('twoyear', 'false'),
+            'fouryear': self.request.GET.get('fouryear', 'false'),
+            'public': self.request.GET.get('public', 'false'),
+            'private': self.request.GET.get('private', 'false'),
+            'population': self.request.GET.get('population', ''),
+            'state': self.request.GET.get('state', ''),
+        }
 
-        base = reverse('browse-view')
-        context['base_url'] = u'{}?q={}&page='.format(base, query)
+        context.update(ctx)
+        context['base_url'] = u'{}?{}&page='.format(
+            reverse('browse-view'), urlencode(self.valid_context(ctx)))
 
         return context
 

@@ -110,9 +110,14 @@ nav a {
     border-color: #a65b31;
 }
 
+.btn-secondary.disabled, .btn-secondary:disabled,
 .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
     background-color: #a66531;
     border-color: #a66531;
+}
+
+.btn-secondary.disabled, .btn-secondary:disabled {
+    opacity: .55;
 }
 
 /* Flatpages */
@@ -179,6 +184,18 @@ footer img {
     display: none;
 }
 
+.browse-view footer {
+    position: static !important;
+    bottom: auto !important;
+    background-color: #253462 !important;
+    width: 100% !important;
+}
+
+.browse-view button[type="reset"] {
+    color: #212529;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
 
 /* Map View */
 .map-space {
