@@ -118,21 +118,18 @@
     {% endblock %}
 
     <main id="maincontent" class="{% block mainclass %}container{% endblock %}">
-        <section id="content">
-            <div class="container">
-                <div class="d-none d-print-block print-header">
-                    <h5>
-                        <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home d-print-none"></i>
-                        Attaining Higher Education</a>
-                    </h5>
-                    <h1 class="mt-5 mx-3 mb-4">
-                        {% block printtitle %}{% endblock %}
-                    </h1>
-                </div>
-                {% block pagetitle %}{% endblock %}
-                {% block content %}{% endblock %}
-            </div>
-        </section>
+        <div class="d-none d-print-block print-header">
+            <h5>
+                <a class="ml-3 text-white" href="/" title="Home page"><i class="fas fa-home d-print-none"></i>
+                Attaining Higher Education</a>
+            </h5>
+            <h1 class="mt-5 mx-3 mb-4">
+                {% block printtitle %}{% endblock %}
+            </h1>
+        </div>
+        {% block pagetitle %}{% endblock %}
+        {% block content %}{% endblock %}
+
         {% include 'main/footer.html' %}
     </main>
 {% endblock %}
