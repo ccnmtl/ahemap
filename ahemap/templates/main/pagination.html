@@ -16,9 +16,10 @@
              Last <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
         </a>
     </div>
-    <div class="float-right page-count mx-3">
-        Page <input data-base-url="{{base_url}}"
-                class="form-control page-number" type="text"
+    <div class="float-right page-count mx-2">
+        <label for="page-number-input-{{instance}}">Page </label>
+        <input id="page-number-input-{{instance}}" data-base-url="{{base_url}}"
+            class="form-control page-number" type="text"
                 value="{{page_obj.number}}"> of <span class="max-page">{{paginator.num_pages}}</span>
     </div>
     <div class="float-right mt-1">
@@ -33,7 +34,7 @@
             {% else %}
                 href="#"
             {% endif %}>
-            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Previous
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Prev
         </a>
     </div>
 {% endif %}

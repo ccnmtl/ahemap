@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block title %}Browse{% endblock %}
-{% block bodyclass %}browse-view{% endblock %}
+{% block bodyclass %}browse-view bg-light{% endblock %}
 {% block bodyid %}browseView{% endblock %}
-{% block mainclass %}container-fluid px-0 browse-space{% endblock %}
+{% block mainclass %}container-fluid browse-space{% endblock %}
 {% block navclass %}fixed-top{% endblock %}
 
 {% block canonical %}
@@ -20,40 +22,35 @@
 {% endblock %}
 
 {% block content %}
-<div id="browse-container">
-    <form id="searchForm" method="get" action=".">
-        <div class="pt-5 pb-2 text-center">
-            <h2>
-                Browse Schools
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 p-0">
-                <div class="border bg-light px-3">
-                <div class="search-criteria pt-3 pb-4">
-                    <div class="mb-1">
+<form id="browse-container" method="get" action=".">
+    <div class="my-3 row">
+        <div class="col-12 col-md-auto">
+            <div class="search-criteria-container mb-5">
+                <div class="bg-light p-2"><strong>Search Schools</strong></div>
+                <div class="search-criteria pt-3 px-3 pb-4">
+                    <span class="search-criteria-label">
                         <i class="fa fa-calendar text-muted" aria-hidden="true"></i> Program
-                    </div>
-                    <div>
+                    </span>
+                    <span class="ml-1 float-right">
                         <span class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="true"
-                                id="two-year-program" name="twoyear" value="2"
+                            <input class="form-check-input" type="checkbox"
+                                id="two-year-program" name="twoyear" value="trye"
                                 {% if twoyear == "true" %}checked="checked"{% endif %}>
                             <label class="form-check-label" for="two-year-program">2-year</label>
                         </span>
                         <span class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="true"
-                                id="four-year-program" name="fouryear" value="4"
+                            <input class="form-check-input" type="checkbox"
+                                id="four-year-program" name="fouryear" value="true"
                                 {% if fouryear == "true" %}checked="checked"{% endif %}>
                             <label class="form-check-label" for="four-year-program">4-year</label>
                         </span>
-                    </div>
+                    </span>
                 </div>
-                <div class="search-criteria pb-4">
-                    <div class="mb-1">
+                <div class="search-criteria px-3 pb-4">
+                    <span class="search-criteria-label">
                         <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Type
-                    </div>
-                    <div>
+                    </span>
+                    <span class="ml-1 float-right">
                         <span class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox"
                                 id="type-public" name="public" value="true"
@@ -66,18 +63,18 @@
                                 {% if private == "true" %}checked="checked"{% endif %}>
                             <label class="form-check-label" for="type-private">Private</label>
                         </span>
-                    </div>
+                    </span>
                 </div>
-                <div class="search-criteria pb-4">
-                    <div>
-                        <i aria-hidden="true" class="fas fa-users text-muted"></i> <label for="populations">Size</label>
-                    </div>
-                    <div>
+                <div class="search-criteria px-3 pb-4">
+                    <span class="search-criteria-label">
+                        <i aria-hidden="true" class="fas fa-users text-muted"></i>
+                        <label for="populations">Size</label>
+                    </span>
+                    <span class="undergraduate-populations float-right">
                         <input type="hidden" name="population"
                             {% if population %}value="{{population}}"{% else %}value=""{% endif %} />
-                        <multiselect
-                            v-model="population"
-                            id="populations"
+                        <multiselect v-model="population"
+                            id="populations" name="populations"
                             :options="populations" :allow-empty="true"
                             label="name" placeholder="Undergraduate population"
                             :searchable="false"
@@ -90,119 +87,106 @@
                                     <div class="option__small small mt-1">{% templatetag openvariable %}props.option.range{% templatetag closevariable %} undergraduates</div></div>
                             </template>
                         </multiselect>
-                    </div>
+                    </span>
                 </div>
-                <div class="search-criteria pb-4">
-                    <div>
+                <div class="search-criteria px-3 pb-4">
+                    <span class="search-criteria-label">
                         <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
                         <label for="states">State</label>
-                    </div>
-                    <div>
+                    </span>
+                    <span class="states float-right">
                         <input type="hidden" name="state"
                             {% if state %}value="{{state}}"{% else %}value=""{% endif %} />
                         <multiselect v-model="state" id="states"
-                            :options="states"
+                            :options="states" name="states"
                             label="name" placeholder="Type or choose state"
                             :searchable="true"
                             :allow-empty="true" deselect-label="clear"
                             select-label="" selected-label="" track-by="id">
                         </multiselect>
-                    </div>
+                    </span>
                 </div>
-                <div class="search-criteria mb-3">
-                    <div>
+                <div class="search-criteria px-3">
+                    <span class="search-criteria-label">
                         <i class="fas fa-landmark text-muted"></i>
                         <label for="search-term">Name</label>
-                    </div>
-                    <div>
+                    </span>
+                    <span class="search-bar float-right">
                         <div class="input-group">
                             <input id="search-term" type="text" name="q"
                                 class="form-control form-control w-25"
                                 aria-label="Narrow by name"
                                 {% if query %}value="{{query}}"{% endif %}>
                         </div>
-                    </div>
+                    </span>
                 </div>
-                <div class="mb-3">
-                    <button type="submit" name="search" class="btn btn-secondary w-100 px-1 mb-1">Search</button>
-                    <button type="reset" name="reset" class="btn btn-light w-100 px-1" @click="clearSearch">Clear</button>
-                </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-md-4">
-                        {{paginator.count}} sites
-                    </div>
-                    <div class="col-md-8">
-                        {% include 'main/pagination.html' %}
-                    </div>
-                </div>
-
-                <table class="table table-bordered mt-1">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Program</th>
-                            <th>Type</th>
-                            <th>Size</th>
-                            <th>City</th>
-                            <th>State</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for object in object_list %}
-                            <tr> 
-                            <td><a href="{% url 'institution-detail-view' object.id %}">{{object}}</a></td>
-                            <td>
-                                {% if object.two_year_program and object.four_year_program %}
-                                    Two-year &amp; four-year programs
-                                {% else %}{% if object.two_year_program %}
-                                    Two-year program
-                                {% else %}{% if object.four_year_program %}
-                                    Four-year program
-                                {% endif %}{% endif %}{% endif %}
-                            </td>
-                            <td>
-                                {% if object.accredited %}
-                                    Accredited {% if object.private %}private{% else %}public{% endif %} institution
-                                {% else %}
-                                    {% if object.private %}Private{% else %}Public{% endif %} institution
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.undergraduate_population < 2000 %}
-                                    Small<br /><span class="small">&lt; 2,000 undergraduates</span>
-                                {% else %}{% if object.undergraduate_population >= 2000 and object.undergraduate_population <= 10000 %}
-                                    Medium<br /><span class="small">2000 - 10,000 undergraduates</span>
-                                {% else %}{% if object.undergraduate_population > 10000 %}
-                                    Large<br /><span class="small">&gt; 10,000 undergraduates</span>
-                                {% endif %}{% endif %}{% endif %}
-        
-                            </td>
-                            <td>
-                                {{object.city}}
-                            </td>
-                            <td>
-                                {{object.state}}
-                            </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                <div class="row mt-5 mb-5">
-                    <div class="col-md-4">
-                        {{paginator.count}} sites
-                    </div>
-                    <div class="col-md-8">
-                        {% include 'main/pagination.html' %}
-                    </div>
+                <div class="p-3 text-right">
+                    <button type="reset" name="reset" class="btn btn-light" @click="clearSearch">
+                        Clear
+                    </button>
+                    <button type="submit" name="search" class="btn btn-secondary">
+                        Search
+                    </button>
                 </div>
             </div>
         </div>
-    </form>
-</div>
+        <div class="col-12 col-md">
+            <div class="mb-5 pagination-container">
+                {% with instance="1" %}
+                {% include 'main/pagination.html' %}
+                {% endwith %}
+            </div>
+            {% for object in object_list %}
+            <div class="card mb-3 w-100">
+              <div class="row no-gutters">
+                <div class="col-md-2">
+                    <img class="card-img" src="{{object.image}}" alt="{{object.title}} image" />
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'institution-detail-view' object.id %}">{{object}}</a></h5>
+                    <p class="card-text">
+                        {% if object.accredited %}
+                            Accredited {% if object.private %}private{% else %}public{% endif %} institution
+                        {% else %}
+                            {% if object.private %}Private{% else %}Public{% endif %} institution
+                        {% endif %}
+
+                        in {{object.city}}, {{object.state}}, 
+
+                        {% if object.two_year_program and object.four_year_program %}
+                                offering two-year &amp; four-year programs.
+                            {% else %}{% if object.two_year_program %}
+                                offering two-year programs.
+                            {% else %}{% if object.four_year_program %}
+                                offering four-year programs.
+                            {% endif %}{% endif %}{% endif %}
+
+                        This school has a 
+                        {% if object.undergraduate_population < 2000 %}
+                            small population with {{object.undergraduate_population|intcomma}} undergraduates.
+                        {% else %}{% if object.undergraduate_population >= 2000 and object.undergraduate_population <= 10000 %}
+                            medium population with {{object.undergraduate_population|intcomma}} undergraduates.
+                        {% else %}{% if object.undergraduate_population > 10000 %}
+                            large population with {{object.undergraduate_population|intcomma}} undergraduates.
+                        {% endif %}{% endif %}{% endif %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+                <h3 class="text-center">No Schools Found</h3>
+            {% endfor %}
+            <div class="mt-3 mb-5 pagination-container">
+                {% with instance="2" %}
+                {% include 'main/pagination.html' %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+</form>
 {% endblock %}
 
 {% block js %}
