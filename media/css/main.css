@@ -74,8 +74,20 @@ nav a:active, nav a:focus, nav a:hover {
     text-decoration: none;
 }
 
-.bg-custom {
+.navbar-custom-theme {
     background-color: #253462;
+}
+
+.navbar-custom-theme .nav-item .nav-link {
+    color: white;
+}
+
+.navbar-custom-theme .nav-item.active {
+    text-decoration: underline;
+}
+
+.navbar-custom-theme .nav-item .nav-link {
+    color: white;
 }
 
 a.navbar-brand {
@@ -227,10 +239,11 @@ footer img {
 
 /* Map View */
 .map-space {
-    position: absolute;
-    top: 2.4rem;
+    position: relative;
+    top: 0;
     bottom: 0;
     width: 100%;
+    height: 100%;
 }
 
 .map-space .selected-site-title {
@@ -538,7 +551,7 @@ span.states {
 /* Small devices (sm - landscape phones, 576px and up) */
 @media (min-width: 576px) {
     a.navbar-brand {
-        font-size: 1.25rem;
+        font-size: 1.18rem;
     }
     .advanced-filters {
         border-top: 1px solid #ddd;
