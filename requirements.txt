@@ -1,6 +1,6 @@
-Django==2.2.5
+Django==2.2.6
 pytz==2019.2
-httplib2==0.13.1
+httplib2==0.14.0
 feedparser==5.2.1
 Markdown==2.6.11 # pyup: < 3
 psycopg2==2.8.3
@@ -19,18 +19,18 @@ cssselect==1.1.0
 lxml==4.4.1
 fuzzywuzzy==0.17.0
 sure==1.4.11
-traitlets==4.3.2  # ipython
+traitlets==4.3.3  # ipython
 ipython_genutils==0.2.0  # ipython
 decorator==4.4.0  # ipython
 ptyprocess==0.6.0  # ipython
 pexpect==4.7.0  # ipython
-pathlib2==2.3.4  # ipython
+pathlib2==2.3.5  # ipython
 pickleshare==0.7.5  # ipython
 simplegeneric==0.8.1  # ipython
 path.py==12.0.1  # ipython
 backports.shutil_get_terminal_size==1.0.0  # ipython
 wcwidth==0.1.7  # ipython
-prompt_toolkit==2.0.9  # ipython
+prompt_toolkit==2.0.10  # ipython
 pygments==2.4.2  # ipython
 scandir==1.10.0  # ipython
 ipython==7.8.0
@@ -47,7 +47,7 @@ certifi==2019.9.11  # requests
 requests==2.22.0
 logilab-common==1.4.3
 logilab-astng==0.24.3
-astroid==2.3.0
+astroid==2.3.1
 pylint==2.4.2
 six==1.12.0
 ipaddress==1.0.22  # faker
@@ -61,7 +61,7 @@ botocore>=1.12.194,<1.13.0
 boto3>=1.9.194,<1.10.0
 python-dateutil==2.8.0
 
-djangowind==1.2.1
+djangowind==1.2.2
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
 django-paging==0.2.5
