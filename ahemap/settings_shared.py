@@ -90,6 +90,7 @@ ALLOWED_HOSTS = [
 MIDDLEWARE += [  # noqa
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 
@@ -116,3 +117,7 @@ REST_FRAMEWORK = {
 JIRA_CONFIGURATION = ''  # specify in production
 
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
