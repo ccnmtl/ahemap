@@ -252,14 +252,14 @@ class SaveViewTest(TestCase):
         self.assertEquals(next(rows)[0], self.inst2.title)
         self.assertEquals(next(rows)[0], self.inst3.title)
 
-    def test_get(self):
+    def test_post(self):
         url = reverse('save-view')
-        response = self.client.get(url)
+        response = self.client.post(url)
         self.assertEquals(response.status_code, 405)
 
-    def test_post_filter(self):
+    def test_get_filter(self):
         url = reverse('save-view')
-        response = self.client.post(url, {'q': self.inst1.title})
+        response = self.client.get(url, {'q': self.inst1.title})
         self.assertEquals(response.status_code, 200)
 
         value = next(response.streaming_content)
@@ -271,9 +271,9 @@ class SaveViewTest(TestCase):
         with self.assertRaises(StopIteration):
             next(response.streaming_content)
 
-    def test_post_site(self):
+    def test_get_site(self):
         url = reverse('save-view')
-        response = self.client.post(url, {'siteid': self.inst2.id})
+        response = self.client.get(url, {'siteid': self.inst2.id})
         self.assertEquals(response.status_code, 200)
 
         value = next(response.streaming_content)
