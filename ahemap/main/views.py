@@ -28,20 +28,24 @@ def django_settings(request):
 
 class HomeView(TemplateView):
     template_name = "main/home.html"
+    http_method_names = ['get']
 
 
 class InstitutionDetailView(DetailView):
     model = Institution
+    http_method_names = ['get']
 
 
 class MapView(TemplateView):
     template_name = "main/map.html"
+    http_method_names = ['get']
 
 
 class InstitutionImportView(FormView):
     template_name = "main/institution_import.html"
     form_class = InstitutionImportForm
     total = 0
+    http_method_names = ['get', 'post']
 
     def get_form_kwargs(self):
         kwargs = super(InstitutionImportView, self).get_form_kwargs()
@@ -144,7 +148,7 @@ class InstitutionSearchMixin(object):
 
 class BrowseView(InstitutionSearchMixin, ListView):
     model = Institution
-
+    http_method_names = ['get']
     paginate_by = 15
 
     def valid_context(self, ctx):
@@ -187,6 +191,7 @@ class Echo(object):
 
 
 class SaveView(InstitutionSearchMixin, View):
+    http_method_names = ['get']
 
     def get_header(self):
         return [
@@ -229,7 +234,7 @@ class SaveView(InstitutionSearchMixin, View):
         for inst in queryset:
             yield self.get_row(inst)
 
-    def post(self, *args, **kwargs):
+    def get(self, *args, **kwargs):
         qs = self.filter(Institution.objects.all())
 
         rows = self.get_rows(qs)
@@ -248,6 +253,7 @@ class SaveView(InstitutionSearchMixin, View):
 class InstitutionViewSet(InstitutionSearchMixin, viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
+    http_method_names = ['get']
 
     def get_queryset(self):
         qs = Institution.objects.all()

@@ -118,7 +118,7 @@
                     @click="onClearSelectedSite" title="Close">
                     <i class="fas fa-times"></i> Close
                 </button>
-                <form action="/save/" method="POST">
+                <form action="/save/">
                     <input name="siteid" :value="selectedSite.id" type="hidden" />
                     <input name="twoyear" :value="twoYear" type="hidden" />
                     <input name="fouryear" :value="fourYear" type="hidden" />
@@ -185,7 +185,7 @@
                     @click="onClear" title="Clear Search">
                     <i class="fas fa-times"></i> Clear Search
                 </button>
-                <form action="/save/" method="POST">
+                <form action="/save/">
                     <input name="twoyear" :value="twoYear" type="hidden" />
                     <input name="fouryear" :value="fourYear" type="hidden" />
                     <input name="public" :value="schoolPublic ? 'true' : ''" type="hidden" />
