@@ -1,6 +1,8 @@
 # flake8: noqa
 from ahemap.settings_shared import *
 from ccnmtlsettings.staging import common
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 locals().update(
     common(
@@ -29,3 +31,10 @@ try:
     from ahemap.local_settings import *
 except ImportError:
     pass
+
+if hasattr(settings, 'SENTRY_DSN'):
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        debug=True,
+    )
