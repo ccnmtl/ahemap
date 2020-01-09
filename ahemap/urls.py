@@ -17,7 +17,7 @@ if hasattr(settings, 'CAS_BASE'):
 
 
 router = routers.DefaultRouter()
-router.register(r'institution', views.InstitutionViewSet, base_name='site')
+router.register(r'institution', views.InstitutionViewSet, basename='site')
 
 
 urlpatterns = [
