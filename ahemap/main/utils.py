@@ -1,4 +1,4 @@
-from html import escape
+from django.utils.html import escape
 import re
 
 from rest_framework.renderers import BrowsableAPIRenderer
