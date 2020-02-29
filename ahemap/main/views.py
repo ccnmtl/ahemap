@@ -1,21 +1,20 @@
 import csv
 from urllib.parse import urlencode
 
+from ahemap.main.forms import InstitutionImportForm
+from ahemap.main.models import Institution
+from ahemap.main.serializers import InstitutionSerializer
+from ahemap.main.utils import sanitize, validate_state
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.http.response import StreamingHttpResponse
 from django.urls.base import reverse
-from django.utils.html import escape
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from rest_framework import viewsets
-
-from ahemap.main.forms import InstitutionImportForm
-from ahemap.main.models import Institution
-from ahemap.main.serializers import InstitutionSerializer
 
 
 # returns important setting information for all web pages.
@@ -114,20 +113,23 @@ class InstitutionSearchMixin(object):
 
     def filter_by_state(self, qs, params):
         q = params.get('state', None)
-        if q:
+        q = sanitize(q)
+        if q and validate_state(q):
             qs = qs.filter(state=q)
         return qs
 
     def filter_by_name(self, qs, params):
         # filter by a search term
         q = params.get('q', None)
+        q = sanitize(q)
         if q:
-            qs = qs.filter(title__icontains=escape(q))
+            qs = qs.filter(title__icontains=q)
 
         return qs
 
     def filter_by_site(self, qs, params):
         site = params.get('siteid', None)
+        site = sanitize(site)
         if site:
             qs = qs.filter(id=site)
         return qs

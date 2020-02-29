@@ -1,3 +1,6 @@
+from html import escape
+import re
+
 from rest_framework.renderers import BrowsableAPIRenderer
 
 
@@ -20,3 +23,13 @@ class BrowsableAPIRendererNoForms(BrowsableAPIRenderer):
         rendered HTML, so let's simply return an empty string.
         """
         return ""
+
+
+def sanitize(s):
+    if s and '\0' not in s and '\x00' not in s:
+        return escape(s)
+    return ''
+
+
+def validate_state(s):
+    return re.match('^[A-Z][A-Z]$', s) is not None

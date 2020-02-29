@@ -43,6 +43,20 @@ class BrowseViewTest(TestCase):
         self.assertEquals(response.context_data['population'], '')
         self.assertEquals(response.context_data['query'], '')
 
+    def test_get_null_bytes(self):
+        params = ('fouryear=true&populationdata=&private=true&public=true'
+                  '&q=%00&state=data&twoyear=trye')
+        url = '{}?{}'.format(reverse('browse-view'), params)
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context_data['twoyear'], 'trye')
+        self.assertEquals(response.context_data['fouryear'], 'true')
+        self.assertEquals(response.context_data['public'], 'true')
+        self.assertEquals(response.context_data['private'], 'true')
+        self.assertEquals(response.context_data['state'], 'data')
+        self.assertEquals(response.context_data['population'], '')
+        self.assertEquals(response.context_data['query'], '\x00')
+
 
 class InstitutionViewSetTest(TestCase):
 
