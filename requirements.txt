@@ -105,3 +105,4 @@ django-smtp-ssl==1.0
 django-contact-us==0.4.2
 
 entrypoints==0.3
+distro==1.5.0

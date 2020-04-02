@@ -1,19 +1,17 @@
 # Django settings for ahemap project.
 import os.path
-import platform
+import distro
 import sys
 
 from ccnmtlsettings.shared import common
-
 
 project = 'ahemap'
 base = os.path.dirname(__file__)
 
 locals().update(common(project=project, base=base))
 
-
-if platform.linux_distribution()[0] == 'Ubuntu':
-    if platform.linux_distribution()[1] == '16.04':
+if distro.linux_distribution()[0] == 'Ubuntu':
+    if distro.linux_distribution()[1] == '16.04':
         # 15.04 and later need this set, but it breaks
         # on trusty.
         # yeah, it's not really going to work on non-Ubuntu
@@ -22,7 +20,7 @@ if platform.linux_distribution()[0] == 'Ubuntu':
         # ubuntu will just need to set this to the
         # appropriate value in their local_settings.py
         SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
-    elif platform.linux_distribution()[1] == '18.04':
+    elif distro.linux_distribution()[1] == '18.04':
         # On Debian testing/buster, I had to do the following:
         # * Install the sqlite3 and libsqlite3-mod-spatialite packages.
         # * Add the following to writlarge/local_settings.py:
@@ -35,7 +33,8 @@ if platform.linux_distribution()[0] == 'Ubuntu':
         # to the library file, but not 'mod_spatialite'. I'll raise
         # this issue with Django.
         SPATIALITE_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu/mod_spatialite.so'
-
+elif 'debian' in distro.linux_distribution()[0].lower():
+    SPATIALITE_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu/mod_spatialite.so'
 
 DATABASES = {
     'default': {
