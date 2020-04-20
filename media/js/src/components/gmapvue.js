@@ -1,5 +1,5 @@
-const libs = ['jquery', 'multiselect', 'utils'];
-define(libs, function($, multiselect, utils) {
+const libs = ['jquery', 'multiselect', 'markerclusterer', 'utils'];
+define(libs, function($, multiselect, markerclusterer, utils) {
     const GoogleMapVue = {
         props: [],
         template: '#google-map-template',
@@ -321,6 +321,7 @@ define(libs, function($, multiselect, utils) {
             const url = AHE.baseUrl + 'api/institution/';
             $.getJSON(url, (data) => {
                 this.sites = data;
+                this.gMarkers = [];
                 this.sites.forEach((site) => {
                     const position = new google.maps.LatLng(site.lat, site.lng);
                     const marker = new google.maps.Marker({
@@ -328,6 +329,7 @@ define(libs, function($, multiselect, utils) {
                         map: this.map,
                         icon: this.siteIconUrl
                     });
+                    this.gMarkers.push(marker);
                     site.marker = marker;
                     site.iconUrl = this.siteIconUrl;
                     google.maps.event.addListener(marker, 'click', (e) => {
@@ -335,11 +337,19 @@ define(libs, function($, multiselect, utils) {
                     });
                 });
 
+                //clusters
+                const opts = {
+                    imagePath: AHE.staticUrl + 'img/cluster/m'
+                };
+                this.clusterer =
+                      new MarkerClusterer(this.map, this.gMarkers, opts);
+
                 // load state if there are query params
                 const params = utils.queryParams();
                 if (Object.keys(params).length > 0) {
                     this.setState(params);
                 }
+
 
                 // search criteria changes as the user interacts with the form
                 this.$watch('twoYear', this.onChangeCriteria);

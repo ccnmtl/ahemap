@@ -12,6 +12,7 @@ requirejs.config({
         'domReady': 'lib/require/domReady',
         'jquery': 'lib/jquery-3.3.1.min',
         'mapVue': 'src/components/gmapvue',
+        'markerclusterer': 'lib/markerclusterer/markerclustererplus.min',
         'miniMapVue': 'src/components/gminimapvue',
         'multiselect': 'lib/vue-multiselect/vue-multiselect.min',
         'utils': 'src/utils',

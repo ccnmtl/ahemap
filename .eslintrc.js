@@ -20,7 +20,8 @@ module.exports = {
         "requirejs": true,
         "AHE": true,
         "Promise": true,
-        "google": true
+        "google": true,
+        "MarkerClusterer": true
     },
     "rules": {
         "indent": [
