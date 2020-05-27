@@ -1,4 +1,4 @@
-[![Greenkeeper badge](https://badges.greenkeeper.io/ccnmtl/ahemap.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.com/ccnmtl/ahemap.svg?branch=master)](https://travis-ci.com/ccnmtl/ahemap)
 
 
 The Attaining Higher Education Interactive Map is a companion resource to the [Attaining Higher Education (AHE) Online Course](https://www.edx.org/course/attaining-higher-education). The aim of the course is to provide active duty service members and veterans a path toward higher education. This interactive map can help users select and then narrow the colleges and universities of interest. Using a variety of criteria, including important information specific to service members and veterans, and informed by their participation in the AHE online course, veterans will be able to search, filter, and identify colleges and universities that are potential matches for their higher education goals.
