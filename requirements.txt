@@ -84,7 +84,7 @@ ccnmtlsettings==1.8.0
 
 text_unidecode==1.3
 
-django-taggit==1.2.0
+django-taggit==1.3.0
 
 django-cacheds3storage==0.2.1
 
