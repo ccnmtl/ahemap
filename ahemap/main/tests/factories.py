@@ -14,14 +14,14 @@ class FuzzyPoint(BaseFuzzyAttribute):
                      random.uniform(-90.0, 90.0))
 
 
-class UserFactory(factory.DjangoModelFactory):
+class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
     username = factory.Sequence(lambda n: "user%03d" % n)
     password = factory.PostGenerationMethodCall('set_password', 'test')
 
 
-class InstitutionFactory(factory.DjangoModelFactory):
+class InstitutionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Institution
 
