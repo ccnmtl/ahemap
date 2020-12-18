@@ -78,6 +78,12 @@ class InstitutionImportView(FormView):
 
 class InstitutionSearchMixin(object):
 
+    def filter_by_yellow_ribbon(self, qs, params):
+        yellow_ribbon = params.get('yellowribbon', 'false') in ['true', 'on']
+        if yellow_ribbon:
+            return qs.filter(yellow_ribbon=True)
+        return qs
+
     def filter_by_duration(self, qs, params):
         two = params.get('twoyear', 'false') == 'true'
         four = params.get('fouryear', 'false') == 'true'
@@ -148,6 +154,7 @@ class InstitutionSearchMixin(object):
         qs = self.filter_by_state(qs, params)
         qs = self.filter_by_name(qs, params)
         qs = self.filter_by_site(qs, params)
+        qs = self.filter_by_yellow_ribbon(qs, params)
         return qs
 
 
@@ -171,6 +178,7 @@ class BrowseView(InstitutionSearchMixin, ListView):
             'private': self.request.GET.get('private', 'false'),
             'population': self.request.GET.get('population', ''),
             'state': self.request.GET.get('state', ''),
+            'yellowribbon': self.request.GET.get('yellowribbon', '')
         }
 
         context.update(ctx)

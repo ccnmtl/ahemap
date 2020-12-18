@@ -21,7 +21,8 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 schoolPublic: null,
                 schoolPrivate: null,
                 twoYear: null,
-                fourYear: null
+                fourYear: null,
+                yellowRibbon: null
             };
         },
         methods: {
@@ -53,6 +54,7 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 this.population = null;
                 this.state = null;
                 this.searchTerm = null;
+                this.yellowRibbon = null;
 
                 $('#two-year-program').focus();
                 window.history.replaceState({}, '', '/map/');
@@ -148,6 +150,9 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 if (this.searchTerm) {
                     params['q'] = utils.sanitize(this.searchTerm);
                 }
+                if (this.yellowRibbon) {
+                    params['yellowribbon'] = this.yellowRibbon;
+                }
                 return params;
             },
             search: function(criteria) {
@@ -197,6 +202,9 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 if (this.population) {
                     url += '&population=' + this.population.id;
                 }
+                if (this.yellowRibbon) {
+                    url += '&yellowribbon=' + this.yellowRibbon;
+                }
                 return $.getJSON(url);
             },
             siteResults: function(results) {
@@ -245,6 +253,9 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 }
                 if ('private' in params) {
                     this.schoolPrivate = params['private'] === 'true';
+                }
+                if ('yellowribbon' in params) {
+                    this.yellowRibbon = params['yellowribbon'] === 'true';
                 }
                 if ('population' in params && params.population) {
                     for (let p of this.populations) {
@@ -358,6 +369,7 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 this.$watch('schoolPrivate', this.onChangeCriteria);
                 this.$watch('state', this.onChangeCriteria);
                 this.$watch('population', this.onChangeCriteria);
+                this.$watch('yellowRibbon', this.onChangeCriteria);
             });
         },
         updated: function() {

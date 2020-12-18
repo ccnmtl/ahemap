@@ -111,8 +111,7 @@ define(function() {
         }
 
         return viewportheight -
-            (8 +
-             jQuery('.advanced-filters').offset().top +
+            (10 + jQuery('.advanced-filters').offset().top +
              jQuery('.advanced-filters').outerHeight());
     }
 

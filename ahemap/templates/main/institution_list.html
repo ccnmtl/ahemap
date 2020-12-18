@@ -34,7 +34,7 @@
                     <span class="ml-1 float-right">
                         <span class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox"
-                                id="two-year-program" name="twoyear" value="trye"
+                                id="two-year-program" name="twoyear" value="true"
                                 {% if twoyear == "true" %}checked="checked"{% endif %}>
                             <label class="form-check-label" for="two-year-program">2-year</label>
                         </span>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="search-criteria px-3 pb-4">
                     <span class="search-criteria-label">
-                        <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Type
+                        <i class="fa fa-random text-muted" aria-hidden="true"></i> Type
                     </span>
                     <span class="ml-1 float-right">
                         <span class="form-check form-check-inline">
@@ -119,6 +119,19 @@
                                 {% if query %}value="{{query}}"{% endif %}>
                         </div>
                     </span>
+                </div>
+                <div class="search-criteria px-3 clearfix">
+                    <div class="float-left">
+                        <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Yellow-Ribbon Grant
+                    </div>
+                    <div class="float-right">
+                        <div class="custom-control custom-switch custom-switch-md">
+                            <input name="yellowribbon" type="checkbox" value="true"
+                                {% if yellowribbon == "true" %}checked="checked"{% endif %}
+                                class="custom-control-input" id="yellow-ribbon-grant">
+                            <label aria-hidden="true" class="custom-control-label" for="yellow-ribbon-grant"></label>
+                        </div>
+                    </div>
                 </div>
                 <div class="p-3 text-right">
                     <button type="reset" name="reset" class="btn btn-light" @click="clearSearch">
