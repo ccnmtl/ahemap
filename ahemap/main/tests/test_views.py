@@ -42,6 +42,7 @@ class BrowseViewTest(TestCase):
         self.assertEquals(response.context_data['state'], '')
         self.assertEquals(response.context_data['population'], '')
         self.assertEquals(response.context_data['query'], '')
+        self.assertEquals(response.context_data['yellowribbon'], '')
 
     def test_get_null_bytes(self):
         params = ('fouryear=true&populationdata=&private=true&public=true'
@@ -56,6 +57,7 @@ class BrowseViewTest(TestCase):
         self.assertEquals(response.context_data['state'], 'data')
         self.assertEquals(response.context_data['population'], '')
         self.assertEquals(response.context_data['query'], '\x00')
+        self.assertEquals(response.context_data['yellowribbon'], '')
 
 
 class InstitutionViewSetTest(TestCase):
@@ -101,6 +103,25 @@ class InstitutionViewSetTest(TestCase):
         self.assertEquals(the_json[0]['id'], self.inst1.id)
 
         url = '/api/institution/?twoyear=true&fouryear=true'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 2)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEquals(the_json[1]['id'], self.inst2.id)
+
+    def test_filter_yellow_ribbon(self):
+        self.inst2.yellow_ribbon = False
+        self.inst2.save()
+
+        url = '/api/institution/?yellowribbon=true'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        the_json = loads(response.content.decode('utf-8'))
+        self.assertEquals(len(the_json), 1)
+        self.assertEquals(the_json[0]['id'], self.inst1.id)
+
+        url = '/api/institution/?yellowribbon='
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))

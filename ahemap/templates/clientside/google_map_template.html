@@ -20,7 +20,7 @@
                     </span>
                 </div>
                 <div class="search-criteria collapse show px-3 pb-4">
-                    <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Type
+                    <i class="fa fa-random text-muted" aria-hidden="true"></i> Type
                     <span class="float-right">
                         <span class="form-check form-check-inline">
                             <input v-model="schoolPublic" class="form-check-input" type="checkbox"
@@ -34,7 +34,7 @@
                         </span>
                     </span>
                 </div>
-                <div class="search-criteria collapse show px-3 pb-4">
+                <div class="clearfix search-criteria collapse show px-3 pb-4">
                     <i aria-hidden="true" class="fas fa-users text-muted"></i>
                     <label for="populations">Size</label>
                     <span class="undergraduate-populations float-right">
@@ -54,7 +54,6 @@
                         </multiselect>
                     </span>
                 </div>
-
                 <div class="search-criteria collapse show px-3 pb-4">
                     <i aria-hidden="true" class="fas fa-map-marked-alt text-muted"></i>
                     <label for="states">State</label>
@@ -68,7 +67,7 @@
                         </multiselect>
                     </span>
                 </div>
-                <div class="search-criteria collapse show px-3">
+                <div class="search-criteria collapse show px-3 pb-4">
                     <i class="fas fa-landmark text-muted"></i>
                     <label for="search-term">Name</label>
                     <div class="search-bar float-right">
@@ -88,7 +87,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="clearfix"></div>
+                <div class="search-criteria collapse show px-3 pb-3 clearfix">
+                    <div class="float-left">
+                        <i class="fa fa-graduation-cap text-muted" aria-hidden="true"></i> Yellow-Ribbon Grant
+                    </div>
+                    <div class="float-right">
+                        <div class="custom-control custom-switch custom-switch-md">
+                            <input v-model="yellowRibbon" name="yellowribbon" type="checkbox"
+                                class="custom-control-input" id="yellow-ribbon-grant">
+                            <label aria-hidden="true" class="custom-control-label" for="yellow-ribbon-grant"></label>
+                        </div>
+                    </div>
+                </div>
                 <div class="advanced-filter-toggle small bg-light px-2 py-1 text-black"
                     data-toggle="collapse" href="#collapseExample" role="button"
                     data-target=".search-criteria"
@@ -127,6 +137,7 @@
                     <input name="state" :value="state ? state.id : ''" type="hidden" />
                     <input name="population" :value="population ? population.id : ''" type="hidden" />
                     <input name="q" :value="searchTerm" type="hidden" />
+                    <input name="yellowribbon" :value="yellowRibbon" type="hidden" />
                     <button v-if="selectedSite || searchResults"
                         class="btn btn-sm btn-link float-right text-white w-50"
                         title="Save Search Results">
@@ -193,6 +204,7 @@
                     <input name="state" :value="state ? state.id : ''" type="hidden" />
                     <input name="population" :value="population ? population.id : ''" type="hidden" />
                     <input name="q" :value="searchTerm" type="hidden" />
+                    <input name="yellowribbon" :value="yellowRibbon" type="hidden" />
                     <button v-if="selectedSite || (searchResults && searchResults.length > 1)"
                         class="btn btn-sm btn-link float-right text-white w-50"
                         title="Save Search Results">
