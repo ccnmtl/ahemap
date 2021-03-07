@@ -177,6 +177,12 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                         this.map.setZoom(this.zoom);
                     }
                     $('html').removeClass('busy');
+                }).fail(() => {
+                    // display no results at all
+                    this.markerOpacity(0.25);
+                    this.searchResults = [];
+                    this.map.setCenter(this.center);
+                    this.map.setZoom(this.zoom);
                 });
             },
             searchForSite: function() {
