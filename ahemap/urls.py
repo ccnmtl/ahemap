@@ -1,19 +1,15 @@
+from ahemap.main import views
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import path
 from django.views.generic import TemplateView
 from django.views.static import serve
+from django_cas_ng import views as cas_views
 from rest_framework import routers
-
-from ahemap.main import views
 
 
 admin.autodiscover()
-
-
-auth_urls = url(r'^accounts/', include('django.contrib.auth.urls'))
-if hasattr(settings, 'CAS_BASE'):
-    auth_urls = url(r'^accounts/', include('djangowind.urls'))
 
 
 router = routers.DefaultRouter()
@@ -21,7 +17,11 @@ router.register(r'institution', views.InstitutionViewSet, basename='site')
 
 
 urlpatterns = [
-    auth_urls,
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    path('cas/login', cas_views.LoginView.as_view(),
+         name='cas_ng_login'),
+    path('cas/logout', cas_views.LogoutView.as_view(),
+         name='cas_ng_logout'),
     url(r'^$', views.HomeView.as_view()),
     url(r'^map/$', views.MapView.as_view(), name='map-view'),
     url(r'^browse/$', views.BrowseView.as_view(), name='browse-view'),

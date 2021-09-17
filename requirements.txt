@@ -50,7 +50,6 @@ boto3>=1.12.0,<1.19.0
 
 python-dateutil==2.8.2
 
-djangowind==1.2.3
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
 django-paging==0.2.5
@@ -99,3 +98,6 @@ django-contact-us==0.4.4
 entrypoints==0.3
 distro==1.6.0
 typing_extensions==3.10.0.2
+
+python-cas==1.5.0
+requirements/src/django_cas_ng-4.1.3ctl-py2.py3-none-any.whl
