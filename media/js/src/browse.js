@@ -24,7 +24,6 @@ requirejs(['./common'], function() {
                     }
                 },
                 clearSearch: function() {
-                    // eslint-disable-next-line scanjs-rules/assign_to_href
                     window.location.href = AHE.baseUrl + 'browse/';
                 }
             },
