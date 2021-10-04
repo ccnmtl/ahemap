@@ -332,7 +332,6 @@ define(libs, function($, multiselect, markerclusterer, utils) {
                 ]
             });
 
-            // eslint-disable-next-line scanjs-rules/call_addEventListener
             window.addEventListener('resize', this.resize);
 
             const url = AHE.baseUrl + 'api/institution/';

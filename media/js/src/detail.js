@@ -10,7 +10,6 @@ requirejs(['./common'], function() {
                 onBackToMap: function(evt) {
                     const mapUrl = AHE.baseUrl + 'map/';
                     if (document.referrer.indexOf(mapUrl) < 0) {
-                        // eslint-disable-next-line scanjs-rules/assign_to_href
                         window.location.href = '/map/';
                     } else {
                         history.go(-1);
