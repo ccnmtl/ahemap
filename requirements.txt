@@ -100,4 +100,4 @@ distro==1.6.0
 typing_extensions==3.10.0.2
 
 python-cas==1.6.0
-requirements/src/django_cas_ng-4.1.3ctl-py2.py3-none-any.whl
+django-cas-ng==4.2.1
