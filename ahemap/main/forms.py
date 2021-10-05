@@ -63,7 +63,9 @@ class InstitutionImportForm(forms.Form):
                     self._errors['csvfile'] = self.error_class([
                         self.INVALID_ENCODING.format(e)])
                     break
-
+        except UnicodeDecodeError:
+            self._errors['csvfile'] = self.error_class([
+                self.INVALID_FILE_FORMAT])
         except csv.Error:
             self._errors['csvfile'] = self.error_class([
                 self.INVALID_FILE_FORMAT])
