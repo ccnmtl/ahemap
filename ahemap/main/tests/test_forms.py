@@ -47,3 +47,9 @@ class InstitutionFormTest(TestCase):
 
         self.form.clean()
         self.assertFalse('csvfile' in self.form._errors.keys())
+
+    def test_validate_url(self):
+        row = ['a', 'a', 'a', 'a', 'a', 'a' * 300]
+
+        self.assertFalse(self.form.validate_url_field(row, 'website_url'))
+        self.assertTrue('website_url' in self.form._errors.keys())
