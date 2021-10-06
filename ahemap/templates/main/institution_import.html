@@ -9,6 +9,20 @@
 {% block content %}
     <div id="content-main">
         <h1>Import Institutions</h1>
+
+        {% if form.errors.keys|length %}
+            <div style="text-align: left; color: #dc3545; border: 1px solid #dc3545; padding: 5px; margin-bottom: 10px;">
+                <div style="padding-bottom: 5px; font-weight: bold">
+                    The import file contains errors.
+                </div>
+                {% for error_field, error_message in form.errors.items %}
+                    <div>
+                        {{ error_message|striptags }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
         <form name="import_csv" action="." enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div>
@@ -21,12 +35,6 @@
                 </div>
             </fieldset>
             <div class="submit-row">
-                {% if form.csvfile.errors %}
-                    {% for error in form.csvfile.errors %}
-                        <div style="float: left; color: #dc3545">{{error|safe}}</div>
-                    {% endfor %}
-                    <div style="clear: both; margin-bottom: 10px;"></div>
-                {% endif %}
                 <input type="submit" value="Submit" class="default" name="submit" style="float: left">
             </div>
         </div>

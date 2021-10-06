@@ -1,10 +1,9 @@
 import csv
 import io
 
+from ahemap.main.models import Institution
 from django import forms
 from django.utils.encoding import force_text, DjangoUnicodeDecodeError
-
-from ahemap.main.models import Institution
 
 
 class InstitutionImportForm(forms.Form):
@@ -14,6 +13,9 @@ class InstitutionImportForm(forms.Form):
         "The selected file is not encoded properly. Batch files must be "
         "encoded using the UTF-8 standard to ensure special characters are "
         "translated correctly.<br /><br /> The full error is:<br />{}.")
+
+    URL_FIELD_TOO_LONG = (
+        "Row Id {}: The {} field must be less than 200 characters.")
 
     csvfile = forms.FileField(required=True)
 
@@ -39,6 +41,15 @@ class InstitutionImportForm(forms.Form):
 
         return True, ''
 
+    def validate_url_field(self, row, field_name):
+        idx = Institution.objects.FIELD_MAPPING.index(field_name)
+        if len(row[idx]) <= 200:
+            return True
+
+        msg = self.URL_FIELD_TOO_LONG.format(row[0], field_name)
+        self._errors[field_name] = self.error_class([msg])
+        return False
+
     def clean(self):
         cleaned_data = super(InstitutionImportForm, self).clean()
         if 'csvfile' not in cleaned_data:
@@ -63,6 +74,19 @@ class InstitutionImportForm(forms.Form):
                     self._errors['csvfile'] = self.error_class([
                         self.INVALID_ENCODING.format(e)])
                     break
+
+                if not self.validate_url_field(row, 'website_url'):
+                    break
+
+                if not self.validate_url_field(row, 'image'):
+                    break
+
+                if not self.validate_url_field(row, 'admissions_url'):
+                    break
+
+        except UnicodeDecodeError:
+            self._errors['csvfile'] = self.error_class([
+                self.INVALID_FILE_FORMAT])
 
         except csv.Error:
             self._errors['csvfile'] = self.error_class([
