@@ -70,6 +70,8 @@ class InstitutionImportView(FormView):
         for (idx, row) in enumerate(reader):
             if idx == 0:
                 continue  # skip the header
+            if row[0] == '44':
+                print(row)
             Institution.objects.update_or_create(row)
             self.total += 1
 
