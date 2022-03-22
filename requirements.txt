@@ -100,4 +100,4 @@ typing_extensions==4.1.1
 
 python-cas==1.6.0
 django-cas-ng==4.3.0
-asgiref==3.4.1
+asgiref==3.5.0
