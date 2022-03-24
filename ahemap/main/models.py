@@ -98,7 +98,7 @@ class Institution(models.Model):
     objects = InstitutionManager()
 
     external_id = models.PositiveIntegerField(unique=True)
-    title = models.TextField(unique=True)
+    title = models.TextField()
     latlng = PointField()
 
     address = models.TextField(null=True, blank=True)
