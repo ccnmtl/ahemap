@@ -7,9 +7,11 @@ from ahemap.main.serializers import InstitutionSerializer
 from ahemap.main.utils import sanitize, validate_state
 from django.conf import settings
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.http.response import StreamingHttpResponse
 from django.urls.base import reverse
+from django.utils.functional import cached_property
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -160,10 +162,18 @@ class InstitutionSearchMixin(object):
         return qs
 
 
+class PatchedPaginator(Paginator):
+
+    @cached_property
+    def count(self):
+        return len(self.object_list)
+
+
 class BrowseView(InstitutionSearchMixin, ListView):
     model = Institution
     http_method_names = ['get']
     paginate_by = 15
+    paginator_class = PatchedPaginator
 
     def valid_context(self, ctx):
         invalid = ['false', '']
