@@ -2,7 +2,7 @@
 import sys
 from django.conf import settings
 from ahemap.settings_shared import *
-from ccnmtlsettings.staging import common
+from ctlsettings.staging import common
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 

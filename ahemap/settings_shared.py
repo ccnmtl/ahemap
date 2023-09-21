@@ -3,7 +3,7 @@ import os.path
 import distro
 import sys
 
-from ccnmtlsettings.shared import common
+from ctlsettings.shared import common
 
 project = 'ahemap'
 base = os.path.dirname(__file__)
@@ -73,14 +73,11 @@ INSTALLED_APPS += [  # noqa
     'bootstrap4',
     'infranil',
     'django_extensions',
-    'django_cas_ng',
     'django.contrib.gis',
     'rest_framework',
     'django.contrib.humanize',
     'ahemap.main',
 ]
-
-INSTALLED_APPS.remove('djangowind') # noqa
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -93,20 +90,10 @@ MIDDLEWARE += [  # noqa
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_cas_ng.middleware.CASMiddleware',
-]
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'django_cas_ng.backends.CASBackend'
 ]
 
 THUMBNAIL_SUBDIR = "thumbs"
 LOGIN_REDIRECT_URL = "/"
-
-CAS_SERVER_URL = 'https://cas.columbia.edu/cas/'
-CAS_VERSION = '3'
-CAS_ADMIN_REDIRECT = False
 
 TEMPLATES = [
     {
