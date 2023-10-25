@@ -79,7 +79,7 @@ ctlsettings==0.2.0
 
 text_unidecode==1.3
 
-django-taggit==4.0.0
+django-taggit==5.0.0
 
 pbr==5.11.1 # bandit
 pyyaml==6.0.1 # bandit
