@@ -79,10 +79,7 @@ INSTALLED_APPS += [  # noqa
     'ahemap.main',
 ]
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '.ctl.columbia.edu',
-    '.ccnmtl.columbia.edu',
+ALLOWED_HOSTS += [ # noqa
     'ahemap.veterans.columbia.edu',
 ]
 
