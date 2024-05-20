@@ -15,7 +15,7 @@ class InstitutionFormTest(TestCase):
         self.form.cleaned_data = {}
 
     def test_init(self):
-        self.assertEquals(self.form.request, self.request)
+        self.assertEqual(self.form.request, self.request)
 
     def test_validate_column_count(self):
         self.assertFalse(self.form.validate_column_count([]))
@@ -34,8 +34,8 @@ class InstitutionFormTest(TestCase):
 
         self.form.clean()
         self.assertTrue('csvfile' in self.form._errors.keys())
-        self.assertEquals(self.form._errors['csvfile'],
-                          [self.form.INVALID_FILE_FORMAT])
+        self.assertEqual(self.form._errors['csvfile'],
+                         [self.form.INVALID_FILE_FORMAT])
 
     def test_form_clean_valid_file_format(self):
         content = b',' * (len(Institution.objects.FIELD_MAPPING) - 1) + b'\r\n'

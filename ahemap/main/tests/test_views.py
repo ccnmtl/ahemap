@@ -15,11 +15,11 @@ from ahemap.main.views import SaveView, InstitutionImportView, BrowseView
 class BasicTest(TestCase):
     def test_root(self):
         response = self.client.get("/")
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_smoketest(self):
         response = self.client.get("/smoketest/")
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'PASS')
 
 
@@ -29,35 +29,35 @@ class BrowseViewTest(TestCase):
         ctx = {'a': 'false', 'b': '', 'c': 'true', 'd': 'something'}
         ctx = BrowseView().valid_context(ctx)
 
-        self.assertEquals(ctx, {'c': 'true', 'd': 'something'})
+        self.assertEqual(ctx, {'c': 'true', 'd': 'something'})
 
     def test_get_context_data(self):
         url = reverse('browse-view')
         response = self.client.get(url)
-        self.assertEquals(response.context_data['base_url'], '/browse/?&page=')
-        self.assertEquals(response.context_data['twoyear'], 'false')
-        self.assertEquals(response.context_data['fouryear'], 'false')
-        self.assertEquals(response.context_data['public'], 'false')
-        self.assertEquals(response.context_data['private'], 'false')
-        self.assertEquals(response.context_data['state'], '')
-        self.assertEquals(response.context_data['population'], '')
-        self.assertEquals(response.context_data['query'], '')
-        self.assertEquals(response.context_data['yellowribbon'], '')
+        self.assertEqual(response.context_data['base_url'], '/browse/?&page=')
+        self.assertEqual(response.context_data['twoyear'], 'false')
+        self.assertEqual(response.context_data['fouryear'], 'false')
+        self.assertEqual(response.context_data['public'], 'false')
+        self.assertEqual(response.context_data['private'], 'false')
+        self.assertEqual(response.context_data['state'], '')
+        self.assertEqual(response.context_data['population'], '')
+        self.assertEqual(response.context_data['query'], '')
+        self.assertEqual(response.context_data['yellowribbon'], '')
 
     def test_get_null_bytes(self):
         params = ('fouryear=true&populationdata=&private=true&public=true'
                   '&q=%00&state=data&twoyear=trye')
         url = '{}?{}'.format(reverse('browse-view'), params)
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.context_data['twoyear'], 'trye')
-        self.assertEquals(response.context_data['fouryear'], 'true')
-        self.assertEquals(response.context_data['public'], 'true')
-        self.assertEquals(response.context_data['private'], 'true')
-        self.assertEquals(response.context_data['state'], 'data')
-        self.assertEquals(response.context_data['population'], '')
-        self.assertEquals(response.context_data['query'], '\x00')
-        self.assertEquals(response.context_data['yellowribbon'], '')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context_data['twoyear'], 'trye')
+        self.assertEqual(response.context_data['fouryear'], 'true')
+        self.assertEqual(response.context_data['public'], 'true')
+        self.assertEqual(response.context_data['private'], 'true')
+        self.assertEqual(response.context_data['state'], 'data')
+        self.assertEqual(response.context_data['population'], '')
+        self.assertEqual(response.context_data['query'], '\x00')
+        self.assertEqual(response.context_data['yellowribbon'], '')
 
 
 class InstitutionViewSetTest(TestCase):
@@ -69,19 +69,19 @@ class InstitutionViewSetTest(TestCase):
     def test_list(self):
         url = '/api/institution/'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
     def test_filter_list(self):
         url = '/api/institution/?q={}'.format(self.inst1.title)
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
 
     def test_filter_program_duration(self):
         self.inst2.two_year_program = True
@@ -90,25 +90,25 @@ class InstitutionViewSetTest(TestCase):
 
         url = '/api/institution/?twoyear=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], self.inst2.id)
 
         url = '/api/institution/?fouryear=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
 
         url = '/api/institution/?twoyear=true&fouryear=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
     def test_filter_yellow_ribbon(self):
         self.inst2.yellow_ribbon = False
@@ -116,103 +116,103 @@ class InstitutionViewSetTest(TestCase):
 
         url = '/api/institution/?yellowribbon=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
 
         url = '/api/institution/?yellowribbon='
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
     def test_filter_public_private(self):
         private_institution = InstitutionFactory(private=True)
 
         url = '/api/institution/?public=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
         url = '/api/institution/?private=true'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], private_institution.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], private_institution.id)
 
         url = '/api/institution/?public=true&private=true'
         response = self.client.get(url)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 3)
+        self.assertEqual(len(the_json), 3)
 
         url = '/api/institution/?public=false&private=false'
         response = self.client.get(url)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 3)
+        self.assertEqual(len(the_json), 3)
 
     def test_filter_by_population(self):
         small_inst = InstitutionFactory(undergraduate_population=1000)
         url = '/api/institution/?population=small'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], small_inst.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], small_inst.id)
 
         url = '/api/institution/?population=medium'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
         large_inst = InstitutionFactory(undergraduate_population=10001)
         url = '/api/institution/?population=large'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 1)
-        self.assertEquals(the_json[0]['id'], large_inst.id)
+        self.assertEqual(len(the_json), 1)
+        self.assertEqual(the_json[0]['id'], large_inst.id)
 
     def test_filter_state(self):
         url = '/api/institution/?state=NJ'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 0)
+        self.assertEqual(len(the_json), 0)
 
         url = '/api/institution/?state=NY'
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(len(the_json), 2)
-        self.assertEquals(the_json[0]['id'], self.inst1.id)
-        self.assertEquals(the_json[1]['id'], self.inst2.id)
+        self.assertEqual(len(the_json), 2)
+        self.assertEqual(the_json[0]['id'], self.inst1.id)
+        self.assertEqual(the_json[1]['id'], self.inst2.id)
 
     def test_get(self):
         url = '/api/institution/{}/'.format(self.inst1.id)
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         the_json = loads(response.content.decode('utf-8'))
-        self.assertEquals(the_json['id'], self.inst1.id)
+        self.assertEqual(the_json['id'], self.inst1.id)
 
     def test_post(self):
         url = '/api/institution/{}/'.format(self.inst1.id)
         response = self.client.post(url, {'id': self.inst1.id, 'title': 'foo'})
-        self.assertEquals(response.status_code, 403)
+        self.assertEqual(response.status_code, 403)
 
     def test_put(self):
         url = '/api/institution/{}/'.format(self.inst1.id)
         response = self.client.put(url, {'id': self.inst1.id, 'title': 'foo'})
-        self.assertEquals(response.status_code, 403)
+        self.assertEqual(response.status_code, 403)
 
 
 class InstitutionImportViewTest(TestCase):
@@ -231,10 +231,10 @@ class InstitutionImportViewTest(TestCase):
     def test_get_success_url(self):
         self.view.total = 10
 
-        self.assertEquals(self.view.get_success_url(),
-                          '/admin/import/institution/')
-        self.assertEquals('10 institutions imported.',
-                          self.messages._queued_messages[0].message)
+        self.assertEqual(self.view.get_success_url(),
+                         '/admin/import/institution/')
+        self.assertEqual('10 institutions imported.',
+                         self.messages._queued_messages[0].message)
 
     def test_form_valid(self):
         fields = [
@@ -277,25 +277,25 @@ class SaveViewTest(TestCase):
             None, 'Public', 20000, 10000, None, None, None, None, False, True,
             True, True, None, True, True, True, True, True, True, True, True,
             None, True, None, None, None]
-        self.assertEquals(expected, row)
+        self.assertEqual(expected, row)
 
     def test_get_rows(self):
         rows = SaveView().get_rows(Institution.objects.all().order_by('id'))
 
-        self.assertEquals(next(rows)[0], 'Institution')
-        self.assertEquals(next(rows)[0], self.inst1.title)
-        self.assertEquals(next(rows)[0], self.inst2.title)
-        self.assertEquals(next(rows)[0], self.inst3.title)
+        self.assertEqual(next(rows)[0], 'Institution')
+        self.assertEqual(next(rows)[0], self.inst1.title)
+        self.assertEqual(next(rows)[0], self.inst2.title)
+        self.assertEqual(next(rows)[0], self.inst3.title)
 
     def test_post(self):
         url = reverse('save-view')
         response = self.client.post(url)
-        self.assertEquals(response.status_code, 405)
+        self.assertEqual(response.status_code, 405)
 
     def test_get_filter(self):
         url = reverse('save-view')
         response = self.client.get(url, {'q': self.inst1.title})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         value = next(response.streaming_content)
         self.assertTrue(value.startswith(b'Institution,Address,City,State'))
@@ -309,7 +309,7 @@ class SaveViewTest(TestCase):
     def test_get_site(self):
         url = reverse('save-view')
         response = self.client.get(url, {'siteid': self.inst2.id})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         value = next(response.streaming_content)
         self.assertTrue(value.startswith(b'Institution,Address,City,State'))

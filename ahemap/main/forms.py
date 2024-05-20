@@ -3,7 +3,7 @@ import io
 
 from ahemap.main.models import Institution
 from django import forms
-from django.utils.encoding import force_text, DjangoUnicodeDecodeError
+from django.utils.encoding import force_str, DjangoUnicodeDecodeError
 
 
 class InstitutionImportForm(forms.Form):
@@ -35,7 +35,7 @@ class InstitutionImportForm(forms.Form):
     def validate_encoding(self, row):
         for col in row:
             try:
-                force_text(col)
+                force_str(col)
             except DjangoUnicodeDecodeError as e:
                 return False, e
 
