@@ -5,10 +5,10 @@ from ahemap.main.utils import sanitize, validate_state
 class UtilsTest(TestCase):
 
     def test_sanitize(self):
-        self.assertEquals(sanitize('s\0s'), '')
-        self.assertEquals(sanitize('\x00s\x00s'), '')
-        self.assertEquals(sanitize('s\0s\x00'), '')
-        self.assertEquals(sanitize('query'), 'query')
+        self.assertEqual(sanitize('s\0s'), '')
+        self.assertEqual(sanitize('\x00s\x00s'), '')
+        self.assertEqual(sanitize('s\0s\x00'), '')
+        self.assertEqual(sanitize('query'), 'query')
 
     def test_validate_state(self):
         self.assertFalse(validate_state(''))
