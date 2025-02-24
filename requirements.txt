@@ -81,7 +81,7 @@ django-taggit==6.1.0
 
 pbr==6.1.1 # bandit
 pyYAML==6.0.2 # bandit
-stevedore==5.4.0  # bandit
+stevedore==5.4.1  # bandit
 rich==13.9.4 # bandit
 bandit==1.8.3
 
