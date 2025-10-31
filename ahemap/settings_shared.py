@@ -49,6 +49,7 @@ INSTALLED_APPS += [  # noqa
     'rest_framework',
     'django.contrib.humanize',
     'ahemap.main',
+    'debug_toolbar',
 ]
 
 ALLOWED_HOSTS += [ # noqa
@@ -59,6 +60,7 @@ MIDDLEWARE += [  # noqa
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 THUMBNAIL_SUBDIR = "thumbs"
