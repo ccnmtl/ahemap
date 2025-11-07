@@ -72,7 +72,7 @@ django-storages==1.14.6
 
 djangorestframework==3.16.1
 
-ctlsettings==0.4.4
+ctlsettings==0.4.5
 
 text_unidecode==1.3
 
