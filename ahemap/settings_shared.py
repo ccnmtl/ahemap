@@ -16,7 +16,7 @@ DATABASES = {
         'HOST': '',
         'PORT': 5432,
         'USER': '',
-        'PASSWORD': '',
+        'PASSWORD': '',  # nosec
         'ATOMIC_REQUESTS': True,
     }
 }
@@ -30,7 +30,7 @@ if ('test' in sys.argv or 'jenkins' in sys.argv or 'validate' in sys.argv
             'HOST': '',
             'PORT': '',
             'USER': '',
-            'PASSWORD': '',
+            'PASSWORD': '',  # nosec
             'ATOMIC_REQUESTS': True,
         }
     }
