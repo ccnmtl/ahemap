@@ -129,28 +129,11 @@
 
         {% include 'main/footer.html' %}
     </main>
-{% endblock %}
+    {% endblock %}
 
-{% if RAVEN_CONFIG.dsn %}
-    <script type="text/javascript" src="https://cdn.ravenjs.com/3.21.0/raven.min.js"></script>
-    <script type="text/javascript">
-     Raven.config('{{ RAVEN_CONFIG.dsn }}').install();
+    {% include "ctlsettings/sentry_js.html" %}
 
-     {% if user.is_anonymous %}
-     Raven.setUserContext({
-         email: 'none',
-         id: 'anonymous'
-     });
-     {% else %}
-     Raven.setUserContext({
-         email: '{{ user.email }}',
-         id: '{{ user.username }}'
-     });
-     {% endif %}
-    </script>
-{% endif %}
-
-<script type="text/javascript">
+<script>
     const AHE = {
         staticUrl: '{{STATIC_URL}}',
         debug: {% if debug %}'true'{% else %}'false'{% endif %},
@@ -164,7 +147,8 @@
     <script
         type="text/javascript"
         data-main="{{STATIC_URL}}js/src/main.js"
-        src="{{STATIC_URL}}js/lib/require/require.js"></script>
+        src="{{STATIC_URL}}js/lib/require/require.js"
+        crossorigin="anonymous"></script>
 {% endblock %}
 
 {% if STAGING_ENV %}

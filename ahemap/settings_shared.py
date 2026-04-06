@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'stagingcontext.staging_processor',
                 'gacontext.ga_processor',
+                'ctlsettings.context_processors.env',
                 'ahemap.main.views.django_settings',
                 'django.template.context_processors.csrf'
             ],
