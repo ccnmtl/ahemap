@@ -1,8 +1,8 @@
 Django>=5.2,<6
 pytz==2026.3.post1
 httplib2==0.32.0
+Markdown==3.10.3
 feedparser==6.0.14
-Markdown==3.10.2
 psycopg==3.3.4
 versiontools==1.9.1
 statsd==4.0.1
