@@ -60,7 +60,7 @@ sentry-sdk==2.72.0
 django-bootstrap4==26.3
 django-debug-toolbar==8.0.0
 
-django-smoketest==1.2.1
+django-smoketest==1.2.2
 # For django-extensions
 django-extensions==4.1
 django-stagingcontext==0.1.0
